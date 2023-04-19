@@ -1,5 +1,6 @@
 import PrimaryButton from "@components/components/common/buttons/primaryButton";
 import Tree from "@components/components/tree/tree";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,7 +11,11 @@ export default function Home() {
           <h1 className="text-heading-1/h2 text-grey-0">Todo</h1>
         </div>
         <div className="absolute top-16 left-14 ">
-          <p className="text-body-2/b2 text-grey-0">by darshan</p>
+          <Link href="https://github.com/iamdarshangowda" legacyBehavior>
+            <a target="_blank">
+              <p className="text-body-2/b2 text-grey-0 hover:underline ">by darshan</p>
+            </a>
+          </Link>
         </div>
       </div>
       <div className="w-full sm:h-[95vh] h-[75vh] bg-grey-0 rounded-xl flex items-center p-4 justify-center gap-4">
@@ -22,7 +27,7 @@ export default function Home() {
             expedita?
           </p>
           <PrimaryButton text={"Get Started"} />
-          <p className="text-body-2/b1 text-grey-90 text-center mx-auto hover: cursor-pointer">
+          <p className="text-body-2/b1 text-grey-90 text-center mx-auto hover: cursor-pointer hover:underline">
             Already have an account? Sign in
           </p>
         </div>
