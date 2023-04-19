@@ -18,10 +18,24 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
     rgb(var(--background-start-rgb));
+}
+
+.tree {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(
+    to right top,
+    hsla(0, 5%, 5%, 0.5),
+    hsla(0, 0%, 15%, 1)
+  );
+  background-image: -moz-linear-gradient(
+    to right top,
+    hsla(0, 5%, 5%, 0.5),
+    hsla(0, 0%, 15%, 1)
+  );
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
