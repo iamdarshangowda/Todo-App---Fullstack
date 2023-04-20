@@ -14,8 +14,9 @@ const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     <div className="max-w-lg flex flex-col gap-4 " ref={ref}>
       <h1 className="text-heading-1/h2 text-grey-90">Productive Mind</h1>
       <p className="text-body-1/b2 text-grey-80">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus in
-        recusandae, repellendus sapiente dolorem consequatur voluptatibus nulla expedita?
+        With only the features you need, <span className="text-body-1/b1">Todo App</span>{' '}
+        is customised for individual seeking a stress-free way to saty focused on their
+        goals, projects and tasks.
       </p>
       <PrimaryButton text={'Get Started'} onClick={handleGetStarted} />
       <TextButton text=" Already have an account? Sign in" />
