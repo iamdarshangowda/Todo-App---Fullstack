@@ -6,11 +6,14 @@ import TextButton from '@components/common/buttons/textButton';
 
 const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const { setCurrentTab } = useTabContext();
+
   const handleSignIn = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setCurrentTab(0);
   };
 
+  const handleSignUp = () => {
+    setCurrentTab(2);
+  };
   return (
     <div className="max-w-lg w-full flex flex-col gap-4" ref={ref}>
       <h1 className="text-heading-1/h2 text-grey-90">Sign In</h1>
@@ -25,7 +28,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
           <PrimaryButton text="Sign in" type="submit" />
         </div>
       </form>
-      <TextButton text="Don't have an account? Sign up" />
+      <TextButton text="Don't have an account? Sign up" onClick={handleSignUp} />
     </div>
   );
 });

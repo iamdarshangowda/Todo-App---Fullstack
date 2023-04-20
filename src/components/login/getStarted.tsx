@@ -7,6 +7,10 @@ const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const { setCurrentTab } = useTabContext();
 
   const handleGetStarted = () => {
+    setCurrentTab(2);
+  };
+
+  const handleSignIn = () => {
     setCurrentTab(1);
   };
 
@@ -19,7 +23,7 @@ const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
         goals, projects and tasks.
       </p>
       <PrimaryButton text={'Get Started'} onClick={handleGetStarted} />
-      <TextButton text=" Already have an account? Sign in" />
+      <TextButton text=" Already have an account? Sign in" onClick={handleSignIn} />
     </div>
   );
 });

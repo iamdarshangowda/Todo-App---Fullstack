@@ -5,6 +5,7 @@ import { Transition } from '@headlessui/react';
 import { useTabContext } from '@context/tabToggleContext';
 import GetStarted from './getStarted';
 import LoginForm from './loginForm';
+import SignupForm from './signupForm';
 
 const LoginTabs = () => {
   const { currentTab } = useTabContext();
@@ -13,6 +14,7 @@ const LoginTabs = () => {
     return {
       '0': <GetStarted />,
       '1': <LoginForm />,
+      '2': <SignupForm />,
     };
   }, []);
 
