@@ -30,4 +30,5 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   );
 });
 
+LoginForm.displayName = 'LoginForm';
 export default LoginForm;

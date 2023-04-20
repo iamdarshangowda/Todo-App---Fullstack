@@ -23,4 +23,5 @@ const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   );
 });
 
+GetStarted.displayName = 'GetStarted';
 export default GetStarted;
