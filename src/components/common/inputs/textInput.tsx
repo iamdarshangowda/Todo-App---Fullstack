@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
 
 interface IInputProps {
   type: string;
   placeholder: string;
   name: string;
+  onChange: (value: string) => void;
 }
 
 const TextInput = (props: IInputProps) => {
-  const { type, placeholder, name } = props;
+  const { type, placeholder, name, onChange } = props;
 
   return (
     <input
@@ -16,6 +17,7 @@ const TextInput = (props: IInputProps) => {
       name={name}
       className="w-full p-2 text-grey-40 border border-grey-20 rounded-lg"
       placeholder={placeholder}
+      onChange={(event) => onChange(event.target.value)}
     />
   );
 };
