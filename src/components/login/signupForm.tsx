@@ -2,24 +2,75 @@ import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextButton from '@components/common/buttons/textButton';
 import TextInput from '@components/common/inputs/textInput';
 import { useTabContext } from '@context/tabToggleContext';
-import React, { FormEvent, forwardRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, forwardRef, useState } from 'react';
 import { noAuthPost } from '../../config/axiosClient';
+import { useRouter } from 'next/navigation';
+import { Schema } from 'zod';
+import parseZodError from '../../utils/parsedZodErrors';
+import { signUpSchema } from '../../utils/validations';
+
+const initialForm = {
+  username: '',
+  email: '',
+  password: '',
+  repassword: '',
+};
 
 const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const { setCurrentTab } = useTabContext();
-  const [userData, setUserData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    repassword: '',
-  });
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const [userData, setUserData] = useState(initialForm);
 
-  const handleFormOnChange = (type: string, value: string) => {
-    setUserData((prev) => ({ ...prev, [type]: value }));
+  const [formError, setFormError] = useState(initialForm);
+
+  const handleFormOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateEmail = (email: string) => {
+    if (!email.trim()) return;
+
+    const result = signUpSchema.safeParse({ ...userData, email });
+
+    if (!result.success) {
+      const parsedZodError = parseZodError(result.error);
+
+      const emailError = parsedZodError.find((type) => type.field === 'email');
+      if (!emailError) {
+        setFormError((prev) => ({ ...prev, email: '' }));
+      } else {
+        setFormError((prev) => ({ ...prev, email: emailError.message }));
+      }
+    }
+  };
+
+  const onBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value } = event.target;
+    validateEmail(value);
+  };
+
+  const inputValidation = (schema: Schema) => {
+    const validate = schema.safeParse(userData);
+
+    if (!validate.success) {
+      const parsedZodErrors = parseZodError(validate.error);
+      for (const { field, message } of parsedZodErrors) {
+        setFormError((prev) => ({ ...prev, [field]: message }));
+      }
+
+      return true;
+    }
+
+    setFormError(initialForm);
+    return false;
   };
 
   const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (inputValidation(signUpSchema)) return;
+    setLoading(true);
 
     const data = {
       username: userData.username,
@@ -27,9 +78,17 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       password: userData.password,
     };
 
-    await noAuthPost('user/signup', data).then((data) => {
-      console.log(data);
-    });
+    try {
+      await noAuthPost('user/signup', data).then((data) => {
+        const token = data.data.accessToekn;
+        localStorage.setItem('todoAuthToken', JSON.stringify(token));
+        router.push('/dashboard');
+      });
+    } catch (error: any) {
+      console.log(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSignIn = () => {
@@ -45,25 +104,38 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             type={'text'}
             placeholder={'Enter your email'}
             name={'email'}
-            onChange={(value: string) => handleFormOnChange('email', value)}
+            onChange={handleFormOnChange}
+            disabled={loading}
+            error={formError.email}
+            onBlur={onBlur}
+            value={userData.email}
           />
           <TextInput
             type={'text'}
             placeholder={'Enter your username'}
             name={'username'}
-            onChange={(value: string) => handleFormOnChange('username', value)}
+            onChange={handleFormOnChange}
+            disabled={loading}
+            error={formError.username}
+            value={userData.username}
           />
           <TextInput
             type={'password'}
             placeholder={'Enter your password'}
             name={'password'}
-            onChange={(value: string) => handleFormOnChange('password', value)}
+            onChange={handleFormOnChange}
+            disabled={loading}
+            error={formError.password}
+            value={userData.password}
           />
           <TextInput
             type={'password'}
             placeholder={'Re-enter your password'}
             name={'repassword'}
-            onChange={(value: string) => handleFormOnChange('repassword', value)}
+            onChange={handleFormOnChange}
+            disabled={loading}
+            error={formError.repassword}
+            value={userData.repassword}
           />
           <PrimaryButton text="Sign up" type="submit" />
         </div>
