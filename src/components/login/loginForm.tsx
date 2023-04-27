@@ -1,4 +1,4 @@
-import React, { FormEvent, forwardRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, forwardRef, useState } from 'react';
 import { useTabContext } from '@context/tabToggleContext';
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextInput from '@components/common/inputs/textInput';
@@ -11,8 +11,9 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     password: '',
   });
 
-  const handleFormOnChange = (type: string, value: string) => {
-    setUserData((prev) => ({ ...prev, [type]: value }));
+  const handleFormOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSignIn = (event: FormEvent<HTMLFormElement>) => {
@@ -33,13 +34,13 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             type={'text'}
             placeholder={'Enter your email'}
             name={'email'}
-            onChange={(value: string) => handleFormOnChange('email', value)}
+            onChange={handleFormOnChange}
           />
           <TextInput
             type={'password'}
             placeholder={'Enter your password'}
             name={'password'}
-            onChange={(value: string) => handleFormOnChange('password', value)}
+            onChange={handleFormOnChange}
           />
           <PrimaryButton text="Sign in" type="submit" />
         </div>
