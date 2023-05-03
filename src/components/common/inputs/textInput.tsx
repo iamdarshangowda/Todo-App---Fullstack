@@ -8,6 +8,7 @@ interface IInputProps {
   onBlur?: InputAttributes['onBlur'];
   onChange: InputAttributes['onChange'];
   placeholder: InputAttributes['placeholder'];
+  autoComplete?: InputAttributes['autoComplete'];
 
   disabled?: boolean;
   error?: string;
@@ -16,7 +17,17 @@ interface IInputProps {
 // What is InputAttributes and why it is used?
 
 const TextInput = (props: IInputProps) => {
-  const { type, placeholder, name, onChange, disabled, error, onBlur, value } = props;
+  const {
+    type,
+    placeholder,
+    name,
+    onChange,
+    disabled,
+    error,
+    onBlur,
+    value,
+    autoComplete,
+  } = props;
 
   return (
     <div>
@@ -31,6 +42,7 @@ const TextInput = (props: IInputProps) => {
         disabled={disabled}
         onBlur={onBlur}
         value={value}
+        autoComplete={autoComplete}
       />
       {error && <p className="text-error text-caption/c2 mt-1">{error}</p>}
     </div>

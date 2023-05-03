@@ -29,26 +29,28 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const validateEmail = (email: string) => {
-    if (!email.trim()) return;
+  const validateOnBlur = (value: string, name: string) => {
+    if (!value.trim()) return;
 
-    const result = signUpSchema.safeParse({ ...userData, email });
-
+    const result = signUpSchema.safeParse({ ...userData, [name]: value });
     if (!result.success) {
+      // If validation is not success set error message
       const parsedZodError = parseZodError(result.error);
-
-      const emailError = parsedZodError.find((type) => type.field === 'email');
-      if (!emailError) {
-        setFormError((prev) => ({ ...prev, email: '' }));
+      const formError = parsedZodError.find((type) => type.field === name);
+      if (!formError) {
+        setFormError((prev) => ({ ...prev, [name]: '' }));
       } else {
-        setFormError((prev) => ({ ...prev, email: emailError.message }));
+        setFormError((prev) => ({ ...prev, [name]: formError.message }));
       }
+    } else {
+      // Clear error message of previous state if validation is success
+      setFormError((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const onBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { value } = event.target;
-    validateEmail(value);
+    const { value, name } = event.target;
+    validateOnBlur(value, name);
   };
 
   const inputValidation = (schema: Schema) => {
@@ -109,6 +111,7 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             error={formError.email}
             onBlur={onBlur}
             value={userData.email}
+            autoComplete="username"
           />
           <TextInput
             type={'text'}
@@ -118,6 +121,8 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             disabled={loading}
             error={formError.username}
             value={userData.username}
+            onBlur={onBlur}
+            autoComplete="name"
           />
           <TextInput
             type={'password'}
@@ -127,6 +132,8 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             disabled={loading}
             error={formError.password}
             value={userData.password}
+            onBlur={onBlur}
+            autoComplete="new-password"
           />
           <TextInput
             type={'password'}
@@ -136,6 +143,8 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             disabled={loading}
             error={formError.repassword}
             value={userData.repassword}
+            onBlur={onBlur}
+            autoComplete="new-password"
           />
           <PrimaryButton text="Sign up" type="submit" />
         </div>

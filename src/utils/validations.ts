@@ -25,6 +25,7 @@ export const signUpSchema = z
       ctx.addIssue({
         code: 'custom',
         message: 'Password did not match',
+        path: ['repassword'],
       });
     }
   });

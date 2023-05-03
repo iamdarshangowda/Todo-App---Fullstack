@@ -35,12 +35,14 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             placeholder={'Enter your email'}
             name={'email'}
             onChange={handleFormOnChange}
+            autoComplete="username"
           />
           <TextInput
             type={'password'}
             placeholder={'Enter your password'}
             name={'password'}
             onChange={handleFormOnChange}
+            autoComplete="current-password"
           />
           <PrimaryButton text="Sign in" type="submit" />
         </div>
