@@ -1,10 +1,11 @@
+import { TodoIconSmall } from '@components/common/icons/icons';
 import LoginTabs from '@components/login/loginTabs';
 import Tree from '@components/tree/tree';
 import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center sm:justify-between p-4 gap-6 flex-col sm:flex-row ">
+    <main className="flex min-h-screen items-center sm:justify-between p-4 gap-6 flex-col sm:flex-row">
       <div className="w-full sm:h-[95vh] relative h-[15vh] tree rounded-xl">
         <Tree />
         <div className="absolute top-4 left-6 ">
@@ -18,7 +19,10 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="w-full sm:h-[95vh] h-[75vh] bg-grey-0 rounded-xl flex items-center p-4 justify-center gap-4  ">
+      <div className="w-full sm:h-[95vh] h-[75vh] bg-grey-0 rounded-xl flex items-center p-4 justify-center gap-4 relative ">
+        <div className="absolute top-5 left-5">
+          <TodoIconSmall />
+        </div>
         <LoginTabs />
       </div>
     </main>

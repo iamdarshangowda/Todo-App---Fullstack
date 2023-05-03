@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-noto)', ...fontFamily.sans],
+        noto: ['var(--font-noto)', ...fontFamily.sans],
       },
       colors: {
         yellow: '#EBB02D',
