@@ -2,7 +2,7 @@ import axios from 'axios';
 const URL = process.env.TODO_BACKED_PORT;
 
 interface IUserData {
-  username: string;
+  username?: string;
   email: string;
   password: string;
 }

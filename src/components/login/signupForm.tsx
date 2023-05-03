@@ -6,8 +6,8 @@ import React, { ChangeEvent, FormEvent, forwardRef, useState } from 'react';
 import { noAuthPost } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
 import { Schema } from 'zod';
-import parseZodError from '../../utils/parsedZodErrors';
-import { signUpSchema } from '../../utils/validations';
+import parseZodError from '@utils/validation/parsedZodErrors';
+import { signUpSchema } from '@utils/validation/validations';
 
 const initialForm = {
   username: '',

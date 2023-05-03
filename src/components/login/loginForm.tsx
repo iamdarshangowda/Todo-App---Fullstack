@@ -3,22 +3,85 @@ import { useTabContext } from '@context/tabToggleContext';
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextInput from '@components/common/inputs/textInput';
 import TextButton from '@components/common/buttons/textButton';
+import { Schema } from 'zod';
+import { loginSchema } from '@utils/validation/validations';
+import parseZodError from '@utils/validation/parsedZodErrors';
+import { noAuthPost } from '../../config/axiosClient';
+import { useRouter } from 'next/navigation';
+
+const initialForm = {
+  email: '',
+  password: '',
+};
 
 const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const { setCurrentTab } = useTabContext();
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-  });
+  const router = useRouter();
+  const [userData, setUserData] = useState(initialForm);
+  const [formError, setFormError] = useState(initialForm);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleFormOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSignIn = (event: FormEvent<HTMLFormElement>) => {
+  const validateOnBlur = (value: string, name: string) => {
+    if (!value.trim()) return;
+
+    const result = loginSchema.safeParse({ ...userData, [name]: value });
+    if (!result.success) {
+      // If validation is not success set error message
+      const parsedZodError = parseZodError(result.error);
+      const formError = parsedZodError.find((type) => type.field === name);
+      if (!formError) {
+        setFormError((prev) => ({ ...prev, [name]: '' }));
+      } else {
+        setFormError((prev) => ({ ...prev, [name]: formError.message }));
+      }
+    } else {
+      // Clear error message of previous state if validation is success
+      setFormError((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const onBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value, name } = event.target;
+    validateOnBlur(value, name);
+  };
+
+  const loginValidation = (schema: Schema) => {
+    const validate = schema.safeParse(userData);
+
+    if (!validate.success) {
+      const parseZodErrors = parseZodError(validate.error);
+
+      for (let { field, message } of parseZodErrors) {
+        setFormError((prev) => ({ ...prev, [field]: message }));
+      }
+      return true;
+    }
+  };
+
+  const handleSignIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(userData);
+
+    if (loginValidation(loginSchema)) return;
+    setFormError(initialForm);
+    setLoading(true);
+
+    try {
+      await noAuthPost('user/login', userData).then((data) => {
+        const token = data.data.accessToekn;
+        localStorage.setItem('todoAuthToken', JSON.stringify(token));
+        router.push('/dashboard');
+      });
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      setFormError((prev) => ({ ...prev, password: error.response.data.message }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSignUp = () => {
@@ -36,6 +99,8 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             name={'email'}
             onChange={handleFormOnChange}
             autoComplete="username"
+            onBlur={onBlur}
+            error={formError.email}
           />
           <TextInput
             type={'password'}
@@ -43,6 +108,8 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             name={'password'}
             onChange={handleFormOnChange}
             autoComplete="current-password"
+            onBlur={onBlur}
+            error={formError.password}
           />
           <PrimaryButton text="Sign in" type="submit" />
         </div>

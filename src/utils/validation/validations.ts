@@ -29,3 +29,10 @@ export const signUpSchema = z
       });
     }
   });
+
+export const loginSchema = z.object({
+  email: z.string(requiredString).email({ message: 'Invalid Email' }),
+  password: z
+    .string(requiredString)
+    .min(6, { message: 'Password must be at least 6 characters!' }),
+});
