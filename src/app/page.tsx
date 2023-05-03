@@ -1,5 +1,7 @@
-import PrimaryButton from "@components/components/common/buttons/primaryButton";
-import Tree from "@components/components/tree/tree";
+import { TodoIconSmall } from '@components/common/icons/icons';
+import LoginTabs from '@components/login/loginTabs';
+import Tree from '@components/tree/tree';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -10,22 +12,18 @@ export default function Home() {
           <h1 className="text-heading-1/h2 text-grey-0">Todo</h1>
         </div>
         <div className="absolute top-16 left-14 ">
-          <p className="text-body-2/b2 text-grey-0">by darshan</p>
+          <Link href="https://github.com/iamdarshangowda" legacyBehavior>
+            <a target="_blank">
+              <p className="text-body-2/b3 text-grey-0 hover:underline ">by darshan</p>
+            </a>
+          </Link>
         </div>
       </div>
-      <div className="w-full sm:h-[95vh] h-[75vh] bg-grey-0 rounded-xl flex items-center p-4 justify-center gap-4">
-        <div className="max-w-lg flex flex-col gap-4 ">
-          <h1 className="text-heading-1/h2 text-grey-90">Productive Mind</h1>
-          <p className="text-body-1/b2 text-grey-80">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus in
-            recusandae, repellendus sapiente dolorem consequatur voluptatibus nulla
-            expedita?
-          </p>
-          <PrimaryButton text={"Get Started"} />
-          <p className="text-body-2/b1 text-grey-90 text-center mx-auto hover: cursor-pointer">
-            Already have an account? Sign in
-          </p>
+      <div className="w-full sm:h-[95vh] h-[75vh] bg-grey-0 rounded-xl flex items-center p-4 justify-center gap-4 relative ">
+        <div className="absolute top-5 left-5">
+          <TodoIconSmall />
         </div>
+        <LoginTabs />
       </div>
     </main>
   );

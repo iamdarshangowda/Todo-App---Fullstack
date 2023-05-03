@@ -2,17 +2,18 @@ import React from 'react';
 
 type Buttontype = 'button' | 'reset' | 'submit';
 
-interface IButtonProps {
+interface ITextButtonProps {
   text: string;
   onClick?: () => void;
   type?: Buttontype;
 }
 
-const PrimaryButton = (props: IButtonProps) => {
+const TextButton = (props: ITextButtonProps) => {
   const { text, onClick, type } = props;
+
   return (
     <button
-      className={`max-w-lg w-full rounded-xl h-12 bg-yellow text-grey-90 text-body-1/b1 transition ease-in-out delay-250 hover:shadow-md hover:scale-95 hover:transition-all hover:duration-300`}
+      className="text-body-2/b1 text-grey-90 text-center mx-auto hover:cursor-pointer hover:bg-grey-20 hover:bg-opacity-20 rounded-xl px-2"
       onClick={onClick}
       type={type ? type : 'button'}
     >
@@ -21,4 +22,4 @@ const PrimaryButton = (props: IButtonProps) => {
   );
 };
 
-export default PrimaryButton;
+export default TextButton;
