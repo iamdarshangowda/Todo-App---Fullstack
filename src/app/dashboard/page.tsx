@@ -1,7 +1,12 @@
+import MenuSidebar from '@components/menu/menuSidebar';
 import React from 'react';
 
 const DashBoard = () => {
-  return <div className="text-body-1/b1 mx-auto">DashBoard</div>;
+  return (
+    <div>
+      <MenuSidebar />
+    </div>
+  );
 };
 
 export default DashBoard;

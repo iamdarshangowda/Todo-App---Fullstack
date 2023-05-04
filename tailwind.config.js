@@ -19,6 +19,7 @@ module.exports = {
         grey: {
           DEFAULT: '#333333',
           0: '#FFFFFF',
+          10: '#F2F2F2',
           20: '#A0A0A0',
           30: '#707070',
           40: '#4B4B4B',
@@ -32,6 +33,7 @@ module.exports = {
       },
       fontSize: {
         'heading-1/h2': ['2.5rem', { fontWeight: '700' }],
+        'heading-2/h1': ['1.8rem', { fontWeight: '700' }],
         'body-1/b1': ['16px', { fontWeight: '700' }],
         'body-1/b2': ['16px', { fontWeight: '500' }],
         'body-1/b3': ['16px', { fontWeight: '400' }],
