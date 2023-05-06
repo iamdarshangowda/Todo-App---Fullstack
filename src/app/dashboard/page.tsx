@@ -1,5 +1,6 @@
 'use client';
 
+import AddTasks from '@components/add-tasks/addTasks';
 import MenuSidebar from '@components/menu/menuSidebar';
 import Today from '@components/today/today';
 import React, { useState } from 'react';
@@ -10,7 +11,7 @@ const DashBoard = () => {
     <div className="fixed top-0 bottom-0 flex gap-4 p-4 w-full">
       <MenuSidebar />
       <Today setShowAddTasks={setShowAddTasks} />
-      {showAddTasks && <div className="border border-blue-500 w-1/2">Add Tasks</div>}
+      {true && <AddTasks />}
     </div>
   );
 };

@@ -1,0 +1,34 @@
+import React from 'react';
+
+interface ISelectMenu {
+  label: string;
+  value: string;
+}
+
+interface ISelectProps {
+  optionsList: ISelectMenu[];
+}
+
+const SelectInput = (props: ISelectProps) => {
+  const { optionsList } = props;
+  return (
+    <div className="max-w-xs w-full flex gap-4 items-center">
+      <label htmlFor="list" className="text-grey-60 text-body-1/b2">
+        List
+      </label>
+      <select
+        name="list"
+        id="list"
+        className="p-2 w-1/2 bg-grey-10 border border-grey-20 rounded-lg"
+      >
+        {optionsList.map(({ label, value }) => (
+          <option value={value} className="text-grey-60 text-body-1/b2 p-2">
+            {label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default SelectInput;
