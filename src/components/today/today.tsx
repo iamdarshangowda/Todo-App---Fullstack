@@ -1,3 +1,5 @@
+import SecondaryButton from '@components/common/buttons/secondaryButton';
+import { AddIcon } from '@components/common/icons/icons';
 import React, { Dispatch, SetStateAction } from 'react';
 
 interface Props {
@@ -7,12 +9,19 @@ interface Props {
 const Today = (props: Props) => {
   const { setShowAddTasks } = props;
   return (
-    <div className="p-2 w-full">
+    <div className="p-2 w-full space-y-10">
       <div className="text-heading-1/h2 text-grey-80 flex gap-10 ">
         <h1>Today</h1>
         <span className="px-4 border border-grey-20 rounded-lg">5</span>
       </div>
-      <button onClick={() => setShowAddTasks((prev) => !prev)}>Add Tasks</button>
+
+      <div>
+        <SecondaryButton
+          text="Add Tasks"
+          onClick={() => setShowAddTasks((prev) => !prev)}
+          icon={<AddIcon />}
+        />
+      </div>
     </div>
   );
 };

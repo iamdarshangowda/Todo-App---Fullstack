@@ -1,10 +1,10 @@
 'use client';
 
 import {
-  CalendarMenuIocn,
+  CalendarMenuIcon,
   MenuIcon,
-  SettingsIocn,
-  SignOutIocn,
+  SettingsIcon,
+  SignOutIcon,
   StickyNotes,
   TodayMenuIcon,
   UpcommingIcon,
@@ -25,7 +25,7 @@ const TASKS: IMenuList = [
     label: 'Today',
   },
   {
-    icon: <CalendarMenuIocn />,
+    icon: <CalendarMenuIcon />,
     label: 'Calendar',
   },
   {
@@ -44,18 +44,18 @@ const LISTS: IMenuList = [
     label: 'Work',
   },
   {
-    icon: <ListIocnBox />,
-    label: 'List 1',
+    icon: <ListIocnBox bgColor={'!bg-grey-90'} />,
+    label: 'Other',
   },
 ];
 
 const SETTINGS: IMenuList = [
   {
-    icon: <SettingsIocn />,
+    icon: <SettingsIcon />,
     label: 'Settings',
   },
   {
-    icon: <SignOutIocn />,
+    icon: <SignOutIcon />,
     label: 'Sign Out',
   },
 ];
@@ -73,7 +73,13 @@ const MenuSidebar = () => {
           <MenuIcon fill="#4B4B4B" />
         </div>
       )}
-      <div className={hide ? 'hidden transition-all duration-500' : 'block duration-500'}>
+      <div
+        className={
+          hide
+            ? 'hidden transition-all duration-500'
+            : 'transition-all duration-500 flex flex-col '
+        }
+      >
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60">Menu</h2>
           <div className="hover:cursor-pointer" onClick={() => setHide(true)}>
@@ -87,7 +93,7 @@ const MenuSidebar = () => {
 
         <div>
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
-          <div className="flex flex-col space-y-3 mb-4 mt-2">
+          <div className="flex flex-col space-y-3 mt-2">
             {TASKS.map(({ icon, label }: IMenu) => (
               <SingleMenu icon={icon} label={label} key={label} count={5} />
             ))}
@@ -96,9 +102,9 @@ const MenuSidebar = () => {
 
         <div className="h-[1px] bg-grey-30 rounded-xl my-4"></div>
 
-        <div className="flex-grow overflow-auto scrollbar-hide">
+        <div className="overflow-auto scrollbar-hide">
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Lists</h3>
-          <div className="flex flex-col space-y-3 mb-4 mt-2">
+          <div className="flex flex-col space-y-3 mb-4 mt-2 sm:h-full h-20">
             {LISTS.map(({ icon, label }: IMenu) => (
               <SingleMenu icon={icon} label={label} key={label} count={3} />
             ))}
@@ -108,7 +114,7 @@ const MenuSidebar = () => {
         {/* <div className="h-[1px] bg-grey-30 rounded-xl my-4"></div> */}
 
         <div>
-          <div className="flex flex-col space-y-3 mb-4 mt-2">
+          <div className="flex flex-col mb-2 mt-2">
             {SETTINGS.map(({ icon, label }: IMenu) => (
               <SingleMenu icon={icon} label={label} key={label} />
             ))}

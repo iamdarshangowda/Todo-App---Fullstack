@@ -1,6 +1,5 @@
 'use client';
 
-import { MenuIcon } from '@components/common/icons/icons';
 import MenuSidebar from '@components/menu/menuSidebar';
 import Today from '@components/today/today';
 import React, { useState } from 'react';
