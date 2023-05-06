@@ -11,7 +11,7 @@ const DashBoard = () => {
     <div className="fixed top-0 bottom-0 flex gap-4 p-4 w-full">
       <MenuSidebar />
       <Today setShowAddTasks={setShowAddTasks} />
-      {true && <AddTasks />}
+      {showAddTasks && <AddTasks setShowAddTasks={setShowAddTasks} />}
     </div>
   );
 };
