@@ -20,7 +20,7 @@ const SelectInput = (props: ISelectProps) => {
         name="list"
         id="list"
         className="p-2 w-1/2 bg-grey-10 border border-grey-20 rounded-lg
-        text-body-1/b1 text-grey-40"
+        text-body-1/b1 text-grey-40 hover:cursor-pointer"
       >
         {optionsList.map(({ label, value }) => (
           <option value={value} className="text-grey-60 text-body-1/b2 p-2" key={value}>

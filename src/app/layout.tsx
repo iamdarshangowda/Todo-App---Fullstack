@@ -1,3 +1,4 @@
+import MenuSidebar from '@components/menu/menuSidebar';
 import './globals.css';
 import { Noto_Sans } from 'next/font/google';
 
@@ -24,7 +25,12 @@ const noto = Noto_Sans({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${noto.variable} font-noto`}>{children}</body>
+      <body className={`${noto.variable} font-noto`}>
+        <div className="fixed top-0 bottom-0 gap-2 flex p-4 w-full">
+          <MenuSidebar />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

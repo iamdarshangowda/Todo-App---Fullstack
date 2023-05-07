@@ -1,15 +1,14 @@
+'use client';
+
+import AddTaskModal from '@components/add-tasks/addTasksModal';
 import SecondaryButton from '@components/common/buttons/secondaryButton';
 import { AddIcon } from '@components/common/icons/icons';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useState } from 'react';
 
-interface Props {
-  setShowAddTasks: Dispatch<SetStateAction<boolean>>;
-}
-
-const Today = (props: Props) => {
-  const { setShowAddTasks } = props;
+const Today = () => {
+  const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   return (
-    <div className="p-2 w-full space-y-10">
+    <div className={`p-2 w-full space-y-10 ${showAddTasks ? 'blur-sm' : 'blur-none'}`}>
       <div className="text-heading-1/h2 text-grey-80 flex gap-10 ">
         <h1>Today</h1>
         <span className="px-4 border border-grey-20 rounded-lg">5</span>
@@ -22,6 +21,8 @@ const Today = (props: Props) => {
           icon={<AddIcon />}
         />
       </div>
+
+      <AddTaskModal showAddTasks={showAddTasks} setShowAddTasks={setShowAddTasks} />
     </div>
   );
 };
