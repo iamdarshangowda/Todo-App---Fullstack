@@ -23,9 +23,7 @@ const Today = () => {
       <div>
         <SecondaryButton
           text="Add Tasks"
-          onClick={() => {
-            setShowAddTasks((prev) => !prev);
-          }}
+          onClick={() => setShowAddTasks((prev) => !prev)}
           icon={<AddIcon />}
         />
       </div>

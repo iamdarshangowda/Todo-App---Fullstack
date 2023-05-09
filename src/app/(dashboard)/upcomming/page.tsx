@@ -6,11 +6,16 @@ import { AddIcon } from '@components/common/icons/icons';
 import TaskHeaderwithCount from '@components/common/ui-components/taskHeaderwithCount';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Upcomming() {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
-  const { setBlurBackground, blurBackground } = useUIHelperContext();
+  const { setBlurBackground } = useUIHelperContext();
+
+  useEffect(() => {
+    setBlurBackground(showAddTasks);
+  }, [showAddTasks]);
+
   return (
     <TaskPageLayout>
       <TaskHeaderwithCount title={'Upcomming'} count={3} loading={false} />
@@ -18,10 +23,7 @@ function Upcomming() {
       <div>
         <SecondaryButton
           text="Add Tasks"
-          onClick={() => {
-            setBlurBackground(!blurBackground);
-            setShowAddTasks((prev) => !prev);
-          }}
+          onClick={() => setShowAddTasks((prev) => !prev)}
           icon={<AddIcon />}
         />
       </div>
