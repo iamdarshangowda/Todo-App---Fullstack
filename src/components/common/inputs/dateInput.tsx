@@ -7,6 +7,7 @@ const DateInput = () => {
         Due Date:
       </label>
       <input
+        defaultValue={'2023-01-01'}
         type="date"
         id="due-date"
         name="due-date"

@@ -19,18 +19,22 @@ const TASKS: IMenuList = [
   {
     icon: <UpcommingIcon />,
     label: 'Upcomming',
+    route: '/upcomming',
   },
   {
     icon: <TodayMenuIcon />,
     label: 'Today',
+    route: '/today',
   },
   {
     icon: <CalendarMenuIcon />,
     label: 'Calendar',
+    route: 'calendar',
   },
   {
     icon: <StickyNotes />,
     label: 'Sticky Wall',
+    route: 'stickynotes',
   },
 ];
 
@@ -38,14 +42,17 @@ const LISTS: IMenuList = [
   {
     icon: <ListIocnBox bgColor={'!bg-grey-90'} />,
     label: 'Personal',
+    route: '/list',
   },
   {
     icon: <ListIocnBox bgColor={'!bg-yellow'} />,
     label: 'Work',
+    route: '/list',
   },
   {
     icon: <ListIocnBox bgColor={'!bg-grey-90'} />,
     label: 'Other',
+    route: '/list',
   },
 ];
 
@@ -53,15 +60,18 @@ const SETTINGS: IMenuList = [
   {
     icon: <SettingsIcon />,
     label: 'Settings',
+    route: '/settings',
   },
   {
     icon: <SignOutIcon />,
     label: 'Sign Out',
+    route: '/',
   },
 ];
 
 const MenuSidebar = () => {
   const [hide, setHide] = useState(false);
+
   return (
     <nav
       className={`${
@@ -88,8 +98,8 @@ const MenuSidebar = () => {
         <div>
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
           <div className="flex flex-col space-y-3 mt-2">
-            {TASKS.map(({ icon, label }: IMenu) => (
-              <SingleMenu icon={icon} label={label} key={label} count={5} />
+            {TASKS.map(({ icon, label, route }: IMenu) => (
+              <SingleMenu icon={icon} label={label} key={label} count={5} route={route} />
             ))}
           </div>
         </div>
@@ -99,8 +109,8 @@ const MenuSidebar = () => {
         <div className="overflow-auto scrollbar-hide">
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Lists</h3>
           <div className="flex flex-col space-y-3 mb-4 mt-2 sm:h-full h-20">
-            {LISTS.map(({ icon, label }: IMenu) => (
-              <SingleMenu icon={icon} label={label} key={label} count={3} />
+            {LISTS.map(({ icon, label, route }: IMenu) => (
+              <SingleMenu icon={icon} label={label} key={label} count={3} route={route} />
             ))}
           </div>
         </div>
@@ -109,8 +119,8 @@ const MenuSidebar = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-2">
-            {SETTINGS.map(({ icon, label }: IMenu) => (
-              <SingleMenu icon={icon} label={label} key={label} />
+            {SETTINGS.map(({ icon, label, route }: IMenu) => (
+              <SingleMenu icon={icon} label={label} key={label} route={route} />
             ))}
           </div>
         </div>

@@ -2,13 +2,13 @@
 
 import React, { Fragment, useMemo } from 'react';
 import { Transition } from '@headlessui/react';
-import { useTabContext } from '@context/tabToggleContext';
+import { useToggleContext } from '@context/useToggleContext';
 import GetStarted from './getStarted';
 import LoginForm from './loginForm';
 import SignupForm from './signupForm';
 
 const LoginTabs = () => {
-  const { currentTab } = useTabContext();
+  const { currentTab } = useToggleContext();
 
   const screenConfig = useMemo(() => {
     return {

@@ -1,4 +1,5 @@
 import { IMenu } from '@utils/types';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface SingleMenuProps {
@@ -6,9 +7,16 @@ interface SingleMenuProps {
 }
 
 const SingleMenu = (props: IMenu & SingleMenuProps) => {
-  const { icon, label, count } = props;
+  const { icon, label, count, route } = props;
+  const router = useRouter();
+
+  const handleRoutes = () => {
+    router.push(route);
+  };
+
   return (
-    <div
+    <button
+      onClick={handleRoutes}
       className="flex items-center gap-2 py-2 px-2 hover:bg-[#D8D8D8] text-body-1/b2 hover:text-body-1/b1
     rounded-lg hover:cursor-pointer duration-300"
     >
@@ -19,7 +27,7 @@ const SingleMenu = (props: IMenu & SingleMenuProps) => {
           {count}
         </span>
       )}
-    </div>
+    </button>
   );
 };
 

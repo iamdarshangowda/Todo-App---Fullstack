@@ -11,6 +11,7 @@ export type InputAttributes = HTMLAttributes<HTMLInputElement> &
 export interface IMenu {
   icon: JSX.Element;
   label: string;
+  route: string;
 }
 
 export type IMenuList = IMenu[];

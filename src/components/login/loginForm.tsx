@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, forwardRef, useState } from 'react';
-import { useTabContext } from '@context/tabToggleContext';
+import { useToggleContext } from '@context/useToggleContext';
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextInput from '@components/common/inputs/textInput';
 import TextButton from '@components/common/buttons/textButton';
@@ -15,7 +15,7 @@ const initialForm = {
 };
 
 const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
-  const { setCurrentTab } = useTabContext();
+  const { setCurrentTab } = useToggleContext();
   const router = useRouter();
   const [userData, setUserData] = useState(initialForm);
   const [formError, setFormError] = useState(initialForm);
