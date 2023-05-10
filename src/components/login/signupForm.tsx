@@ -1,7 +1,7 @@
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextButton from '@components/common/buttons/textButton';
 import TextInput from '@components/common/inputs/textInput';
-import { useTabContext } from '@context/tabToggleContext';
+import { useToggleContext } from '@context/useToggleContext';
 import React, { ChangeEvent, FormEvent, forwardRef, useState } from 'react';
 import { noAuthPost } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ const initialForm = {
 };
 
 const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
-  const { setCurrentTab } = useTabContext();
+  const { setCurrentTab } = useToggleContext();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [userData, setUserData] = useState(initialForm);

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center sm:justify-between p-4 gap-6 flex-col sm:flex-row">
+    <main className="flex min-h-screen items-center sm:justify-between p-4 gap-6 flex-col sm:flex-row login">
       <div className="w-full sm:h-[95vh] relative h-[15vh] tree rounded-xl">
         <Tree />
         <div className="absolute top-4 left-6 ">

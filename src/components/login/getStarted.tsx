@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
-import { useTabContext } from '@context/tabToggleContext';
+import { useToggleContext } from '@context/useToggleContext';
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextButton from '@components/common/buttons/textButton';
 
 const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
-  const { setCurrentTab } = useTabContext();
+  const { setCurrentTab } = useToggleContext();
 
   const handleGetStarted = () => {
     setCurrentTab(2);

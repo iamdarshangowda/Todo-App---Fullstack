@@ -13,7 +13,8 @@ const TextButton = (props: ITextButtonProps) => {
 
   return (
     <button
-      className="text-body-2/b1 text-grey-90 text-center mx-auto hover:cursor-pointer hover:bg-grey-20 hover:bg-opacity-20 rounded-xl px-2"
+      className="text-body-2/b1 text-grey-90 text-center mx-auto hover:cursor-pointer
+      hover:bg-grey-20 hover:bg-opacity-20 rounded-xl px-2"
       onClick={onClick}
       type={type ? type : 'button'}
     >
