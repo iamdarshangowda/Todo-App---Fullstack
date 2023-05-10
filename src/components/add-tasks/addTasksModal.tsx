@@ -1,7 +1,7 @@
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import SecondaryButton from '@components/common/buttons/secondaryButton';
 import { CloseIcon } from '@components/common/icons/icons';
-import DateInput from '@components/common/inputs/dateInput';
+import DateTimeInput from '@components/common/inputs/dateTimeInput';
 import SelectInput from '@components/common/inputs/selectInput';
 import TasksInput from '@components/common/inputs/tasksInput';
 import TextAreaInput from '@components/common/inputs/textAreaInput';
@@ -52,7 +52,7 @@ const AddTaskModal = (props: Props) => {
               onChange={() => {}}
             />
             <SelectInput optionsList={LIST_OPTIONS} />
-            <DateInput />
+            <DateTimeInput />
 
             <div className="flex gap-4">
               <SecondaryButton text={'Delete Task'} />
