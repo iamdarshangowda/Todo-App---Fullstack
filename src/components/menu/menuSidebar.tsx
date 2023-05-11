@@ -14,6 +14,7 @@ import SearchBar from './searchBar';
 import SingleMenu from './singleMenu';
 import { IMenu, IMenuList } from '@utils/types';
 import ListIocnBox from './listIocnBox';
+import { useToggleContext } from '@context/useToggleContext';
 
 const TASKS: IMenuList = [
   {
@@ -70,23 +71,23 @@ const SETTINGS: IMenuList = [
 ];
 
 const MenuSidebar = () => {
-  const [hide, setHide] = useState(false);
+  const { hideMenu, setHideMenu } = useToggleContext();
 
   return (
     <nav
       className={`${
-        hide ? 'w-10 flex items-center' : 'w-1/5 min-w-[250px] bg-grey-10'
+        hideMenu ? 'w-0 flex items-center p-0' : 'w-1/5 min-w-[250px] bg-grey-10'
       } rounded-xl z-10  p-6 flex flex-col transition-all duration-500`}
     >
-      {hide && (
+      {/* {hide && (
         <div className="hover:cursor-pointer " onClick={() => setHide((prev) => !prev)}>
           <MenuIcon fill="#4B4B4B" />
         </div>
-      )}
-      <div className={hide ? 'hidden ' : 'flex flex-col '}>
+      )} */}
+      <div className={hideMenu ? 'hidden ' : 'flex flex-col '}>
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60">Menu</h2>
-          <div className="hover:cursor-pointer" onClick={() => setHide(true)}>
+          <div className="hover:cursor-pointer" onClick={() => setHideMenu(true)}>
             <MenuIcon fill="#4B4B4B" />
           </div>
         </div>

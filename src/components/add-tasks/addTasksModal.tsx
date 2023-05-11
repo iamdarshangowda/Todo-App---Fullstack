@@ -30,7 +30,7 @@ const AddTaskModal = (props: Props) => {
     <Modal setShow={() => {}} show={showAddTasks}>
       <div className="bg-grey-10 p-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Tasks:</h2>
+          <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
           <div
             onClick={() => setShowAddTasks((prev) => !prev)}
             className="hover:cursor-pointer"

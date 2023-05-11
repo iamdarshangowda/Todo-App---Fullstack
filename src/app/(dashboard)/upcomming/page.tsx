@@ -22,7 +22,7 @@ function Upcomming() {
 
       <div>
         <SecondaryButton
-          text="Add Tasks"
+          text="Add Task"
           onClick={() => setShowAddTasks((prev) => !prev)}
           icon={<AddIcon />}
         />
