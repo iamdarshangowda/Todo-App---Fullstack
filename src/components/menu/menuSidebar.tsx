@@ -76,15 +76,10 @@ const MenuSidebar = () => {
   return (
     <nav
       className={`${
-        hideMenu ? 'w-0 flex items-center p-0' : 'w-1/5 min-w-[250px] bg-grey-10'
-      } rounded-xl z-10  p-6 flex flex-col transition-all duration-500`}
+        hideMenu ? 'hidden' : 'w-1/5 min-w-[250px] bg-grey-10'
+      } rounded-xl z-10  p-6 flex flex-col `}
     >
-      {/* {hide && (
-        <div className="hover:cursor-pointer " onClick={() => setHide((prev) => !prev)}>
-          <MenuIcon fill="#4B4B4B" />
-        </div>
-      )} */}
-      <div className={hideMenu ? 'hidden ' : 'flex flex-col '}>
+      <div className="flex flex-col">
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60">Menu</h2>
           <div className="hover:cursor-pointer" onClick={() => setHideMenu(true)}>

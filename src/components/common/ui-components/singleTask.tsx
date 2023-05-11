@@ -8,9 +8,9 @@ const SingleTask = (props: ISingleTask) => {
   return (
     <div className="hover:bg-[#D8D8D8] p-2 rounded-lg hover:cursor-pointer">
       <div className="flex gap-4 px-1">
-        <input type="checkbox" id="singletask" name="singletask" value="task1" />
+        <input type="checkbox" id={title} name="singletask" value="task1" />
         <label
-          htmlFor="singletask"
+          htmlFor={title}
           className="text-grey-40 flex-grow hover:cursor-pointer text-body-1/b2"
         >
           {title}
