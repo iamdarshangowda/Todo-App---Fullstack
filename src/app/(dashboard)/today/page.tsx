@@ -51,7 +51,7 @@ const Today = () => {
 
       <AddTaskModal showAddTasks={showAddTasks} setShowAddTasks={setShowAddTasks} />
 
-      <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-2">
         {TASKS.map(({ title, dueDateTime, listType }) => (
           <SingleTask
             title={title}

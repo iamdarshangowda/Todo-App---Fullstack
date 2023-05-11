@@ -6,9 +6,11 @@ import { ISingleTask } from '@utils/types';
 const SingleTask = (props: ISingleTask) => {
   const { title, dueDateTime, listType } = props;
   return (
-    <div className="hover:bg-[#D8D8D8] p-2 rounded-lg hover:cursor-pointer">
-      <div className="flex gap-4 px-1">
-        <input type="checkbox" id={title} name="singletask" value="task1" />
+    <div className="hover:bg-[#D8D8D8] p-2 rounded-lg hover:cursor-pointer ">
+      <div className="flex gap-4 p-1">
+        <div className="w-5 h-5">
+          <input type="checkbox" id={title} name="singletask" value="task1" size={4} />
+        </div>
         <label
           htmlFor={title}
           className="text-grey-40 flex-grow hover:cursor-pointer text-body-1/b2"
@@ -20,7 +22,7 @@ const SingleTask = (props: ISingleTask) => {
         </div>
       </div>
 
-      <div className="flex gap-8 pl-8 items-center">
+      <div className="flex gap-8 pl-10 items-center pt-1">
         {dueDateTime && (
           <div className="flex gap-2 items-center">
             <CalendarMenuIcon />

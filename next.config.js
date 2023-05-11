@@ -6,6 +6,10 @@ const nextConfig = {
   env: {
     TODO_BACKED_PORT: process.env.TODO_BACKED_PORT,
   },
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true,
+  },
 };
 
 module.exports = nextConfig;
