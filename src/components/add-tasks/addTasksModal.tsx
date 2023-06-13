@@ -6,7 +6,16 @@ import SelectInput from '@components/common/inputs/selectInput';
 import TasksInput from '@components/common/inputs/tasksInput';
 import TextAreaInput from '@components/common/inputs/textAreaInput';
 import Modal from '@components/common/modal/modal';
-import React, { Dispatch, SetStateAction } from 'react';
+import { ISingleTask } from '@utils/types';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useState,
+} from 'react';
+import { post } from '../../config/axiosClient';
+import { useUIHelperContext } from '@context/useUIHelperContext';
 
 const LIST_OPTIONS = [
   {
@@ -19,6 +28,13 @@ const LIST_OPTIONS = [
   },
 ];
 
+const initialTask = {
+  title: '',
+  description: '',
+  list_type: 'personal',
+  due_date: '',
+};
+
 interface Props {
   setShowAddTasks: Dispatch<SetStateAction<boolean>>;
   showAddTasks: boolean;
@@ -26,6 +42,29 @@ interface Props {
 
 const AddTaskModal = (props: Props) => {
   const { setShowAddTasks, showAddTasks } = props;
+  const [task, setTask] = useState<ISingleTask>(initialTask);
+  const { loading, setLoading } = useUIHelperContext();
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setTask((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmitTask: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await post('addtask', task).then((data) => {
+        console.log(data);
+        setShowAddTasks((prev) => !prev);
+      });
+    } catch (error: any) {
+      console.log(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Modal setShow={() => {}} show={showAddTasks}>
       <div className="bg-grey-10 p-6">
@@ -38,25 +77,25 @@ const AddTaskModal = (props: Props) => {
             <CloseIcon />
           </div>
         </div>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handleSubmitTask}>
           <div className="flex flex-col space-y-4 mt-6">
             <TasksInput
               type={'text'}
               placeholder={'Add title'}
               name={'title'}
-              onChange={() => {}}
+              onChange={handleInputChange}
             />
             <TextAreaInput
               placeholder={'Add description'}
               name={'description'}
-              onChange={() => {}}
+              onChange={handleInputChange}
             />
-            <SelectInput optionsList={LIST_OPTIONS} />
-            <DateTimeInput />
+            <SelectInput optionsList={LIST_OPTIONS} onChange={handleInputChange} />
+            <DateTimeInput onChange={handleInputChange} />
 
             <div className="flex gap-4">
               <SecondaryButton text={'Delete Task'} />
-              <PrimaryButton text={'Save Changes'} type="submit" />
+              <PrimaryButton text={'Save Changes'} type="submit" disable={loading} />
             </div>
           </div>
         </form>

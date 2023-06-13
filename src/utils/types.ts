@@ -25,6 +25,7 @@ export interface ISingleTask {
   title: string;
   dueDateTime?: string;
   listType?: string;
+  description?: string;
 }
 
 export type TaskLists = ISingleTask[];

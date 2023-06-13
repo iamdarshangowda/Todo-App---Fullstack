@@ -1,4 +1,5 @@
 import React from 'react';
+import LoadingSpinner from '../animations/loadingSpinner';
 
 type Buttontype = 'button' | 'reset' | 'submit';
 
@@ -6,10 +7,11 @@ interface IButtonProps {
   text: string;
   onClick?: () => void;
   type?: Buttontype;
+  disable?: boolean;
 }
 
 const PrimaryButton = (props: IButtonProps) => {
-  const { text, onClick, type } = props;
+  const { text, onClick, type, disable } = props;
   return (
     <button
       className={`max-w-lg w-full rounded-xl h-12 bg-yellow text-grey-90 text-body-1/b1
@@ -17,8 +19,9 @@ const PrimaryButton = (props: IButtonProps) => {
       hover:duration-300`}
       onClick={onClick}
       type={type ? type : 'button'}
+      disabled={disable}
     >
-      {text}
+      {disable ? <LoadingSpinner /> : text}
     </button>
   );
 };
