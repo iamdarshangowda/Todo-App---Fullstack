@@ -8,7 +8,7 @@ interface IUserData {
 }
 
 export const post = (apiURL: string, data: any) => {
-  const token = localStorage.getItem('todoAuthToken');
+  const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
 
   return axios.post(`${URL}/${apiURL}`, data, {
     headers: {
