@@ -84,7 +84,7 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       await noAuthPost('user/signup', data).then((data) => {
         const token = data.data.accessToekn;
         localStorage.setItem('todoAuthToken', JSON.stringify(token));
-        router.push('/dashboard');
+        router.push('/today');
       });
     } catch (error: any) {
       console.log(error.response.data.message);

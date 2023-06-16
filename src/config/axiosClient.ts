@@ -7,13 +7,24 @@ interface IUserData {
   password: string;
 }
 
-export const post = (apiURL: string, data: IUserData) => {
-  const token = localStorage.getItem('jwttoken');
+export const post = (apiURL: string, data: any) => {
+  const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
 
   return axios.post(`${URL}/${apiURL}`, data, {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
-      Authorization: 'Bearer' + token,
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
+export const get = (apiURL: string) => {
+  const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
+
+  return axios.get(`${URL}/${apiURL}`, {
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: 'Bearer ' + token,
     },
   });
 };

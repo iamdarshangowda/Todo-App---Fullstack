@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import { InputAttributes } from '../../../utils/types';
 
 interface IInputProps {
   name: InputAttributes['name'];
   value?: InputAttributes['value'];
   onBlur?: InputAttributes['onBlur'];
-  onChange: InputAttributes['onChange'];
+  onChange: any;
+  // todo  - update type for on change
   placeholder: InputAttributes['placeholder'];
 
   disabled?: boolean;
@@ -29,6 +30,7 @@ const TextAreaInput = (props: IInputProps) => {
         disabled={disabled}
         value={value}
         autoComplete="off"
+        onChange={onChange}
       />
       {error && <p className="text-error text-caption/c2 mt-1">{error}</p>}
     </div>
