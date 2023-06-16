@@ -54,7 +54,7 @@ const Today = () => {
         callback={handleGetAllTasks}
       />
 
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(100vh-200px)] last:pb-5">
         {tasks.map(({ title, due_date, list_type }) => (
           <SingleTask
             title={title}
