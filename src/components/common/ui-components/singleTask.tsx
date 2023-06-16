@@ -2,6 +2,7 @@ import React from 'react';
 import { CalendarMenuIcon, RightIcon } from '../icons/icons';
 import ListIocnBox from '@components/menu/listIocnBox';
 import { ISingleTask } from '@utils/types';
+import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
 const SingleTask = (props: ISingleTask) => {
   const { title, dueDateTime, listType } = props;
@@ -32,7 +33,9 @@ const SingleTask = (props: ISingleTask) => {
         {listType && (
           <div className="flex gap-2 items-center">
             <ListIocnBox size={'!h-4 w-4 rounded-sm'} />
-            <h3 className="text-grey-60 text-body-2/b1">{listType}</h3>
+            <h3 className="text-grey-60 text-body-2/b1">
+              {capitalizeFirstLetter(listType)}
+            </h3>
           </div>
         )}
       </div>
