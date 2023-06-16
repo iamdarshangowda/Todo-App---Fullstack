@@ -35,13 +35,13 @@ const initialTask = {
   due_date: '',
 };
 
-interface Props {
+interface IAddTaskModal {
   setShowAddTasks: Dispatch<SetStateAction<boolean>>;
   showAddTasks: boolean;
-  callback: () => void;
+  callback?: () => void;
 }
 
-const AddTaskModal = (props: Props) => {
+const AddTaskModal = (props: IAddTaskModal) => {
   const { setShowAddTasks, showAddTasks, callback } = props;
   const [task, setTask] = useState<ISingleTask>(initialTask);
   const { loading, setLoading } = useUIHelperContext();
@@ -58,7 +58,7 @@ const AddTaskModal = (props: Props) => {
       await post('task', task).then((data) => {
         console.log(data);
         setShowAddTasks((prev) => !prev);
-        callback();
+        callback && callback();
       });
     } catch (error: any) {
       console.log(error.response.data.message);
