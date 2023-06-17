@@ -65,7 +65,7 @@ const Today = () => {
         {loading ? (
           Array(4)
             .fill('')
-            .map((data) => <SingleTaskSkeleton />)
+            .map((data, index) => <SingleTaskSkeleton key={index} />)
         ) : (
           <>
             {tasks.length ? (
