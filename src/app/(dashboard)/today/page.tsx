@@ -20,12 +20,12 @@ const Today = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    setBlurBackground(showAddTasks);
-  }, [showAddTasks]);
-
-  useEffect(() => {
-    setBlurBackground(viewTasks);
-  }, [viewTasks]);
+    if (showAddTasks || viewTasks) {
+      setBlurBackground(true);
+    } else {
+      setBlurBackground(false);
+    }
+  }, [showAddTasks, viewTasks]);
 
   const handleGetAllTasks = async () => {
     try {
