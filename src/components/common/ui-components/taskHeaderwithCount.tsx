@@ -20,7 +20,7 @@ const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
       )}
       <h1>{title}</h1>
       {loading ? (
-        <span className="w-12 rounded-lg animate-pulse bg-grey-10"></span>
+        <span className="w-14 h-14 rounded-lg animate-pulse bg-grey-10"></span>
       ) : count ? (
         <span className="px-4 border border-grey-20 rounded-lg">{count}</span>
       ) : null}

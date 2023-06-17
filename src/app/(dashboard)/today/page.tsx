@@ -40,7 +40,7 @@ const Today = () => {
 
   return (
     <TaskPageLayout>
-      <TaskHeaderwithCount title={'Today'} count={5} loading={false} />
+      <TaskHeaderwithCount title={'Today'} count={tasks.length} loading={loading} />
 
       <div className="flex gap-4">
         <SecondaryButton
@@ -61,7 +61,7 @@ const Today = () => {
         callback={handleGetAllTasks}
       />
 
-      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(90vh-200px)] last:pb-5">
+      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (
           Array(4)
             .fill('')
