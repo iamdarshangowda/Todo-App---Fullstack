@@ -24,7 +24,7 @@ const SingleMenu = (props: IMenu & SingleMenuProps) => {
     }`}
     >
       {icon}
-      <h3 className={` text-grey-40 flex-grow `}>{label}</h3>
+      <h3 className={` text-grey-40 flex-grow text-left pl-5`}>{label}</h3>
       {count && (
         <span className="px-3 text-body-2/b1 text-grey-60 bg-[#D8D8D8] rounded-md ">
           {count}

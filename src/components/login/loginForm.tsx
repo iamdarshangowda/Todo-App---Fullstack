@@ -8,6 +8,7 @@ import { loginSchema } from '@utils/validation/validations';
 import parseZodError from '@utils/validation/parsedZodErrors';
 import { noAuthPost } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
+import { useUIHelperContext } from '@context/useUIHelperContext';
 
 const initialForm = {
   email: '',
@@ -19,7 +20,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const router = useRouter();
   const [userData, setUserData] = useState(initialForm);
   const [formError, setFormError] = useState(initialForm);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { loading, setLoading } = useUIHelperContext();
 
   const handleFormOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -111,7 +112,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             onBlur={onBlur}
             error={formError.password}
           />
-          <PrimaryButton text="Sign in" type="submit" />
+          <PrimaryButton text="Sign in" type="submit" disable={loading} />
         </div>
       </form>
       <TextButton text="Don't have an account? Sign up" onClick={handleSignUp} />

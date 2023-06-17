@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Schema } from 'zod';
 import parseZodError from '@utils/validation/parsedZodErrors';
 import { signUpSchema } from '@utils/validation/validations';
+import { useUIHelperContext } from '@context/useUIHelperContext';
 
 const initialForm = {
   username: '',
@@ -18,9 +19,9 @@ const initialForm = {
 
 const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const { setCurrentTab } = useToggleContext();
-  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [userData, setUserData] = useState(initialForm);
+  const { loading, setLoading } = useUIHelperContext();
 
   const [formError, setFormError] = useState(initialForm);
 
@@ -146,7 +147,7 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             onBlur={onBlur}
             autoComplete="new-password"
           />
-          <PrimaryButton text="Sign up" type="submit" />
+          <PrimaryButton text="Sign up" type="submit" disable={loading} />
         </div>
       </form>
       <TextButton text="Already have an account? Sign in" onClick={handleSignIn} />
