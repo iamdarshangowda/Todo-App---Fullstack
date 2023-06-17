@@ -1,3 +1,4 @@
+import isMobileDevice from '@utils/detectUserDevice';
 import { create } from 'zustand';
 
 type ITabContext = {
@@ -14,7 +15,7 @@ export const useToggleContext = create<ITabContext>((set, get) => ({
     set({ currentTab });
   },
 
-  hideMenu: false,
+  hideMenu: isMobileDevice() ? true : false,
   setHideMenu(hideMenu) {
     set({ hideMenu });
   },

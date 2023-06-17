@@ -7,24 +7,31 @@ import SingleTask from '@components/common/ui-components/singleTask';
 import TaskHeaderwithCount from '@components/common/ui-components/taskHeaderwithCount';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
-import { TaskLists } from '@utils/types';
 import React, { useEffect, useState } from 'react';
 import { get } from '../../../config/axiosClient';
+import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
 
 const Today = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
-  const { setBlurBackground } = useUIHelperContext();
+  const { setBlurBackground, loading, setLoading } = useUIHelperContext();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     setBlurBackground(showAddTasks);
   }, [showAddTasks]);
 
-  const handleGetAllTasks = () => {
-    get('tasks').then((tasks) => {
-      console.log(tasks.data);
-      setTasks(tasks.data);
-    });
+  const handleGetAllTasks = async () => {
+    try {
+      setLoading(true);
+
+      await get('tasks').then((tasks) => {
+        setTasks(tasks.data);
+      });
+    } catch (err: any) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -54,15 +61,29 @@ const Today = () => {
         callback={handleGetAllTasks}
       />
 
-      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(100vh-200px)] last:pb-5">
-        {tasks.map(({ title, due_date, list_type }) => (
-          <SingleTask
-            title={title}
-            dueDateTime={due_date}
-            listType={list_type}
-            key={title}
-          />
-        ))}
+      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(90vh-200px)] last:pb-5">
+        {loading ? (
+          Array(4)
+            .fill('')
+            .map((data) => <SingleTaskSkeleton />)
+        ) : (
+          <>
+            {tasks.length ? (
+              tasks.map(({ title, due_date, list_type }) => (
+                <SingleTask
+                  title={title}
+                  dueDateTime={due_date}
+                  listType={list_type}
+                  key={title}
+                />
+              ))
+            ) : (
+              <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
+                No Tasks Added!
+              </h2>
+            )}
+          </>
+        )}
       </div>
 
       {/* <div className="flex sm:hidden fixed bottom-4 gap-2 w-full ">

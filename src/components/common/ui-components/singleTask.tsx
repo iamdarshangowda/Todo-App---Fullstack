@@ -7,7 +7,7 @@ import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 const SingleTask = (props: ISingleTask) => {
   const { title, dueDateTime, listType } = props;
   return (
-    <div className="hover:bg-[#D8D8D8] p-2 rounded-lg hover:cursor-pointer ">
+    <div className="hover:bg-grey-10 m-0 sm:mx-2 sm:first:mt-2 p-2 rounded-lg hover:cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 p-1">
         <div className="w-5 h-5">
           <input type="checkbox" id={title} name="singletask" value="task1" size={4} />
@@ -18,7 +18,7 @@ const SingleTask = (props: ISingleTask) => {
         >
           {title}
         </label>
-        <div>
+        <div className="pr-1 sm:pr-5">
           <RightIcon />
         </div>
       </div>
