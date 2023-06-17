@@ -1,5 +1,6 @@
 function isMobileDevice() {
-  const userAgent = navigator.userAgent.toLowerCase();
+  const userAgent =
+    typeof navigator !== 'undefined' ? navigator.userAgent.toLowerCase() : '';
   const mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'windows phone'];
 
   for (let keyword of mobileKeywords) {
