@@ -69,9 +69,9 @@ const Today = () => {
       />
 
       <ViewTaskModal
-        showAddTasks={viewTasks}
-        setShowAddTasks={setViewTasks}
-        callback={handleGetAllTasks}
+        viewTasks={viewTasks}
+        setViewTasks={setViewTasks}
+        setShowAddTasks={setShowAddTasks}
       />
 
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">

@@ -7,24 +7,29 @@ import { useDataStoreContext } from '@context/useDataStoreContext';
 import { initialTask } from '@utils/initialData';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
-interface IAddTaskModal {
+interface IViewTaskModal {
   setShowAddTasks: Dispatch<SetStateAction<boolean>>;
-  showAddTasks: boolean;
-  callback?: () => void;
+  setViewTasks: Dispatch<SetStateAction<boolean>>;
+  viewTasks: boolean;
 }
 
-const ViewTaskModal = (props: IAddTaskModal) => {
-  const { setShowAddTasks, showAddTasks, callback } = props;
+const ViewTaskModal = (props: IViewTaskModal) => {
+  const { setViewTasks, viewTasks, setShowAddTasks } = props;
   const { singleTaskData, setSingleTaskData } = useDataStoreContext();
   const { title, description, due_date, list_type } = singleTaskData;
 
   const handleCloseModal = () => {
-    setShowAddTasks((prev) => !prev);
+    setViewTasks((prev) => !prev);
     setSingleTaskData(initialTask);
   };
 
+  const handleEditTask = () => {
+    setViewTasks((prev) => !prev);
+    setShowAddTasks(true);
+  };
+
   return (
-    <Modal setShow={() => {}} show={showAddTasks}>
+    <Modal setShow={() => {}} show={viewTasks}>
       <div className="bg-grey-10 p-6">
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
@@ -54,7 +59,7 @@ const ViewTaskModal = (props: IAddTaskModal) => {
           </p>
           <div className="flex gap-4">
             <SecondaryButton text={'Delete Task'} />
-            <PrimaryButton text={'Edit Task'} type="button" />
+            <PrimaryButton text={'Edit Task'} type="button" onClick={handleEditTask} />
           </div>
         </div>
       </div>
