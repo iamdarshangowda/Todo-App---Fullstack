@@ -23,8 +23,8 @@ export interface ISVGIocnProps {
 
 export interface ISingleTask {
   title: string;
-  dueDateTime?: string;
-  listType?: string;
+  due_date?: string;
+  list_type?: string;
   description?: string;
 }
 

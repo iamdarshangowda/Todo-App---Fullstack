@@ -10,15 +10,22 @@ import { useUIHelperContext } from '@context/useUIHelperContext';
 import React, { useEffect, useState } from 'react';
 import { get } from '../../../config/axiosClient';
 import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
+import ViewTaskModal from '@components/view-tasks/viewTaskModal';
+import { ISingleTask } from '@utils/types';
 
 const Today = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
+  const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { setBlurBackground, loading, setLoading } = useUIHelperContext();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     setBlurBackground(showAddTasks);
   }, [showAddTasks]);
+
+  useEffect(() => {
+    setBlurBackground(viewTasks);
+  }, [viewTasks]);
 
   const handleGetAllTasks = async () => {
     try {
@@ -61,6 +68,12 @@ const Today = () => {
         callback={handleGetAllTasks}
       />
 
+      <ViewTaskModal
+        showAddTasks={viewTasks}
+        setShowAddTasks={setViewTasks}
+        callback={handleGetAllTasks}
+      />
+
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (
           Array(4)
@@ -69,12 +82,11 @@ const Today = () => {
         ) : (
           <>
             {tasks.length ? (
-              tasks.map(({ title, due_date, list_type }) => (
+              tasks.map((task: ISingleTask) => (
                 <SingleTask
-                  title={title}
-                  dueDateTime={due_date}
-                  listType={list_type}
-                  key={title}
+                  taskData={task}
+                  key={task.title}
+                  setViewTasks={setViewTasks}
                 />
               ))
             ) : (

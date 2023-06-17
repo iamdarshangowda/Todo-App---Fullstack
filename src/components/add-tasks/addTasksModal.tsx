@@ -16,6 +16,7 @@ import React, {
 } from 'react';
 import { post } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
+import { initialTask } from '@utils/initialData';
 
 const LIST_OPTIONS = [
   {
@@ -27,13 +28,6 @@ const LIST_OPTIONS = [
     value: 'work',
   },
 ];
-
-const initialTask = {
-  title: '',
-  description: '',
-  list_type: 'personal',
-  due_date: '',
-};
 
 interface IAddTaskModal {
   setShowAddTasks: Dispatch<SetStateAction<boolean>>;
