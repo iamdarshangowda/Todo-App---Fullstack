@@ -19,6 +19,7 @@ import { post } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import { initialTask } from '@utils/initialData';
 import { useDataStoreContext } from '@context/useDataStoreContext';
+import { useToggleContext } from '@context/useToggleContext';
 
 const LIST_OPTIONS = [
   {
@@ -42,6 +43,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
   const [task, setTask] = useState<ISingleTask>(initialTask);
   const { loading, setLoading } = useUIHelperContext();
   const { singleTaskData, setSingleTaskData } = useDataStoreContext();
+  const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -56,9 +58,11 @@ const AddTaskModal = (props: IAddTaskModal) => {
         setShowAddTasks((prev) => !prev);
         callback && callback();
         setSingleTaskData(initialTask);
+        setShowSuccessToast({ show: true, message: data.data.message });
       });
     } catch (error: any) {
       console.log(error.response.data.message);
+      setShowErrorToast({ show: true, message: error.response.data.message });
     } finally {
       setLoading(false);
     }
@@ -81,7 +85,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
       <div className="bg-grey-10 p-6">
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
-          <div onClick={handleCloseModal} className="hover:cursor-pointer">
+          <div onClick={handleCloseModal} className="hover:cursor-pointer p-2">
             <CloseIcon />
           </div>
         </div>

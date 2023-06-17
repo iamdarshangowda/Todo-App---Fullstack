@@ -1,4 +1,6 @@
 import isMobileDevice from '@utils/detectUserDevice';
+import { initialToast } from '@utils/initialData';
+import { ISuccessToast } from '@utils/types';
 import { create } from 'zustand';
 
 type ITabContext = {
@@ -7,6 +9,12 @@ type ITabContext = {
 
   hideMenu: boolean;
   setHideMenu: (hideMenu: boolean) => void;
+
+  showSuccessToast: ISuccessToast;
+  setShowSuccessToast: (showSuccessToast: ISuccessToast) => void;
+
+  showErrorToast: ISuccessToast;
+  setShowErrorToast: (showSuccessToast: ISuccessToast) => void;
 };
 
 export const useToggleContext = create<ITabContext>((set, get) => ({
@@ -18,5 +26,15 @@ export const useToggleContext = create<ITabContext>((set, get) => ({
   hideMenu: isMobileDevice() ? true : false,
   setHideMenu(hideMenu) {
     set({ hideMenu });
+  },
+
+  showSuccessToast: initialToast,
+  setShowSuccessToast(showSuccessToast) {
+    set({ showSuccessToast });
+  },
+
+  showErrorToast: initialToast,
+  setShowErrorToast(showErrorToast) {
+    set({ showErrorToast });
   },
 }));

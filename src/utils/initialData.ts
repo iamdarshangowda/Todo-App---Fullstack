@@ -4,3 +4,5 @@ export const initialTask = {
   list_type: 'personal',
   due_date: '',
 };
+
+export const initialToast = { show: false, message: '' };

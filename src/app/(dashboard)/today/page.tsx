@@ -12,11 +12,14 @@ import { get } from '../../../config/axiosClient';
 import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
 import { ISingleTask } from '@utils/types';
+import { useDataStoreContext } from '@context/useDataStoreContext';
+import { initialTask } from '@utils/initialData';
 
 const Today = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { setBlurBackground, loading, setLoading } = useUIHelperContext();
+  const { setSingleTaskData } = useDataStoreContext();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -26,6 +29,11 @@ const Today = () => {
       setBlurBackground(false);
     }
   }, [showAddTasks, viewTasks]);
+
+  const handleAddTask = () => {
+    setSingleTaskData(initialTask);
+    setShowAddTasks((prev) => !prev);
+  };
 
   const handleGetAllTasks = async () => {
     try {
@@ -50,11 +58,7 @@ const Today = () => {
       <TaskHeaderwithCount title={'Today'} count={tasks.length} loading={loading} />
 
       <div className="flex gap-4">
-        <SecondaryButton
-          text="Add Task"
-          onClick={() => setShowAddTasks((prev) => !prev)}
-          icon={<AddIcon />}
-        />
+        <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
         <SecondaryButton
           text="Rec Audio"
           onClick={() => setShowAddTasks((prev) => !prev)}
@@ -72,6 +76,7 @@ const Today = () => {
         viewTasks={viewTasks}
         setViewTasks={setViewTasks}
         setShowAddTasks={setShowAddTasks}
+        callback={handleGetAllTasks}
       />
 
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
@@ -97,20 +102,6 @@ const Today = () => {
           </>
         )}
       </div>
-
-      {/* <div className="flex sm:hidden fixed bottom-4 gap-2 w-full ">
-        <SecondaryButton
-          text="Add Task"
-          onClick={() => setShowAddTasks((prev) => !prev)}
-          icon={<AddIcon />}
-        />
-
-        <SecondaryButton
-          text="Rec Audio"
-          onClick={() => setShowAddTasks((prev) => !prev)}
-          icon={<RecMicIcon />}
-        />
-      </div> */}
     </TaskPageLayout>
   );
 };

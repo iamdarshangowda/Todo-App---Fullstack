@@ -26,6 +26,12 @@ export interface ISingleTask {
   due_date?: string;
   list_type?: string;
   description?: string;
+  _id?: string;
 }
 
 export type TaskLists = ISingleTask[];
+
+export interface ISuccessToast {
+  show: boolean;
+  message: string;
+}

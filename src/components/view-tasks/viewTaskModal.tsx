@@ -6,17 +6,23 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 import { initialTask } from '@utils/initialData';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
+import { deleteTask } from '../../config/axiosClient';
+import { useUIHelperContext } from '@context/useUIHelperContext';
+import { useToggleContext } from '@context/useToggleContext';
 
 interface IViewTaskModal {
   setShowAddTasks: Dispatch<SetStateAction<boolean>>;
   setViewTasks: Dispatch<SetStateAction<boolean>>;
   viewTasks: boolean;
+  callback: () => void;
 }
 
 const ViewTaskModal = (props: IViewTaskModal) => {
-  const { setViewTasks, viewTasks, setShowAddTasks } = props;
+  const { setViewTasks, viewTasks, setShowAddTasks, callback } = props;
   const { singleTaskData, setSingleTaskData } = useDataStoreContext();
-  const { title, description, due_date, list_type } = singleTaskData;
+  const { loading, setLoading } = useUIHelperContext();
+  const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
+  const { title, description, due_date, list_type, _id } = singleTaskData;
 
   const handleCloseModal = () => {
     setViewTasks((prev) => !prev);
@@ -24,8 +30,29 @@ const ViewTaskModal = (props: IViewTaskModal) => {
   };
 
   const handleEditTask = () => {
+    if (loading) return;
     setViewTasks((prev) => !prev);
     setShowAddTasks(true);
+  };
+
+  const handleDeleteTask = async () => {
+    if (!_id) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await deleteTask(`task?id=${_id}`).then((task) => {
+        setViewTasks((prev) => !prev);
+        setSingleTaskData(initialTask);
+        setShowSuccessToast({ show: true, message: task.data.message });
+        callback();
+      });
+    } catch (err: any) {
+      setShowErrorToast({ show: true, message: err.message });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +60,7 @@ const ViewTaskModal = (props: IViewTaskModal) => {
       <div className="bg-grey-10 p-8">
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
-          <div onClick={handleCloseModal} className="hover:cursor-pointer">
+          <div onClick={handleCloseModal} className="hover:cursor-pointer p-2">
             <CloseIcon />
           </div>
         </div>
@@ -58,7 +85,11 @@ const ViewTaskModal = (props: IViewTaskModal) => {
             Due Date: <span className="text-body-1/b2 text-grey-90 pl-1">{due_date}</span>
           </p>
           <div className="flex gap-4">
-            <SecondaryButton text={'Delete Task'} />
+            <SecondaryButton
+              text={'Delete Task'}
+              disable={loading}
+              onClick={handleDeleteTask}
+            />
             <PrimaryButton text={'Edit Task'} type="button" onClick={handleEditTask} />
           </div>
         </div>

@@ -12,7 +12,7 @@ interface ISingleTaskProps {
 
 const SingleTask = (props: ISingleTaskProps) => {
   const { taskData, setViewTasks } = props;
-  const { title, due_date, list_type, description } = taskData;
+  const { title, due_date, list_type, description, _id } = taskData;
   const { setSingleTaskData } = useDataStoreContext();
 
   const handleViewTask = () => {
@@ -22,6 +22,7 @@ const SingleTask = (props: ISingleTaskProps) => {
       description,
       due_date,
       list_type,
+      _id,
     });
   };
 
