@@ -12,28 +12,25 @@ import React, {
   Dispatch,
   FormEventHandler,
   SetStateAction,
+  useEffect,
   useState,
 } from 'react';
 import { post } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
+import { initialTask } from '@utils/initialData';
+import { useDataStoreContext } from '@context/useDataStoreContext';
+import { useToggleContext } from '@context/useToggleContext';
 
 const LIST_OPTIONS = [
   {
     label: 'Personal',
-    value: 'personal',
+    list_value: 'personal',
   },
   {
     label: 'Work',
-    value: 'work',
+    list_value: 'work',
   },
 ];
-
-const initialTask = {
-  title: '',
-  description: '',
-  list_type: 'personal',
-  due_date: '',
-};
 
 interface IAddTaskModal {
   setShowAddTasks: Dispatch<SetStateAction<boolean>>;
@@ -45,6 +42,8 @@ const AddTaskModal = (props: IAddTaskModal) => {
   const { setShowAddTasks, showAddTasks, callback } = props;
   const [task, setTask] = useState<ISingleTask>(initialTask);
   const { loading, setLoading } = useUIHelperContext();
+  const { singleTaskData, setSingleTaskData } = useDataStoreContext();
+  const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -56,43 +55,60 @@ const AddTaskModal = (props: IAddTaskModal) => {
     setLoading(true);
     try {
       await post('task', task).then((data) => {
-        console.log(data);
         setShowAddTasks((prev) => !prev);
         callback && callback();
+        setSingleTaskData(initialTask);
+        setShowSuccessToast({ show: true, message: data.data.message });
       });
     } catch (error: any) {
       console.log(error.response.data.message);
+      setShowErrorToast({ show: true, message: error.response.data.message });
     } finally {
       setLoading(false);
     }
   };
+
+  const handleCloseModal = () => {
+    setShowAddTasks((prev) => !prev);
+    setSingleTaskData(initialTask);
+    setTask(initialTask);
+  };
+
+  useEffect(() => {
+    if (singleTaskData.title.length) {
+      setTask(singleTaskData);
+    }
+  }, [singleTaskData]);
 
   return (
     <Modal setShow={() => {}} show={showAddTasks}>
       <div className="bg-grey-10 p-6">
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
-          <div
-            onClick={() => setShowAddTasks((prev) => !prev)}
-            className="hover:cursor-pointer"
-          >
+          <div onClick={handleCloseModal} className="hover:cursor-pointer p-2">
             <CloseIcon />
           </div>
         </div>
         <form onSubmit={handleSubmitTask}>
           <div className="flex flex-col space-y-4 mt-6">
             <TasksInput
+              value={task.title}
               type={'text'}
               placeholder={'Add title'}
               name={'title'}
               onChange={handleInputChange}
             />
             <TextAreaInput
+              value={task.description}
               placeholder={'Add description'}
               name={'description'}
               onChange={handleInputChange}
             />
-            <SelectInput optionsList={LIST_OPTIONS} onChange={handleInputChange} />
+            <SelectInput
+              optionsList={LIST_OPTIONS}
+              onChange={handleInputChange}
+              value={task.list_type ? task.list_type : ''}
+            />
             <DateTimeInput onChange={handleInputChange} />
 
             <div className="flex gap-4">

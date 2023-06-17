@@ -1,4 +1,5 @@
 import React from 'react';
+import LoadingSpinner from '../animations/loadingSpinner';
 
 type Buttontype = 'button' | 'reset' | 'submit';
 
@@ -15,15 +16,19 @@ const SecondaryButton = (props: IButtonProps) => {
   return (
     <button
       className={`max-w-[150px] w-full rounded-xl h-12 bg-grey-0 text-grey-90 text-body-1/b1
-       hover:bg-grey-10 border`}
+       hover:bg-grey-10 border hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]`}
       onClick={onClick}
       type={type ? type : 'button'}
       disabled={disable}
     >
-      <div className="flex items-center justify-center gap-4">
-        {icon}
-        {text}
-      </div>
+      {disable ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="flex items-center justify-center gap-4">
+          {icon}
+          {text}
+        </div>
+      )}
     </button>
   );
 };

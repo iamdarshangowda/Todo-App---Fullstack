@@ -8,6 +8,7 @@ import { loginSchema } from '@utils/validation/validations';
 import parseZodError from '@utils/validation/parsedZodErrors';
 import { noAuthPost } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
+import { useUIHelperContext } from '@context/useUIHelperContext';
 
 const initialForm = {
   email: '',
@@ -15,11 +16,11 @@ const initialForm = {
 };
 
 const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
-  const { setCurrentTab } = useToggleContext();
+  const { setCurrentTab, setShowSuccessToast, setShowErrorToast } = useToggleContext();
   const router = useRouter();
   const [userData, setUserData] = useState(initialForm);
   const [formError, setFormError] = useState(initialForm);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { loading, setLoading } = useUIHelperContext();
 
   const handleFormOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -74,10 +75,12 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       await noAuthPost('user/login', userData).then((data) => {
         const token = data.data.accessToekn;
         localStorage.setItem('todoAuthToken', JSON.stringify(token));
+        setShowSuccessToast({ show: true, message: data.data.message });
         router.push('/today');
       });
     } catch (error: any) {
       console.log(error.response.data.message);
+      setShowErrorToast({ show: true, message: error.response.data.message });
       setFormError((prev) => ({ ...prev, password: error.response.data.message }));
     } finally {
       setLoading(false);
@@ -111,7 +114,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
             onBlur={onBlur}
             error={formError.password}
           />
-          <PrimaryButton text="Sign in" type="submit" />
+          <PrimaryButton text="Sign in" type="submit" disable={loading} />
         </div>
       </form>
       <TextButton text="Don't have an account? Sign up" onClick={handleSignUp} />

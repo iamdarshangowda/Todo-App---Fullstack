@@ -7,24 +7,46 @@ import SingleTask from '@components/common/ui-components/singleTask';
 import TaskHeaderwithCount from '@components/common/ui-components/taskHeaderwithCount';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
-import { TaskLists } from '@utils/types';
 import React, { useEffect, useState } from 'react';
 import { get } from '../../../config/axiosClient';
+import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
+import ViewTaskModal from '@components/view-tasks/viewTaskModal';
+import { ISingleTask } from '@utils/types';
+import { useDataStoreContext } from '@context/useDataStoreContext';
+import { initialTask } from '@utils/initialData';
 
 const Today = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
-  const { setBlurBackground } = useUIHelperContext();
+  const [viewTasks, setViewTasks] = useState<boolean>(false);
+  const { setBlurBackground, loading, setLoading } = useUIHelperContext();
+  const { setSingleTaskData } = useDataStoreContext();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    setBlurBackground(showAddTasks);
-  }, [showAddTasks]);
+    if (showAddTasks || viewTasks) {
+      setBlurBackground(true);
+    } else {
+      setBlurBackground(false);
+    }
+  }, [showAddTasks, viewTasks]);
 
-  const handleGetAllTasks = () => {
-    get('tasks').then((tasks) => {
-      console.log(tasks.data);
-      setTasks(tasks.data);
-    });
+  const handleAddTask = () => {
+    setSingleTaskData(initialTask);
+    setShowAddTasks((prev) => !prev);
+  };
+
+  const handleGetAllTasks = async () => {
+    try {
+      setLoading(true);
+
+      await get('tasks').then((tasks) => {
+        setTasks(tasks.data);
+      });
+    } catch (err: any) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -33,14 +55,10 @@ const Today = () => {
 
   return (
     <TaskPageLayout>
-      <TaskHeaderwithCount title={'Today'} count={5} loading={false} />
+      <TaskHeaderwithCount title={'Today'} count={tasks.length} loading={loading} />
 
       <div className="flex gap-4">
-        <SecondaryButton
-          text="Add Task"
-          onClick={() => setShowAddTasks((prev) => !prev)}
-          icon={<AddIcon />}
-        />
+        <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
         <SecondaryButton
           text="Rec Audio"
           onClick={() => setShowAddTasks((prev) => !prev)}
@@ -54,30 +72,36 @@ const Today = () => {
         callback={handleGetAllTasks}
       />
 
-      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(100vh-200px)] last:pb-5">
-        {tasks.map(({ title, due_date, list_type }) => (
-          <SingleTask
-            title={title}
-            dueDateTime={due_date}
-            listType={list_type}
-            key={title}
-          />
-        ))}
+      <ViewTaskModal
+        viewTasks={viewTasks}
+        setViewTasks={setViewTasks}
+        setShowAddTasks={setShowAddTasks}
+        callback={handleGetAllTasks}
+      />
+
+      <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
+        {loading ? (
+          Array(4)
+            .fill('')
+            .map((data, index) => <SingleTaskSkeleton key={index} />)
+        ) : (
+          <>
+            {tasks.length ? (
+              tasks.map((task: ISingleTask) => (
+                <SingleTask
+                  taskData={task}
+                  key={task.title}
+                  setViewTasks={setViewTasks}
+                />
+              ))
+            ) : (
+              <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
+                No Tasks Added!
+              </h2>
+            )}
+          </>
+        )}
       </div>
-
-      {/* <div className="flex sm:hidden fixed bottom-4 gap-2 w-full ">
-        <SecondaryButton
-          text="Add Task"
-          onClick={() => setShowAddTasks((prev) => !prev)}
-          icon={<AddIcon />}
-        />
-
-        <SecondaryButton
-          text="Rec Audio"
-          onClick={() => setShowAddTasks((prev) => !prev)}
-          icon={<RecMicIcon />}
-        />
-      </div> */}
     </TaskPageLayout>
   );
 };

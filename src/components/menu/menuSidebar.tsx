@@ -9,7 +9,7 @@ import {
   TodayMenuIcon,
   UpcommingIcon,
 } from '@components/common/icons/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from './searchBar';
 import SingleMenu from './singleMenu';
 import { IMenu, IMenuList } from '@utils/types';
@@ -76,7 +76,7 @@ const MenuSidebar = () => {
   return (
     <nav
       className={`${
-        hideMenu ? 'hidden' : 'w-1/5 min-w-[250px] bg-grey-10'
+        hideMenu ? 'hidden' : 'w-1/5 min-w-[300px] bg-grey-10'
       } rounded-xl z-10  p-6 flex flex-col `}
     >
       <div className="flex flex-col">
