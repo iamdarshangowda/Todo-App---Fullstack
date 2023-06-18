@@ -40,6 +40,17 @@ export const deleteTask = (apiURL: string) => {
   });
 };
 
+export const put = (apiURL: string, data: any) => {
+  const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
+
+  return axios.put(`${URL}/${apiURL}`, data, {
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
 export const noAuthPost = (apiURL: string, data: IUserData) => {
   console.log(process.env.TODO_BACKED_PORT);
   return axios.post(`${URL}/${apiURL}`, data, {
