@@ -15,7 +15,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { post } from '../../config/axiosClient';
+import { post, put } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import { initialTask } from '@utils/initialData';
 import { useDataStoreContext } from '@context/useDataStoreContext';
@@ -52,19 +52,39 @@ const AddTaskModal = (props: IAddTaskModal) => {
 
   const handleSubmitTask: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      await post('task', task).then((data) => {
-        setShowAddTasks((prev) => !prev);
-        callback && callback();
-        setSingleTaskData(initialTask);
-        setShowSuccessToast({ show: true, message: data.data.message });
-      });
-    } catch (error: any) {
-      console.log(error.response.data.message);
-      setShowErrorToast({ show: true, message: error.response.data.message });
-    } finally {
-      setLoading(false);
+
+    if (singleTaskData.title.length) {
+      // Update Task
+      try {
+        setLoading(true);
+        await put(`task?id=${singleTaskData._id}`, task).then((data) => {
+          setShowAddTasks((prev) => !prev);
+          callback && callback();
+          setSingleTaskData(initialTask);
+          setShowSuccessToast({ show: true, message: data.data.message });
+        });
+      } catch (error: any) {
+        console.log(error.response.data.message);
+        setShowErrorToast({ show: true, message: error.response.data.message });
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      // Add new Task
+      try {
+        setLoading(true);
+        await post('task', task).then((data) => {
+          setShowAddTasks((prev) => !prev);
+          callback && callback();
+          setSingleTaskData(initialTask);
+          setShowSuccessToast({ show: true, message: data.data.message });
+        });
+      } catch (error: any) {
+        console.log(error.response.data.message);
+        setShowErrorToast({ show: true, message: error.response.data.message });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -113,7 +133,13 @@ const AddTaskModal = (props: IAddTaskModal) => {
 
             <div className="flex gap-4">
               <SecondaryButton text={'Delete Task'} />
-              <PrimaryButton text={'Save Changes'} type="submit" disable={loading} />
+              <PrimaryButton
+                text={`${
+                  singleTaskData.title.length ? 'Update Changes' : 'Save Changes'
+                }`}
+                type="submit"
+                disable={loading}
+              />
             </div>
           </div>
         </form>
