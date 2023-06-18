@@ -35,7 +35,7 @@ const Personal = () => {
 
   return (
     <TaskPageLayout>
-      <TaskHeaderwithCount title={'Personal'} count={2} loading={false} />
+      <TaskHeaderwithCount title={'Personal'} count={tasks.length} loading={false} />
 
       <ViewTaskModal
         viewTasks={viewTasks}

@@ -35,7 +35,7 @@ const Work = () => {
 
   return (
     <TaskPageLayout>
-      <TaskHeaderwithCount title={'Personal'} count={2} loading={false} />
+      <TaskHeaderwithCount title={'Work'} count={tasks.length} loading={false} />
 
       <ViewTaskModal
         viewTasks={viewTasks}
