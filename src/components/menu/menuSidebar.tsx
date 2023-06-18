@@ -43,12 +43,12 @@ const LISTS: IMenuList = [
   {
     icon: <ListIocnBox bgColor={'!bg-red-500'} />,
     label: 'Personal',
-    route: '/list',
+    route: '/personal',
   },
   {
     icon: <ListIocnBox bgColor={'!bg-yellow'} />,
     label: 'Work',
-    route: '/list',
+    route: '/work',
   },
 ];
 

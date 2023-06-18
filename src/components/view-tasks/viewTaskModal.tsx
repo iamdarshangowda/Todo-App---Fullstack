@@ -11,14 +11,15 @@ import { useUIHelperContext } from '@context/useUIHelperContext';
 import { useToggleContext } from '@context/useToggleContext';
 
 interface IViewTaskModal {
-  setShowAddTasks: Dispatch<SetStateAction<boolean>>;
+  setShowAddTasks?: Dispatch<SetStateAction<boolean>>;
   setViewTasks: Dispatch<SetStateAction<boolean>>;
   viewTasks: boolean;
   callback: () => void;
+  justView?: boolean;
 }
 
 const ViewTaskModal = (props: IViewTaskModal) => {
-  const { setViewTasks, viewTasks, setShowAddTasks, callback } = props;
+  const { setViewTasks, viewTasks, setShowAddTasks, callback, justView } = props;
   const { singleTaskData, setSingleTaskData } = useDataStoreContext();
   const { loading, setLoading } = useUIHelperContext();
   const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
@@ -30,9 +31,9 @@ const ViewTaskModal = (props: IViewTaskModal) => {
   };
 
   const handleEditTask = () => {
-    if (loading) return;
+    if (loading || justView) return;
     setViewTasks((prev) => !prev);
-    setShowAddTasks(true);
+    setShowAddTasks && setShowAddTasks(true);
   };
 
   const handleDeleteTask = async () => {
@@ -84,14 +85,16 @@ const ViewTaskModal = (props: IViewTaskModal) => {
           <p className="text-body-1/b1 text-grey-30">
             Due Date: <span className="text-body-1/b2 text-grey-90 pl-1">{due_date}</span>
           </p>
-          <div className="flex gap-4">
-            <SecondaryButton
-              text={'Delete Task'}
-              disable={loading}
-              onClick={handleDeleteTask}
-            />
-            <PrimaryButton text={'Edit Task'} type="button" onClick={handleEditTask} />
-          </div>
+          {!justView && (
+            <div className="flex gap-4">
+              <SecondaryButton
+                text={'Delete Task'}
+                disable={loading}
+                onClick={handleDeleteTask}
+              />
+              <PrimaryButton text={'Edit Task'} type="button" onClick={handleEditTask} />
+            </div>
+          )}
         </div>
       </div>
     </Modal>
