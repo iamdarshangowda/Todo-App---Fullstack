@@ -28,6 +28,8 @@ const Today = () => {
     } else {
       setBlurBackground(false);
     }
+
+    if (!showAddTasks && !viewTasks) setSingleTaskData(initialTask);
   }, [showAddTasks, viewTasks]);
 
   const handleAddTask = () => {

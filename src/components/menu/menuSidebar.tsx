@@ -41,18 +41,13 @@ const TASKS: IMenuList = [
 
 const LISTS: IMenuList = [
   {
-    icon: <ListIocnBox bgColor={'!bg-grey-90'} />,
+    icon: <ListIocnBox bgColor={'!bg-red-500'} />,
     label: 'Personal',
     route: '/list',
   },
   {
     icon: <ListIocnBox bgColor={'!bg-yellow'} />,
     label: 'Work',
-    route: '/list',
-  },
-  {
-    icon: <ListIocnBox bgColor={'!bg-grey-90'} />,
-    label: 'Other',
     route: '/list',
   },
 ];

@@ -29,9 +29,9 @@ const SelectInput = (props: ISelectProps) => {
         {optionsList.map(({ label, list_value }) => (
           <option
             selected={value === list_value}
-            value={value}
+            value={list_value}
             className="text-grey-60 text-body-1/b2 p-2"
-            key={value}
+            key={list_value}
           >
             {label}
           </option>

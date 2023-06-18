@@ -4,10 +4,11 @@ import React from 'react';
 interface IDateTimeInputProps {
   onChange: any;
   // todo  - update type for on change
+  value: string;
 }
 
 const DateTimeInput = (props: IDateTimeInputProps) => {
-  const { onChange } = props;
+  const { onChange, value } = props;
   const TODAY = dateTimeFormat();
 
   return (
@@ -16,6 +17,7 @@ const DateTimeInput = (props: IDateTimeInputProps) => {
         Due Date:
       </label>
       <input
+        value={value}
         defaultValue={TODAY}
         min={TODAY}
         type="datetime-local"

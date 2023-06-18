@@ -127,9 +127,12 @@ const AddTaskModal = (props: IAddTaskModal) => {
             <SelectInput
               optionsList={LIST_OPTIONS}
               onChange={handleInputChange}
-              value={task.list_type ? task.list_type : ''}
+              value={task.list_type ? task.list_type : 'personal'}
             />
-            <DateTimeInput onChange={handleInputChange} />
+            <DateTimeInput
+              onChange={handleInputChange}
+              value={task.due_date ? task.due_date : Date.now().toString()}
+            />
 
             <div className="flex gap-4">
               <SecondaryButton text={'Delete Task'} />
