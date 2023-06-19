@@ -15,7 +15,7 @@ import { ISingleTask } from '@utils/types';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 import { initialTask } from '@utils/initialData';
 
-const Upcomming = () => {
+const Upcoming = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { setBlurBackground, loading, setLoading } = useUIHelperContext();
@@ -57,7 +57,7 @@ const Upcomming = () => {
 
   return (
     <TaskPageLayout>
-      <TaskHeaderwithCount title={'Upcomming'} count={tasks.length} loading={loading} />
+      <TaskHeaderwithCount title={'Upcoming'} count={tasks.length} loading={loading} />
 
       <div className="flex gap-4">
         <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
@@ -108,4 +108,4 @@ const Upcomming = () => {
   );
 };
 
-export default Upcomming;
+export default Upcoming;

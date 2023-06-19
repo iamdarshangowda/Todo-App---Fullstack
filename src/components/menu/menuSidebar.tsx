@@ -19,8 +19,8 @@ import { useToggleContext } from '@context/useToggleContext';
 const TASKS: IMenuList = [
   {
     icon: <UpcommingIcon />,
-    label: 'Upcomming',
-    route: '/upcomming',
+    label: 'Upcoming',
+    route: '/upcoming',
   },
   {
     icon: <TodayMenuIcon />,
