@@ -23,7 +23,7 @@ export interface ISVGIocnProps {
 
 export interface ISingleTask {
   title: string;
-  due_date?: string;
+  due_date?: Date;
   list_type?: string;
   description?: string;
   _id?: string;

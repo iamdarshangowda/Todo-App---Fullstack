@@ -48,7 +48,9 @@ const SingleTask = (props: ISingleTaskProps) => {
         {due_date && (
           <div className="flex gap-2 items-center">
             <CalendarMenuIcon />
-            <h3 className="text-grey-60 text-body-2/b1">{due_date}</h3>
+            <h3 className="text-grey-60 text-body-2/b1">
+              {new Date(due_date ?? '').toISOString()}
+            </h3>
           </div>
         )}
         {list_type && (

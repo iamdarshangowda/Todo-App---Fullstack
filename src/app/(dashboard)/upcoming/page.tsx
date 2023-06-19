@@ -14,12 +14,15 @@ import ViewTaskModal from '@components/view-tasks/viewTaskModal';
 import { ISingleTask } from '@utils/types';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 import { initialTask } from '@utils/initialData';
+import isMobileDevice from '@utils/detectUserDevice';
+import { useToggleContext } from '@context/useToggleContext';
 
-const Upcomming = () => {
+const Upcoming = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { setBlurBackground, loading, setLoading } = useUIHelperContext();
   const { setSingleTaskData } = useDataStoreContext();
+  const { setHideMenu } = useToggleContext();
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -41,23 +44,29 @@ const Upcomming = () => {
     try {
       setLoading(true);
 
-      await get(`tasks`).then((tasks) => {
+      await get(`tasks?date=upcoming`).then((tasks) => {
         setTasks(tasks.data);
       });
     } catch (err: any) {
       console.log(err.message);
     } finally {
-      setLoading(false);
+      // Just to make loading more applealing
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
     }
   };
 
   useEffect(() => {
     handleGetAllTasks();
+    if (isMobileDevice()) {
+      setHideMenu(true);
+    }
   }, []);
 
   return (
     <TaskPageLayout>
-      <TaskHeaderwithCount title={'Upcomming'} count={tasks.length} loading={loading} />
+      <TaskHeaderwithCount title={'Upcoming'} count={tasks.length} loading={loading} />
 
       <div className="flex gap-4">
         <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
@@ -108,4 +117,4 @@ const Upcomming = () => {
   );
 };
 
-export default Upcomming;
+export default Upcoming;

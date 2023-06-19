@@ -15,7 +15,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { post, put } from '../../config/axiosClient';
+import { deleteTask, post, put } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import { initialTask } from '@utils/initialData';
 import { useDataStoreContext } from '@context/useDataStoreContext';
@@ -47,7 +47,11 @@ const AddTaskModal = (props: IAddTaskModal) => {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setTask((prev) => ({ ...prev, [name]: value }));
+    console.log(new Date());
+    setTask((prev) => ({
+      ...prev,
+      [name]: name === 'due_date' ? new Date(value) : value,
+    }));
   };
 
   const handleSubmitTask: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -88,6 +92,25 @@ const AddTaskModal = (props: IAddTaskModal) => {
     }
   };
 
+  const handleDeleteTask = async () => {
+    if (!singleTaskData?._id) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await deleteTask(`task?id=${singleTaskData?._id}`).then((task) => {
+        handleCloseModal();
+        setShowSuccessToast({ show: true, message: task.data.message });
+        callback && callback();
+      });
+    } catch (err: any) {
+      setShowErrorToast({ show: true, message: err.message });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleCloseModal = () => {
     setShowAddTasks((prev) => !prev);
     setSingleTaskData(initialTask);
@@ -95,10 +118,10 @@ const AddTaskModal = (props: IAddTaskModal) => {
   };
 
   useEffect(() => {
-    if (singleTaskData.title.length) {
+    if (showAddTasks && singleTaskData.title.length) {
       setTask(singleTaskData);
     }
-  }, [singleTaskData]);
+  }, [singleTaskData, showAddTasks]);
 
   return (
     <Modal setShow={() => {}} show={showAddTasks}>
@@ -131,15 +154,19 @@ const AddTaskModal = (props: IAddTaskModal) => {
             />
             <DateTimeInput
               onChange={handleInputChange}
-              value={task.due_date ? task.due_date : Date.now().toString()}
+              value={new Date(task.due_date ?? '')}
             />
 
             <div className="flex gap-4">
-              <SecondaryButton text={'Delete Task'} />
+              {singleTaskData.title.length > 0 && (
+                <SecondaryButton
+                  text={'Delete Task'}
+                  disable={loading}
+                  onClick={handleDeleteTask}
+                />
+              )}
               <PrimaryButton
-                text={`${
-                  singleTaskData.title.length ? 'Update Changes' : 'Save Changes'
-                }`}
+                text={`${singleTaskData.title.length ? 'Update Changes' : 'Add Task'}`}
                 type="submit"
                 disable={loading}
               />
