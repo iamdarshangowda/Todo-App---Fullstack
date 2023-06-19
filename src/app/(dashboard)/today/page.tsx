@@ -14,6 +14,8 @@ import ViewTaskModal from '@components/view-tasks/viewTaskModal';
 import { ISingleTask } from '@utils/types';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 import { initialTask } from '@utils/initialData';
+import { useToggleContext } from '@context/useToggleContext';
+import isMobileDevice from '@utils/detectUserDevice';
 
 const Today = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
@@ -21,6 +23,7 @@ const Today = () => {
   const { setBlurBackground, loading, setLoading } = useUIHelperContext();
   const { setSingleTaskData } = useDataStoreContext();
   const [tasks, setTasks] = useState([]);
+  const { setHideMenu } = useToggleContext();
 
   useEffect(() => {
     if (showAddTasks || viewTasks) {
@@ -47,12 +50,18 @@ const Today = () => {
     } catch (err: any) {
       console.log(err.message);
     } finally {
-      setLoading(false);
+      // Just to make loading more applealing
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 
   useEffect(() => {
     handleGetAllTasks();
+    if (isMobileDevice()) {
+      setHideMenu(true);
+    }
   }, []);
 
   return (
