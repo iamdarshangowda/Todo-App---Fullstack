@@ -15,7 +15,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { post, put } from '../../config/axiosClient';
+import { deleteTask, post, put } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import { initialTask } from '@utils/initialData';
 import { useDataStoreContext } from '@context/useDataStoreContext';
@@ -88,6 +88,25 @@ const AddTaskModal = (props: IAddTaskModal) => {
     }
   };
 
+  const handleDeleteTask = async () => {
+    if (!singleTaskData?._id) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await deleteTask(`task?id=${singleTaskData?._id}`).then((task) => {
+        handleCloseModal();
+        setShowSuccessToast({ show: true, message: task.data.message });
+        callback && callback();
+      });
+    } catch (err: any) {
+      setShowErrorToast({ show: true, message: err.message });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleCloseModal = () => {
     setShowAddTasks((prev) => !prev);
     setSingleTaskData(initialTask);
@@ -98,7 +117,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
     if (showAddTasks && singleTaskData.title.length) {
       setTask(singleTaskData);
     }
-  }, [singleTaskData]);
+  }, [singleTaskData, showAddTasks]);
 
   return (
     <Modal setShow={() => {}} show={showAddTasks}>
@@ -135,11 +154,15 @@ const AddTaskModal = (props: IAddTaskModal) => {
             />
 
             <div className="flex gap-4">
-              <SecondaryButton text={'Delete Task'} />
+              {singleTaskData.title.length > 0 && (
+                <SecondaryButton
+                  text={'Delete Task'}
+                  disable={loading}
+                  onClick={handleDeleteTask}
+                />
+              )}
               <PrimaryButton
-                text={`${
-                  singleTaskData.title.length ? 'Update Changes' : 'Save Changes'
-                }`}
+                text={`${singleTaskData.title.length ? 'Update Changes' : 'Add Task'}`}
                 type="submit"
                 disable={loading}
               />
