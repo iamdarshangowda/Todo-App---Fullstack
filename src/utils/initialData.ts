@@ -1,4 +1,6 @@
-export const initialTask = {
+import { ISingleTask } from './types';
+
+export const initialTask: ISingleTask = {
   title: '',
   description: '',
   list_type: 'personal',

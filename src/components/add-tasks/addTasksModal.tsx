@@ -95,7 +95,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
   };
 
   useEffect(() => {
-    if (singleTaskData.title.length) {
+    if (showAddTasks && singleTaskData.title.length) {
       setTask(singleTaskData);
     }
   }, [singleTaskData]);
