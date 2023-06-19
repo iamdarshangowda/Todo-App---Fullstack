@@ -25,10 +25,10 @@ const SelectInput = (props: ISelectProps) => {
         className="p-3 sm:p-2 w-1/2 bg-grey-10 border border-grey-20 rounded-lg
         text-body-1/b1 text-grey-40 hover:cursor-pointer"
         onChange={onChange}
+        value={value}
       >
         {optionsList.map(({ label, list_value }) => (
           <option
-            selected={value === list_value}
             value={list_value}
             className="text-grey-60 text-body-1/b2 p-2"
             key={list_value}

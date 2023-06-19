@@ -31,7 +31,7 @@ const Personal = () => {
       // Just to make loading more applealing
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 300);
     }
   };
 

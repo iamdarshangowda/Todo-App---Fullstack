@@ -47,7 +47,11 @@ const AddTaskModal = (props: IAddTaskModal) => {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setTask((prev) => ({ ...prev, [name]: value }));
+    console.log(new Date());
+    setTask((prev) => ({
+      ...prev,
+      [name]: name === 'due_date' ? new Date(value) : value,
+    }));
   };
 
   const handleSubmitTask: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -150,7 +154,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
             />
             <DateTimeInput
               onChange={handleInputChange}
-              value={task.due_date ? task.due_date : Date.now().toString()}
+              value={new Date(task.due_date ?? '')}
             />
 
             <div className="flex gap-4">

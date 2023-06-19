@@ -43,8 +43,7 @@ const Today = () => {
   const handleGetAllTasks = async () => {
     try {
       setLoading(true);
-
-      await get('tasks').then((tasks) => {
+      await get(`tasks?date=today`).then((tasks) => {
         setTasks(tasks.data);
       });
     } catch (err: any) {
@@ -53,7 +52,7 @@ const Today = () => {
       // Just to make loading more applealing
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 300);
     }
   };
 

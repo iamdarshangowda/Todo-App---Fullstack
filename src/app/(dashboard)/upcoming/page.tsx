@@ -44,7 +44,7 @@ const Upcoming = () => {
     try {
       setLoading(true);
 
-      await get(`tasks`).then((tasks) => {
+      await get(`tasks?date=upcoming`).then((tasks) => {
         setTasks(tasks.data);
       });
     } catch (err: any) {
@@ -53,7 +53,7 @@ const Upcoming = () => {
       // Just to make loading more applealing
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 300);
     }
   };
 

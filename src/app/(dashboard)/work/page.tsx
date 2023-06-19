@@ -28,7 +28,10 @@ const Work = () => {
     } catch (err: any) {
       console.log(err.message);
     } finally {
-      setLoading(false);
+      // Just to make loading more applealing
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
     }
   };
 
