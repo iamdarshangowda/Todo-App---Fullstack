@@ -9,11 +9,14 @@ import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton'
 import { ISingleTask } from '@utils/types';
 import SingleTask from '@components/common/ui-components/singleTask';
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
+import isMobileDevice from '@utils/detectUserDevice';
+import { useToggleContext } from '@context/useToggleContext';
 
 const Work = () => {
   const [tasks, setTasks] = useState([]);
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { loading, setLoading } = useUIHelperContext();
+  const { setHideMenu } = useToggleContext();
 
   const handleGetAllPersonalTasks = async () => {
     try {
@@ -31,6 +34,9 @@ const Work = () => {
 
   useEffect(() => {
     handleGetAllPersonalTasks();
+    if (isMobileDevice()) {
+      setHideMenu(true);
+    }
   }, []);
 
   return (
