@@ -1,18 +1,21 @@
 import React from 'react';
 import { MenuIcon } from '../icons/icons';
 import { useToggleContext } from '@context/useToggleContext';
+import SearchBar from '@components/menu/searchBar';
+import isMobileDevice from '@utils/detectUserDevice';
 
 interface ITaskHeaderwithCount {
   title: string;
   count: number;
   loading: boolean;
+  handleSearchChange?: () => void;
 }
 
 const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
-  const { title, count, loading } = props;
+  const { title, count, loading, handleSearchChange } = props;
   const { hideMenu, setHideMenu } = useToggleContext();
   return (
-    <div className=" text-grey-80 flex gap-6 items-center relative ">
+    <div className=" text-grey-80 flex gap-6 items-center relative justify-items-stretch">
       {hideMenu && (
         <div className="hover:cursor-pointer " onClick={() => setHideMenu(false)}>
           <MenuIcon fill="#4B4B4B" />
@@ -22,10 +25,14 @@ const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
       {loading ? (
         <span className="w-12 h-12 rounded-lg animate-pulse bg-grey-10"></span>
       ) : count ? (
-        <span className="text-heading-2/h1 px-4 border border-grey-20 rounded-lg">
+        <span className="text-heading-2/h1 px-4 border border-grey-20 rounded-lg ">
           {count}
         </span>
       ) : null}
+
+      <div className="ml-auto">
+        {!isMobileDevice() && <SearchBar onChange={handleSearchChange} />}
+      </div>
     </div>
   );
 };
