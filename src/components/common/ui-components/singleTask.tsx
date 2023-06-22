@@ -49,7 +49,7 @@ const SingleTask = (props: ISingleTaskProps) => {
           <div className="flex gap-2 items-center">
             <CalendarMenuIcon />
             <h3 className="text-grey-60 text-body-2/b1">
-              {new Date(due_date ?? '').toISOString()}
+              {new Date(due_date ?? '').toLocaleString()}
             </h3>
           </div>
         )}

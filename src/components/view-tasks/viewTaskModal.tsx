@@ -87,7 +87,7 @@ const ViewTaskModal = (props: IViewTaskModal) => {
           <p className="text-body-1/b1 text-grey-30">
             Due Date:{' '}
             <span className="text-body-1/b2 text-grey-90 pl-1">
-              {new Date(due_date ?? '').toISOString()}
+              {new Date(due_date ?? '').toLocaleString()}
             </span>
           </p>
           {!justView && (
