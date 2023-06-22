@@ -10,7 +10,7 @@ interface IDateTimeInputProps {
 const DateTimeInput = (props: IDateTimeInputProps) => {
   const { onChange, value } = props;
   const TODAY = dateTimeFormat();
-  const parsedValue = new Date(value).toISOString();
+  const DATE = dateTimeFormat(value);
 
   return (
     <div className="max-w-xs w-full flex gap-6 items-center">
@@ -18,7 +18,7 @@ const DateTimeInput = (props: IDateTimeInputProps) => {
         Due Date:
       </label>
       <input
-        value={parsedValue ?? TODAY}
+        value={value ? DATE : TODAY}
         min={TODAY}
         type="datetime-local"
         id="due_date"

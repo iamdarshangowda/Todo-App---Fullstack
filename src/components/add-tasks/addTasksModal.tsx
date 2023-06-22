@@ -20,6 +20,7 @@ import { useUIHelperContext } from '@context/useUIHelperContext';
 import { initialTask } from '@utils/initialData';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 import { useToggleContext } from '@context/useToggleContext';
+import { getAllCount } from '../../apis/getCount';
 
 const LIST_OPTIONS = [
   {
@@ -42,12 +43,11 @@ const AddTaskModal = (props: IAddTaskModal) => {
   const { setShowAddTasks, showAddTasks, callback } = props;
   const [task, setTask] = useState<ISingleTask>(initialTask);
   const { loading, setLoading } = useUIHelperContext();
-  const { singleTaskData, setSingleTaskData } = useDataStoreContext();
+  const { singleTaskData, setSingleTaskData, setTasksCount } = useDataStoreContext();
   const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(new Date());
     setTask((prev) => ({
       ...prev,
       [name]: name === 'due_date' ? new Date(value) : value,
@@ -64,6 +64,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
         await put(`task?id=${singleTaskData._id}`, task).then((data) => {
           setShowAddTasks((prev) => !prev);
           callback && callback();
+          getAllCount(setTasksCount);
           setSingleTaskData(initialTask);
           setShowSuccessToast({ show: true, message: data.data.message });
         });
@@ -80,6 +81,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
         await post('task', task).then((data) => {
           setShowAddTasks((prev) => !prev);
           callback && callback();
+          getAllCount(setTasksCount);
           setSingleTaskData(initialTask);
           setShowSuccessToast({ show: true, message: data.data.message });
         });
@@ -103,6 +105,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
         handleCloseModal();
         setShowSuccessToast({ show: true, message: task.data.message });
         callback && callback();
+        getAllCount(setTasksCount);
       });
     } catch (err: any) {
       setShowErrorToast({ show: true, message: err.message });

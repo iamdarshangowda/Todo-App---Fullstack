@@ -1,5 +1,5 @@
-const dateTimeFormat = () => {
-  const date = new Date();
+const dateTimeFormat = (value?: Date) => {
+  const date = value ? value : new Date();
 
   // Extract the year, month, and day values
   const year = date.getFullYear();

@@ -82,7 +82,6 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     } catch (error: any) {
       // console.log(error.response.data.message);
       setFormError((prev) => ({ ...prev, password: error.response.data.message }));
-    } finally {
       setLoading(false);
     }
   };

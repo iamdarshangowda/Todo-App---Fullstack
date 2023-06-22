@@ -15,27 +15,33 @@ import SingleMenu from './singleMenu';
 import { IMenu, IMenuList } from '@utils/types';
 import ListIocnBox from './listIocnBox';
 import { useToggleContext } from '@context/useToggleContext';
+import { getAllCount } from '../../apis/getCount';
+import { useDataStoreContext } from '@context/useDataStoreContext';
 
 const TASKS: IMenuList = [
   {
     icon: <UpcommingIcon />,
     label: 'Upcoming',
     route: '/upcoming',
+    count: 0,
   },
   {
     icon: <TodayMenuIcon />,
     label: 'Today',
     route: '/today',
+    count: 0,
   },
   {
     icon: <CalendarMenuIcon />,
     label: 'Calendar',
     route: 'calendar',
+    count: 0,
   },
   {
     icon: <StickyNotes />,
     label: 'Sticky Wall',
     route: 'stickynotes',
+    count: 0,
   },
 ];
 
@@ -44,11 +50,13 @@ const LISTS: IMenuList = [
     icon: <ListIocnBox bgColor={'!bg-red-500'} />,
     label: 'Personal',
     route: '/personal',
+    count: 0,
   },
   {
     icon: <ListIocnBox bgColor={'!bg-yellow'} />,
     label: 'Work',
     route: '/work',
+    count: 0,
   },
 ];
 
@@ -67,6 +75,30 @@ const SETTINGS: IMenuList = [
 
 const MenuSidebar = () => {
   const { hideMenu, setHideMenu } = useToggleContext();
+  const { tasksCount, setTasksCount } = useDataStoreContext();
+
+  useEffect(() => {
+    getAllCount(setTasksCount);
+  }, []);
+
+  useEffect(() => {
+    [...TASKS, ...LISTS].forEach((task) => {
+      switch (task.label.toLocaleLowerCase()) {
+        case 'upcoming':
+          task.count = tasksCount.upcoming;
+          break;
+        case 'today':
+          task.count = tasksCount.today;
+          break;
+        case 'personal':
+          task.count = tasksCount.personal;
+          break;
+        case 'work':
+          task.count = tasksCount.work;
+          break;
+      }
+    });
+  }, [tasksCount]);
 
   return (
     <nav
@@ -89,8 +121,14 @@ const MenuSidebar = () => {
         <div>
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
           <div className="flex flex-col space-y-3 mt-2">
-            {TASKS.map(({ icon, label, route }: IMenu) => (
-              <SingleMenu icon={icon} label={label} key={label} count={5} route={route} />
+            {TASKS.map(({ icon, label, route, count }: IMenu) => (
+              <SingleMenu
+                icon={icon}
+                label={label}
+                key={label}
+                count={count}
+                route={route}
+              />
             ))}
           </div>
         </div>
@@ -100,8 +138,14 @@ const MenuSidebar = () => {
         <div className="overflow-auto scrollbar-hide">
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Lists</h3>
           <div className="flex flex-col space-y-3 mb-4 mt-2 sm:h-full h-20">
-            {LISTS.map(({ icon, label, route }: IMenu) => (
-              <SingleMenu icon={icon} label={label} key={label} count={3} route={route} />
+            {LISTS.map(({ icon, label, route, count }: IMenu) => (
+              <SingleMenu
+                icon={icon}
+                label={label}
+                key={label}
+                count={count}
+                route={route}
+              />
             ))}
           </div>
         </div>

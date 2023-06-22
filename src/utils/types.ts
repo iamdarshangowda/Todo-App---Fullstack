@@ -12,6 +12,7 @@ export interface IMenu {
   icon: JSX.Element;
   label: string;
   route: string;
+  count?: number;
 }
 
 export type IMenuList = IMenu[];
@@ -34,4 +35,11 @@ export type TaskLists = ISingleTask[];
 export interface ISuccessToast {
   show: boolean;
   message: string;
+}
+
+export interface ICountProps {
+  upcoming: number;
+  today: number;
+  personal: number;
+  work: number;
 }
