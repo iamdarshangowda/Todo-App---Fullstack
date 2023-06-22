@@ -8,12 +8,14 @@ import { get } from '../../../config/axiosClient';
 import { ISingleTask } from '@utils/types';
 import { DELAY } from '@utils/initialData';
 import { debounce } from '@utils/debounce';
+import { useToggleContext } from '@context/useToggleContext';
 
 const Upcoming = () => {
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { loading, setLoading } = useUIHelperContext();
   const [tasks, setTasks] = useState([]);
   const [searchText, setSearchText] = useState<string>('');
+  const { setShowErrorToast } = useToggleContext();
 
   const handleSearchChange = debounce((event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -37,6 +39,7 @@ const Upcoming = () => {
       });
     } catch (err: any) {
       console.log(err.message);
+      setShowErrorToast({ show: true, message: err.message });
     } finally {
       // Just to make loading more applealing
       setTimeout(() => {

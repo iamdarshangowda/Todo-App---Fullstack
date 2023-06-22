@@ -58,9 +58,6 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
 
   useEffect(() => {
     handleGetAllTasks();
-    if (isMobileDevice()) {
-      setHideMenu(true);
-    }
   }, []);
 
   return (
