@@ -7,7 +7,7 @@ import SingleTask from '@components/common/ui-components/singleTask';
 import TaskHeaderwithCount from '@components/common/ui-components/taskHeaderwithCount';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { get } from '../../../config/axiosClient';
 import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
@@ -16,6 +16,8 @@ import { useDataStoreContext } from '@context/useDataStoreContext';
 import { DELAY, initialTask } from '@utils/initialData';
 import { useToggleContext } from '@context/useToggleContext';
 import isMobileDevice from '@utils/detectUserDevice';
+import { debounce } from '@utils/debounce';
+import SearchBar from '@components/menu/searchBar';
 
 const Today = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
@@ -24,6 +26,7 @@ const Today = () => {
   const { setSingleTaskData } = useDataStoreContext();
   const [tasks, setTasks] = useState([]);
   const { setHideMenu } = useToggleContext();
+  const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
     if (showAddTasks || viewTasks) {
@@ -39,6 +42,19 @@ const Today = () => {
     setSingleTaskData(initialTask);
     setShowAddTasks((prev) => !prev);
   };
+
+  const handleSearchChange = debounce((event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSearchText(value);
+  });
+
+  const filteredTasks = useMemo(() => {
+    if (!searchText.length) return tasks;
+
+    return tasks.filter((task: any) =>
+      task.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }, [tasks, searchText]);
 
   const handleGetAllTasks = async () => {
     try {
@@ -67,7 +83,7 @@ const Today = () => {
     <TaskPageLayout>
       <TaskHeaderwithCount title={'Today'} count={tasks.length} loading={loading} />
 
-      <div className="flex gap-4">
+      <div className="flex gap-2 sm:gap-4 w-full justify-between sm:justify-start">
         <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
         <SecondaryButton
           text="Rec Audio"
@@ -89,6 +105,8 @@ const Today = () => {
         callback={handleGetAllTasks}
       />
 
+      {isMobileDevice() && <SearchBar onChange={handleSearchChange} />}
+
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (
           Array(4)
@@ -96,8 +114,8 @@ const Today = () => {
             .map((data, index) => <SingleTaskSkeleton key={index} />)
         ) : (
           <>
-            {tasks.length ? (
-              tasks.map((task: ISingleTask) => (
+            {filteredTasks.length ? (
+              filteredTasks.map((task: ISingleTask) => (
                 <SingleTask
                   taskData={task}
                   key={task.title}

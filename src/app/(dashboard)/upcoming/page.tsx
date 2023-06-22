@@ -7,7 +7,7 @@ import SingleTask from '@components/common/ui-components/singleTask';
 import TaskHeaderwithCount from '@components/common/ui-components/taskHeaderwithCount';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { get } from '../../../config/axiosClient';
 import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
@@ -16,6 +16,8 @@ import { useDataStoreContext } from '@context/useDataStoreContext';
 import { DELAY, initialTask } from '@utils/initialData';
 import isMobileDevice from '@utils/detectUserDevice';
 import { useToggleContext } from '@context/useToggleContext';
+import SearchBar from '@components/menu/searchBar';
+import { debounce } from '@utils/debounce';
 
 const Upcoming = () => {
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
@@ -24,6 +26,7 @@ const Upcoming = () => {
   const { setSingleTaskData } = useDataStoreContext();
   const { setHideMenu } = useToggleContext();
   const [tasks, setTasks] = useState([]);
+  const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
     if (showAddTasks || viewTasks) {
@@ -39,6 +42,19 @@ const Upcoming = () => {
     setSingleTaskData(initialTask);
     setShowAddTasks((prev) => !prev);
   };
+
+  const handleSearchChange = debounce((event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSearchText(value);
+  });
+
+  const filteredTasks = useMemo(() => {
+    if (!searchText.length) return tasks;
+
+    return tasks.filter((task: any) =>
+      task.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }, [tasks, searchText]);
 
   const handleGetAllTasks = async () => {
     try {
@@ -68,7 +84,7 @@ const Upcoming = () => {
     <TaskPageLayout>
       <TaskHeaderwithCount title={'Upcoming'} count={tasks.length} loading={loading} />
 
-      <div className="flex gap-4">
+      <div className="flex gap-2 sm:gap-4 w-full justify-between sm:justify-start">
         <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
         <SecondaryButton
           text="Rec Audio"
@@ -90,6 +106,8 @@ const Upcoming = () => {
         callback={handleGetAllTasks}
       />
 
+      {isMobileDevice() && <SearchBar onChange={handleSearchChange} />}
+
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (
           Array(4)
@@ -97,8 +115,8 @@ const Upcoming = () => {
             .map((data, index) => <SingleTaskSkeleton key={index} />)
         ) : (
           <>
-            {tasks.length ? (
-              tasks.map((task: ISingleTask) => (
+            {filteredTasks.length ? (
+              filteredTasks.map((task: ISingleTask) => (
                 <SingleTask
                   taskData={task}
                   key={task.title}
