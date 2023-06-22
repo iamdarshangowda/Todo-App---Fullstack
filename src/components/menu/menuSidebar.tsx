@@ -9,8 +9,7 @@ import {
   TodayMenuIcon,
   UpcommingIcon,
 } from '@components/common/icons/icons';
-import React, { useEffect, useState } from 'react';
-import SearchBar from './searchBar';
+import React, { useEffect } from 'react';
 import SingleMenu from './singleMenu';
 import { IMenu, IMenuList } from '@utils/types';
 import ListIocnBox from './listIocnBox';
@@ -114,11 +113,7 @@ const MenuSidebar = () => {
           </div>
         </div>
 
-        <div className="w-full my-6">
-          <SearchBar />
-        </div>
-
-        <div>
+        <div className="mt-6">
           <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
           <div className="flex flex-col space-y-3 mt-2">
             {TASKS.map(({ icon, label, route, count }: IMenu) => (

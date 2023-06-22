@@ -62,7 +62,12 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
 
   return (
     <div className={`w-full space-y-6 sm:space-y-10 ${hideMenu ? '' : 'pl-4'}`}>
-      <TaskHeaderwithCount title={header} count={count} loading={loading} />
+      <TaskHeaderwithCount
+        title={header}
+        count={count}
+        loading={loading}
+        handleSearchChange={handleSearchChange}
+      />
 
       <div className="flex gap-2 sm:gap-4 w-full justify-between sm:justify-start">
         <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
