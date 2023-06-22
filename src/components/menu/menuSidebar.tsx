@@ -102,58 +102,55 @@ const MenuSidebar = () => {
   return (
     <nav
       className={`${
-        hideMenu ? 'hidden' : 'w-1/5 min-w-[300px] bg-grey-10'
-      } rounded-xl z-10  p-6 flex flex-col `}
+        hideMenu
+          ? 'hidden'
+          : 'w-1/5 min-w-[300px] bg-grey-10 rounded-xl p-6 flex flex-col'
+      }`}
     >
-      <div className="flex flex-col">
-        <div className="flex justify-between items-center">
-          <h2 className="text-heading-2/h1 text-grey-60">Menu</h2>
-          <div className="hover:cursor-pointer" onClick={() => setHideMenu(true)}>
-            <MenuIcon fill="#4B4B4B" />
-          </div>
+      <div className="flex justify-between items-center">
+        <h2 className="text-heading-2/h1 text-grey-60">Menu</h2>
+        <div className="hover:cursor-pointer" onClick={() => setHideMenu(true)}>
+          <MenuIcon fill="#4B4B4B" />
         </div>
+      </div>
 
-        <div className="mt-6">
-          <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
-          <div className="flex flex-col space-y-3 mt-2">
-            {TASKS.map(({ icon, label, route, count }: IMenu) => (
-              <SingleMenu
-                icon={icon}
-                label={label}
-                key={label}
-                count={count}
-                route={route}
-              />
-            ))}
-          </div>
+      <div className="mt-6">
+        <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
+        <div className="flex flex-col space-y-3 mt-2">
+          {TASKS.map(({ icon, label, route, count }: IMenu) => (
+            <SingleMenu
+              icon={icon}
+              label={label}
+              key={label}
+              count={count}
+              route={route}
+            />
+          ))}
         </div>
+      </div>
 
-        <div className="h-[1px] bg-grey-30 rounded-xl my-4"></div>
+      <div className="h-[1px] bg-grey-30 rounded-xl my-4"></div>
 
-        <div className="overflow-auto scrollbar-hide">
-          <h3 className="text-body-2/b1 text-grey-40 uppercase">Lists</h3>
-          <div className="flex flex-col space-y-3 mb-4 mt-2 sm:h-full h-20">
-            {LISTS.map(({ icon, label, route, count }: IMenu) => (
-              <SingleMenu
-                icon={icon}
-                label={label}
-                key={label}
-                count={count}
-                route={route}
-              />
-            ))}
-          </div>
+      <div className="overflow-auto scrollbar-hide">
+        <h3 className="text-body-2/b1 text-grey-40 uppercase">Lists</h3>
+        <div className="flex flex-col space-y-3 mb-4 mt-2 sm:h-full h-20">
+          {LISTS.map(({ icon, label, route, count }: IMenu) => (
+            <SingleMenu
+              icon={icon}
+              label={label}
+              key={label}
+              count={count}
+              route={route}
+            />
+          ))}
         </div>
+      </div>
 
-        {/* <div className="h-[1px] bg-grey-30 rounded-xl my-4"></div> */}
-
-        <div>
-          <div className="flex flex-col mb-2 mt-2">
-            {SETTINGS.map(({ icon, label, route }: IMenu) => (
-              <SingleMenu icon={icon} label={label} key={label} route={route} />
-            ))}
-          </div>
-        </div>
+      <div className="flex flex-col space-y-3 mb-2 mt-auto">
+        <div className="h-[1px] bg-grey-30 rounded-xl "></div>
+        {SETTINGS.map(({ icon, label, route }: IMenu) => (
+          <SingleMenu icon={icon} label={label} key={label} route={route} />
+        ))}
       </div>
     </nav>
   );
