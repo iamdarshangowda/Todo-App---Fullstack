@@ -116,7 +116,7 @@ const MenuSidebar = () => {
           <TodoIconSmall size={'44px'} />
         </div>
         <div
-          className="hover:cursor-pointer p-3 bg-[#FAFAFA] rounded-lg"
+          className="hover:cursor-pointer p-3 bg-[#FAFAFA] rounded-lg hover:scale-110"
           onClick={() => setHideMenu(true)}
         >
           <LeftArrowIcon fill="#4B4B4B" />
