@@ -1,4 +1,4 @@
-import { ISingleTask } from './types';
+import { ICountProps, ISingleTask } from './types';
 
 export const initialTask: ISingleTask = {
   title: '',
@@ -8,3 +8,10 @@ export const initialTask: ISingleTask = {
 };
 
 export const initialToast = { show: false, message: '' };
+
+export const initialCount: ICountProps = {
+  upcoming: 0,
+  today: 0,
+  personal: 0,
+  work: 0,
+};

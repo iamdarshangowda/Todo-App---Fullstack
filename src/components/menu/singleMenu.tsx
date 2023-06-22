@@ -2,11 +2,7 @@ import { IMenu } from '@utils/types';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
-interface SingleMenuProps {
-  count?: number;
-}
-
-const SingleMenu = (props: IMenu & SingleMenuProps) => {
+const SingleMenu = (props: IMenu) => {
   const { icon, label, count, route } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -25,11 +21,11 @@ const SingleMenu = (props: IMenu & SingleMenuProps) => {
     >
       {icon}
       <h3 className={` text-grey-40 flex-grow text-left pl-5`}>{label}</h3>
-      {count && (
+      {count ? (
         <span className="px-3 text-body-2/b1 text-grey-60 bg-[#D8D8D8] rounded-md ">
           {count}
         </span>
-      )}
+      ) : null}
     </button>
   );
 };

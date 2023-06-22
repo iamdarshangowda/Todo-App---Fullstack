@@ -9,6 +9,7 @@ import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 import { deleteTask } from '../../config/axiosClient';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import { useToggleContext } from '@context/useToggleContext';
+import { getAllCount } from '../../apis/getCount';
 
 interface IViewTaskModal {
   setShowAddTasks?: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +21,7 @@ interface IViewTaskModal {
 
 const ViewTaskModal = (props: IViewTaskModal) => {
   const { setViewTasks, viewTasks, setShowAddTasks, callback, justView } = props;
-  const { singleTaskData, setSingleTaskData } = useDataStoreContext();
+  const { singleTaskData, setSingleTaskData, setTasksCount } = useDataStoreContext();
   const { loading, setLoading } = useUIHelperContext();
   const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
   const { title, description, due_date, list_type, _id } = singleTaskData;
@@ -48,6 +49,7 @@ const ViewTaskModal = (props: IViewTaskModal) => {
         setSingleTaskData(initialTask);
         setShowSuccessToast({ show: true, message: task.data.message });
         callback();
+        getAllCount(setTasksCount);
       });
     } catch (err: any) {
       setShowErrorToast({ show: true, message: err.message });
