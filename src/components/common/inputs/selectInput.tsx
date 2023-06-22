@@ -15,15 +15,15 @@ interface ISelectProps {
 const SelectInput = (props: ISelectProps) => {
   const { optionsList, onChange, value } = props;
   return (
-    <div className="max-w-xs w-full flex gap-6 items-center">
-      <label htmlFor="list_type" className="text-grey-60 text-body-1/b2 flex-1">
+    <div className="max-w-lg w-full flex gap-6 items-center">
+      <label htmlFor="list_type" className="text-grey-60 text-body-1/b2">
         List:
       </label>
       <select
         name="list_type"
         id="list_type"
-        className="p-3 sm:p-2 w-1/2 bg-grey-10 border border-grey-20 rounded-lg
-        text-body-1/b1 text-grey-40 hover:cursor-pointer"
+        className="p-3 sm:p-2 w-[70%] bg-grey-10 border border-grey-20 rounded-lg
+        text-body-1/b1 text-grey-40 hover:cursor-pointer ml-auto"
         onChange={onChange}
         value={value}
       >

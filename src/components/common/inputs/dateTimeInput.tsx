@@ -13,8 +13,8 @@ const DateTimeInput = (props: IDateTimeInputProps) => {
   const DATE = dateTimeFormat(value);
 
   return (
-    <div className="max-w-xs w-full flex gap-6 items-center">
-      <label htmlFor="due-date" className="text-grey-60 text-body-1/b2 flex-1">
+    <div className="max-w-lg w-full flex gap-6 items-center">
+      <label htmlFor="due-date" className="text-grey-60 text-body-1/b2">
         Due Date:
       </label>
       <input
@@ -23,8 +23,8 @@ const DateTimeInput = (props: IDateTimeInputProps) => {
         type="datetime-local"
         id="due_date"
         name="due_date"
-        className="bg-grey-10 border border-grey-20 p-2 rounded-lg w-1/2
-        text-body-1/b1 text-grey-40"
+        className="bg-grey-10 border border-grey-20 p-2 rounded-lg w-[70%]
+        text-body-1/b1 text-grey-40 ml-auto"
         onChange={onChange}
       />
     </div>
