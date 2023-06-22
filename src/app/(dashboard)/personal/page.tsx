@@ -62,7 +62,7 @@ const Personal = () => {
           ))
         ) : (
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
-            No Tasks in Personal Category!
+            {searchText.length ? 'No tasks found' : 'No Tasks in Personal Category!'}
           </h2>
         )}
       </>

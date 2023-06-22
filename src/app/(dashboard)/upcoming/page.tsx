@@ -65,7 +65,7 @@ const Upcoming = () => {
           ))
         ) : (
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
-            No Upcoming Tasks!
+            {searchText.length ? 'No tasks found' : 'No Upcoming Tasks!'}
           </h2>
         )}
       </>

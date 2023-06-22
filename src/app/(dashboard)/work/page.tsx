@@ -67,7 +67,7 @@ const Work = () => {
           ))
         ) : (
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
-            No Tasks in Work Category!
+            {searchText.length ? 'No tasks found' : 'No Tasks in Work Category!'}
           </h2>
         )}
       </>
