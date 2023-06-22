@@ -2,11 +2,13 @@
 
 import {
   CalendarMenuIcon,
+  LeftArrowIcon,
   MenuIcon,
   SettingsIcon,
   SignOutIcon,
   StickyNotes,
   TodayMenuIcon,
+  TodoIconSmall,
   UpcommingIcon,
 } from '@components/common/icons/icons';
 import React, { useEffect } from 'react';
@@ -16,6 +18,7 @@ import ListIocnBox from './listIocnBox';
 import { useToggleContext } from '@context/useToggleContext';
 import { getAllCount } from '../../apis/getCount';
 import { useDataStoreContext } from '@context/useDataStoreContext';
+import { useRouter } from 'next/navigation';
 
 const TASKS: IMenuList = [
   {
@@ -73,6 +76,7 @@ const SETTINGS: IMenuList = [
 ];
 
 const MenuSidebar = () => {
+  const router = useRouter();
   const { hideMenu, setHideMenu } = useToggleContext();
   const { tasksCount, setTasksCount } = useDataStoreContext();
 
@@ -108,9 +112,14 @@ const MenuSidebar = () => {
       }`}
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-heading-2/h1 text-grey-60">Menu</h2>
-        <div className="hover:cursor-pointer" onClick={() => setHideMenu(true)}>
-          <MenuIcon fill="#4B4B4B" />
+        <div onClick={() => router.push('/today')} className="hover:cursor-pointer">
+          <TodoIconSmall size={'44px'} />
+        </div>
+        <div
+          className="hover:cursor-pointer p-3 bg-[#FAFAFA] rounded-lg"
+          onClick={() => setHideMenu(true)}
+        >
+          <LeftArrowIcon fill="#4B4B4B" />
         </div>
       </div>
 

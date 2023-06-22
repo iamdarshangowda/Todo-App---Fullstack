@@ -1,10 +1,11 @@
 import { ISVGIocnProps } from '@utils/types';
 
-export const TodoIconSmall = () => {
+export const TodoIconSmall = (props: any) => {
+  const { size } = props;
   return (
     <svg
-      width="64px"
-      height="64px"
+      width={size ? size : '64px'}
+      height={size ? size : '64px'}
       viewBox="0 0 256 256"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -241,6 +242,26 @@ export const RightIcon = () => {
       className="w-6 h-6"
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  );
+};
+
+export const LeftArrowIcon = (props: any) => {
+  const { fill } = props;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill={fill ? fill : 'none'}
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+      />
     </svg>
   );
 };
