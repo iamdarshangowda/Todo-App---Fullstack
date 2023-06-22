@@ -48,7 +48,10 @@ const AddTaskModal = (props: IAddTaskModal) => {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setTask((prev) => ({ ...prev, [name]: value }));
+    setTask((prev) => ({
+      ...prev,
+      [name]: name === 'due_date' ? new Date(value) : value,
+    }));
   };
 
   const handleSubmitTask: FormEventHandler<HTMLFormElement> = async (e) => {
