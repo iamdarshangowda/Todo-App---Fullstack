@@ -2,7 +2,7 @@ import React from 'react';
 
 const SingleTaskSkeleton = () => {
   return (
-    <div className="bg-grey-10 p-2 rounded-lg h-15 mx-4 animate-pulse">
+    <div className="bg-grey-10 p-2 rounded-lg h-15 animate-pulse">
       <div className="flex gap-4 p-2">
         <div className="w-[90%] bg-grey-20 rounded-lg h-5"></div>
         <label className="text-grey-40 flex-grow hover:cursor-pointer text-body-1/b2 h-5"></label>
