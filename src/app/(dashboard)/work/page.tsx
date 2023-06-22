@@ -11,6 +11,7 @@ import SingleTask from '@components/common/ui-components/singleTask';
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
 import isMobileDevice from '@utils/detectUserDevice';
 import { useToggleContext } from '@context/useToggleContext';
+import { DELAY } from '@utils/initialData';
 
 const Work = () => {
   const [tasks, setTasks] = useState([]);
@@ -31,7 +32,7 @@ const Work = () => {
       // Just to make loading more applealing
       setTimeout(() => {
         setLoading(false);
-      }, 300);
+      }, DELAY);
     }
   };
 

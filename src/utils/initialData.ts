@@ -1,5 +1,7 @@
 import { ICountProps, ISingleTask } from './types';
 
+export const DELAY: number = 200;
+
 export const initialTask: ISingleTask = {
   title: '',
   description: '',

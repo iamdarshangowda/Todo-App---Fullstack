@@ -13,7 +13,7 @@ import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton'
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
 import { ISingleTask } from '@utils/types';
 import { useDataStoreContext } from '@context/useDataStoreContext';
-import { initialTask } from '@utils/initialData';
+import { DELAY, initialTask } from '@utils/initialData';
 import isMobileDevice from '@utils/detectUserDevice';
 import { useToggleContext } from '@context/useToggleContext';
 
@@ -53,7 +53,7 @@ const Upcoming = () => {
       // Just to make loading more applealing
       setTimeout(() => {
         setLoading(false);
-      }, 300);
+      }, DELAY);
     }
   };
 
