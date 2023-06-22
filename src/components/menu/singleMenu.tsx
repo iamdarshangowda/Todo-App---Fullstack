@@ -1,3 +1,6 @@
+import { useToggleContext } from '@context/useToggleContext';
+import { useUIHelperContext } from '@context/useUIHelperContext';
+import isMobileDevice from '@utils/detectUserDevice';
 import { IMenu } from '@utils/types';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
@@ -6,8 +9,16 @@ const SingleMenu = (props: IMenu) => {
   const { icon, label, count, route } = props;
   const router = useRouter();
   const pathname = usePathname();
+  const { setLoading } = useUIHelperContext();
+  const { setHideMenu } = useToggleContext();
 
   const handleRoutes = () => {
+    if (route !== '/') setLoading(true);
+    if (isMobileDevice()) {
+      setTimeout(() => {
+        setHideMenu(true);
+      }, 150);
+    }
     router.push(route);
   };
 
