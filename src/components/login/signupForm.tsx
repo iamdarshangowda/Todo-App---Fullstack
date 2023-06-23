@@ -9,6 +9,7 @@ import { Schema } from 'zod';
 import parseZodError from '@utils/validation/parsedZodErrors';
 import { signUpSchema } from '@utils/validation/validations';
 import { useUIHelperContext } from '@context/useUIHelperContext';
+import { useUserDataContext } from '@context/useUserContext';
 
 const initialForm = {
   username: '',
@@ -22,6 +23,7 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const router = useRouter();
   const [userData, setUserData] = useState(initialForm);
   const { loading, setLoading } = useUIHelperContext();
+  const { setUserAuthData } = useUserDataContext();
 
   const [formError, setFormError] = useState(initialForm);
 
@@ -85,7 +87,9 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       await noAuthPost('user/signup', data).then((data) => {
         const token = data.data.accessToekn;
         localStorage.setItem('todoAuthToken', JSON.stringify(token));
-        router.push('/today');
+        setUserAuthData(data.data.user);
+        console.log(data.data);
+        router.push('/tasks/today');
       });
     } catch (error: any) {
       console.log(error.response.data.message);

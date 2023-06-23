@@ -1,10 +1,11 @@
 import { ISVGIocnProps } from '@utils/types';
 
-export const TodoIconSmall = () => {
+export const TodoIconSmall = (props: any) => {
+  const { size } = props;
   return (
     <svg
-      width="64px"
-      height="64px"
+      width={size ? size : '64px'}
+      height={size ? size : '64px'}
       viewBox="0 0 256 256"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +200,8 @@ export const SignOutIcon = () => {
   );
 };
 
-export const AddIcon = () => {
+export const AddIcon = (props: any) => {
+  const { size } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +209,7 @@ export const AddIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
-      className="w-5 h-5"
+      className={`${size ? size : 'w-5 h-5'}`}
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
     </svg>
@@ -215,7 +217,7 @@ export const AddIcon = () => {
 };
 
 export const CloseIcon = (props: any) => {
-  const { fill } = props;
+  const { fill, size } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +225,7 @@ export const CloseIcon = (props: any) => {
       viewBox="0 0 24 24"
       strokeWidth="2"
       stroke={`${fill ? fill : 'currentColor'}`}
-      className="w-6 h-6"
+      className={`${size ? size : 'w-6 h-6'}`}
     >
       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
@@ -245,6 +247,26 @@ export const RightIcon = () => {
   );
 };
 
+export const LeftArrowIcon = (props: any) => {
+  const { fill } = props;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill={fill ? fill : 'none'}
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+      />
+    </svg>
+  );
+};
+
 export const RecMicIcon = () => {
   return (
     <svg
@@ -260,6 +282,21 @@ export const RecMicIcon = () => {
         strokeLinejoin="round"
         d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
       />
+    </svg>
+  );
+};
+
+export const CheckIcon = (props: any) => {
+  const { size, fill } = props;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width={`${size ? size : '24px'}`}
+      height={`${size ? size : '24px'}`}
+      fill={`${fill ? fill : 'default'}`}
+    >
+      <path d="M 20.292969 5.2929688 L 9 16.585938 L 4.7070312 12.292969 L 3.2929688 13.707031 L 9 19.414062 L 21.707031 6.7070312 L 20.292969 5.2929688 z" />
     </svg>
   );
 };

@@ -3,14 +3,17 @@
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import React, { ChangeEvent, useMemo, useState } from 'react';
-import { get } from '../../../config/axiosClient';
 import { ISingleTask } from '@utils/types';
 import SingleTask from '@components/common/ui-components/singleTask';
 import { DELAY } from '@utils/initialData';
 import { debounce } from '@utils/debounce';
+import { useParams } from 'next/navigation';
+import { get } from '../../../../config/axiosClient';
+import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
-const Personal = () => {
+const List = () => {
   const [tasks, setTasks] = useState([]);
+  const { list } = useParams();
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { loading, setLoading } = useUIHelperContext();
   const [searchText, setSearchText] = useState<string>('');
@@ -32,7 +35,7 @@ const Personal = () => {
     try {
       setLoading(true);
 
-      await get(`tasks?list_type=personal`).then((tasks) => {
+      await get(`tasks?list_type=${list}`).then((tasks) => {
         setTasks(tasks.data);
       });
     } catch (err: any) {
@@ -47,7 +50,7 @@ const Personal = () => {
 
   return (
     <TaskPageLayout
-      header="Personal"
+      header={capitalizeFirstLetter(list)}
       count={tasks.length}
       loading={loading}
       handleGetAllTasks={handleGetAllPersonalTasks}
@@ -62,7 +65,9 @@ const Personal = () => {
           ))
         ) : (
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
-            No Tasks in Personal Category!
+            {searchText.length
+              ? 'No tasks found'
+              : `No Tasks in ${capitalizeFirstLetter(list)} Category!`}
           </h2>
         )}
       </>
@@ -70,4 +75,4 @@ const Personal = () => {
   );
 };
 
-export default Personal;
+export default List;

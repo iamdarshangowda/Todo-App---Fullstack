@@ -17,7 +17,10 @@ const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
   return (
     <div className=" text-grey-80 flex gap-6 items-center relative justify-items-stretch">
       {hideMenu && (
-        <div className="hover:cursor-pointer " onClick={() => setHideMenu(false)}>
+        <div
+          className="hover:cursor-pointer p-3 bg-grey-10 rounded-lg hover:scale-110"
+          onClick={() => setHideMenu(false)}
+        >
           <MenuIcon fill="#4B4B4B" />
         </div>
       )}

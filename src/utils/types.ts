@@ -38,8 +38,12 @@ export interface ISuccessToast {
 }
 
 export interface ICountProps {
-  upcoming: number;
-  today: number;
-  personal: number;
-  work: number;
+  title: string;
+  count: number;
+}
+
+export interface IUserAuthData {
+  username: string;
+  email: string;
+  _id: string;
 }

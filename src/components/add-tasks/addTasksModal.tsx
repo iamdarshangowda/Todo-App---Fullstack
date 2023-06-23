@@ -43,7 +43,8 @@ const AddTaskModal = (props: IAddTaskModal) => {
   const { setShowAddTasks, showAddTasks, callback } = props;
   const [task, setTask] = useState<ISingleTask>(initialTask);
   const { loading, setLoading } = useUIHelperContext();
-  const { singleTaskData, setSingleTaskData, setTasksCount } = useDataStoreContext();
+  const { singleTaskData, setSingleTaskData, setTasksCount, userLists } =
+    useDataStoreContext();
   const { setShowSuccessToast, setShowErrorToast } = useToggleContext();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -80,9 +81,9 @@ const AddTaskModal = (props: IAddTaskModal) => {
         setLoading(true);
         await post('task', task).then((data) => {
           setShowAddTasks((prev) => !prev);
+          setSingleTaskData(initialTask);
           callback && callback();
           getAllCount(setTasksCount);
-          setSingleTaskData(initialTask);
           setShowSuccessToast({ show: true, message: data.data.message });
         });
       } catch (error: any) {
@@ -151,7 +152,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
               onChange={handleInputChange}
             />
             <SelectInput
-              optionsList={LIST_OPTIONS}
+              optionsList={userLists}
               onChange={handleInputChange}
               value={task.list_type ? task.list_type : 'personal'}
             />

@@ -4,15 +4,18 @@ import SingleTask from '@components/common/ui-components/singleTask';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import React, { ChangeEvent, useMemo, useState } from 'react';
-import { get } from '../../../config/axiosClient';
 import { ISingleTask } from '@utils/types';
 import { DELAY } from '@utils/initialData';
 import { debounce } from '@utils/debounce';
 import { useToggleContext } from '@context/useToggleContext';
+import { get } from '../../../../config/axiosClient';
+import { useParams } from 'next/navigation';
+import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
-const Today = () => {
+const Task = () => {
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { loading, setLoading } = useUIHelperContext();
+  const { task } = useParams();
   const [tasks, setTasks] = useState([]);
   const [searchText, setSearchText] = useState<string>('');
   const { setShowErrorToast } = useToggleContext();
@@ -33,7 +36,7 @@ const Today = () => {
   const handleGetAllTasks = async () => {
     try {
       setLoading(true);
-      await get(`tasks?date=today`).then((tasks) => {
+      await get(`tasks?date=${task}`).then((tasks) => {
         setTasks(tasks.data);
       });
     } catch (err: any) {
@@ -49,7 +52,7 @@ const Today = () => {
 
   return (
     <TaskPageLayout
-      header="Today"
+      header={capitalizeFirstLetter(task)}
       count={tasks.length}
       loading={loading}
       handleGetAllTasks={handleGetAllTasks}
@@ -64,7 +67,9 @@ const Today = () => {
           ))
         ) : (
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
-            No Tasks Added for Today!
+            {searchText.length
+              ? 'No tasks found'
+              : `No Tasks Added for ${capitalizeFirstLetter(task)}!`}
           </h2>
         )}
       </>
@@ -72,4 +77,4 @@ const Today = () => {
   );
 };
 
-export default Today;
+export default Task;
