@@ -9,6 +9,7 @@ import parseZodError from '@utils/validation/parsedZodErrors';
 import { noAuthPost } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
 import { useUIHelperContext } from '@context/useUIHelperContext';
+import { useUserDataContext } from '@context/useUserContext';
 
 const initialForm = {
   email: '',
@@ -21,6 +22,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const [userData, setUserData] = useState(initialForm);
   const [formError, setFormError] = useState(initialForm);
   const { loading, setLoading } = useUIHelperContext();
+  const { setUserAuthData } = useUserDataContext();
 
   const handleFormOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -75,9 +77,9 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
       await noAuthPost('user/login', userData).then((data) => {
         const token = data.data.accessToekn;
         localStorage.setItem('todoAuthToken', JSON.stringify(token));
-        console.log(data, 'data');
+        setUserAuthData(data.data.user);
         setShowSuccessToast({ show: true, message: data.data.message });
-        router.push('/today');
+        router.push('/tasks/today');
       });
     } catch (error: any) {
       // console.log(error.response.data.message);

@@ -51,7 +51,7 @@ const SingleTask = (props: ISingleTaskProps) => {
               <div className="flex gap-2 items-center">
                 <ListIocnBox
                   size={'!h-4 w-4 rounded-sm'}
-                  bgColor={list_type === 'work' ? '!bg-yellow' : '!bg-red-500'}
+                  bgColor={list_type === 'work' ? '!bg-yellow' : '!bg-red'}
                 />
                 <h3 className="text-grey-60 text-body-2/b1">
                   {capitalizeFirstLetter(list_type)}

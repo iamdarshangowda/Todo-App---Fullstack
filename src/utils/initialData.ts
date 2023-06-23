@@ -17,3 +17,18 @@ export const initialCount: ICountProps = {
   personal: 0,
   work: 0,
 };
+
+export const initialUserData = {
+  username: '',
+  email: '',
+  _id: '',
+};
+
+export const singleInitialListsData = {
+  icon: null,
+  label: '',
+  route: '',
+  count: 0,
+};
+
+export const COLOR_LIST = ['!bg-blue', '!bg-green', '!bg-purple'];

@@ -16,6 +16,10 @@ module.exports = {
         yellow: '#EBB02D',
         yellow_hover: '#F7C04A',
         error: '#FF3B30',
+        red: '#F24C3D',
+        blue: '#0079FF',
+        purple: '#40128B',
+        green: '#17594A',
         grey: {
           DEFAULT: '#333333',
           0: '#FFFFFF',

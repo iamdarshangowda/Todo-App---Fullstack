@@ -43,3 +43,9 @@ export interface ICountProps {
   personal: number;
   work: number;
 }
+
+export interface IUserAuthData {
+  username: string;
+  email: string;
+  _id: string;
+}

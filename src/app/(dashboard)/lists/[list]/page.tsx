@@ -1,21 +1,22 @@
 'use client';
 
-import SingleTask from '@components/common/ui-components/singleTask';
 import TaskPageLayout from '@components/ui-layout/taskPageLayout';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import React, { ChangeEvent, useMemo, useState } from 'react';
-import { get } from '../../../config/axiosClient';
 import { ISingleTask } from '@utils/types';
+import SingleTask from '@components/common/ui-components/singleTask';
 import { DELAY } from '@utils/initialData';
 import { debounce } from '@utils/debounce';
-import { useToggleContext } from '@context/useToggleContext';
+import { useParams } from 'next/navigation';
+import { get } from '../../../../config/axiosClient';
+import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
-const Upcoming = () => {
+const List = () => {
+  const [tasks, setTasks] = useState([]);
+  const { list } = useParams();
   const [viewTasks, setViewTasks] = useState<boolean>(false);
   const { loading, setLoading } = useUIHelperContext();
-  const [tasks, setTasks] = useState([]);
   const [searchText, setSearchText] = useState<string>('');
-  const { setShowErrorToast } = useToggleContext();
 
   const handleSearchChange = debounce((event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -30,16 +31,15 @@ const Upcoming = () => {
     );
   }, [tasks, searchText]);
 
-  const handleGetAllTasks = async () => {
+  const handleGetAllPersonalTasks = async () => {
     try {
       setLoading(true);
 
-      await get(`tasks?date=upcoming`).then((tasks) => {
+      await get(`tasks?list_type=${list}`).then((tasks) => {
         setTasks(tasks.data);
       });
     } catch (err: any) {
       console.log(err.message);
-      setShowErrorToast({ show: true, message: err.message });
     } finally {
       // Just to make loading more applealing
       setTimeout(() => {
@@ -50,10 +50,10 @@ const Upcoming = () => {
 
   return (
     <TaskPageLayout
-      header="Upcoming"
+      header={capitalizeFirstLetter(list)}
       count={tasks.length}
       loading={loading}
-      handleGetAllTasks={handleGetAllTasks}
+      handleGetAllTasks={handleGetAllPersonalTasks}
       viewTasks={viewTasks}
       setViewTasks={setViewTasks}
       handleSearchChange={handleSearchChange}
@@ -65,7 +65,9 @@ const Upcoming = () => {
           ))
         ) : (
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
-            {searchText.length ? 'No tasks found' : 'No Upcoming Tasks!'}
+            {searchText.length
+              ? 'No tasks found'
+              : `No Tasks in ${capitalizeFirstLetter(list)} Category!`}
           </h2>
         )}
       </>
@@ -73,4 +75,4 @@ const Upcoming = () => {
   );
 };
 
-export default Upcoming;
+export default List;

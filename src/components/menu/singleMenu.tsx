@@ -25,7 +25,7 @@ const SingleMenu = (props: IMenu) => {
   return (
     <button
       onClick={handleRoutes}
-      className={`flex items-center gap-2 py-2 px-2 hover:bg-[#D8D8D8] text-body-1/b2 hover:text-body-1/b1
+      className={`flex items-center gap-2 p-2 hover:bg-[#D8D8D8] text-body-1/b2 hover:text-body-1/b1
     rounded-lg hover:cursor-pointer duration-300 ${
       pathname === route ? 'bg-[#D8D8D8]' : ''
     }`}
