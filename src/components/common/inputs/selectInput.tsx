@@ -1,3 +1,4 @@
+import { IMenuList } from '@utils/types';
 import React, { ChangeEventHandler } from 'react';
 
 interface ISelectMenu {
@@ -6,7 +7,7 @@ interface ISelectMenu {
 }
 
 interface ISelectProps {
-  optionsList: ISelectMenu[];
+  optionsList: IMenuList;
   onChange: any;
   value: string;
   // todo  - update type for on change
@@ -27,11 +28,11 @@ const SelectInput = (props: ISelectProps) => {
         onChange={onChange}
         value={value}
       >
-        {optionsList.map(({ label, list_value }) => (
+        {optionsList.map(({ label }) => (
           <option
-            value={list_value}
+            value={label.toLocaleLowerCase()}
             className="text-grey-60 text-body-1/b2 p-2"
-            key={list_value}
+            key={label.toLocaleLowerCase()}
           >
             {label}
           </option>

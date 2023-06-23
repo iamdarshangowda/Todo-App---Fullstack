@@ -94,7 +94,7 @@ const MenuSidebar = () => {
 
   const handleAddNewList = async () => {
     if (!listName) return;
-    await post('list', { list: listName, color: '#f8f8f8' }).then((data) => {
+    await post('list', { list: listName }).then((data) => {
       setShowInput(false);
       setListName('');
       handleGetUserLists();
@@ -107,7 +107,7 @@ const MenuSidebar = () => {
       const extraLists: IMenuList = [];
       lists.forEach((list: any, index: number) =>
         extraLists.push({
-          icon: <ListIocnBox bgColor={COLOR_LIST[index]} />,
+          icon: <ListIocnBox bgColor={COLOR_LIST[index + 2]} />,
           label: list.list,
           route: `/lists/${list.list.toLocaleLowerCase()}`,
           count: 0,
@@ -123,22 +123,13 @@ const MenuSidebar = () => {
   }, []);
 
   useEffect(() => {
-    [...TASKS, ...userLists].forEach((task) => {
-      switch (task.label.toLocaleLowerCase()) {
-        case 'upcoming':
-          task.count = tasksCount.upcoming;
-          break;
-        case 'today':
-          task.count = tasksCount.today;
-          break;
-        case 'personal':
-          task.count = tasksCount.personal;
-          break;
-        case 'work':
-          task.count = tasksCount.work;
-          break;
-      }
-    });
+    [...TASKS, ...userLists].forEach((menu) =>
+      tasksCount.forEach((value) => {
+        if (menu.label.toLowerCase() === value.title.toLowerCase()) {
+          menu.count = value.count;
+        }
+      })
+    );
   }, [tasksCount]);
 
   return (
@@ -218,6 +209,8 @@ const MenuSidebar = () => {
               key={label}
               count={count}
               route={route}
+              showDelete={showInput}
+              callback={handleGetUserLists}
             />
           ))}
         </div>
