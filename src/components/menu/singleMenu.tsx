@@ -3,7 +3,7 @@ import { useToggleContext } from '@context/useToggleContext';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import isMobileDevice from '@utils/detectUserDevice';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useMemo } from 'react';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { put } from '../../config/axiosClient';
 
 interface ISingleMenuProps {
@@ -12,11 +12,12 @@ interface ISingleMenuProps {
   count?: number;
   route: string;
   showDelete?: boolean;
+  setShowInput?: Dispatch<SetStateAction<boolean>>;
   callback?: () => void;
 }
 
 const SingleMenu = (props: ISingleMenuProps) => {
-  const { icon, label, count, route, showDelete, callback } = props;
+  const { icon, label, count, route, showDelete, callback, setShowInput } = props;
   const router = useRouter();
   const pathname = usePathname();
   const { setLoading } = useUIHelperContext();
@@ -46,6 +47,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
       await put('list', { list: label }).then((data) => {
         callback && callback();
         setShowSuccessToast({ show: true, message: data.data.message });
+        setShowInput && setShowInput((prev) => !prev);
       });
     } catch (err: any) {
       console.log(err.message);

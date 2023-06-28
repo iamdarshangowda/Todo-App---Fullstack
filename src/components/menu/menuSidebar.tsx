@@ -141,7 +141,7 @@ const MenuSidebar = () => {
       }`}
     >
       <div className="flex justify-between items-center">
-        <div onClick={() => router.push('/today')} className="hover:cursor-pointer">
+        <div onClick={() => router.push('/tasks/today')} className="hover:cursor-pointer">
           <TodoIconSmall size={'44px'} />
         </div>
         <div
@@ -210,6 +210,7 @@ const MenuSidebar = () => {
               count={count}
               route={route}
               showDelete={showInput}
+              setShowInput={setShowInput}
               callback={handleGetUserLists}
             />
           ))}
