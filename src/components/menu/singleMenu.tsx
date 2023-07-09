@@ -60,9 +60,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
       <button
         onClick={handleRoutes}
         className={`flex flex-1 items-center gap-2 p-2 hover:bg-[#D8D8D8] text-body-1/b2 hover:text-body-1/b1
-    rounded-lg hover:cursor-pointer duration-300 ${
-      pathname === route ? 'bg-[#D8D8D8]' : ''
-    }`}
+    rounded-lg hover:cursor-pointer ${pathname === route ? 'bg-[#D8D8D8]' : ''}`}
       >
         {icon}
         <h3 className={` text-grey-40 flex-grow text-left pl-5`}>{label}</h3>
