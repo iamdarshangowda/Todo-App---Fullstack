@@ -3,9 +3,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const runtimeCaching = require('next-pwa/cache');
 
-const withPWA = require('next-pwa');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  disable: process.env.NODE_ENV === 'development',
+  skipWaiting: true,
+  runtimeCaching,
+  customWorkerDir: 'serviceworker',
+});
 
-const nextConfig = withPWA({
+const nextConfig = {
   experimental: {
     appDir: true,
   },
@@ -16,14 +23,6 @@ const nextConfig = withPWA({
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
-  pwa: {
-    dest: 'public',
-    register: true,
-    disable: process.env.NODE_ENV === 'development',
-    skipWaiting: true,
-    runtimeCaching,
-    customWorkerDir: 'serviceworker',
-  },
-});
+};
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
