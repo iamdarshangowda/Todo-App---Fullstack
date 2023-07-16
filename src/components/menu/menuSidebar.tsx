@@ -130,7 +130,7 @@ const MenuSidebar = () => {
         }
       })
     );
-  }, [tasksCount]);
+  }, [tasksCount, userLists]);
 
   return (
     <nav

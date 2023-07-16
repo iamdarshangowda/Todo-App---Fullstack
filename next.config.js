@@ -1,4 +1,17 @@
 /** @type {import('next').NextConfig} */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const runtimeCaching = require('next-pwa/cache');
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  disable: process.env.NODE_ENV === 'development',
+  skipWaiting: true,
+  runtimeCaching,
+  customWorkerDir: 'serviceworker',
+});
+
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -12,4 +25,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
