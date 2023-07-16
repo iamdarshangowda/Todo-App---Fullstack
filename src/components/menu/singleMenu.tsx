@@ -30,6 +30,11 @@ const SingleMenu = (props: ISingleMenuProps) => {
         setHideMenu(true);
       }, 150);
     }
+
+    if (label === 'Sign Out') {
+      localStorage.removeItem('todoAuthToken');
+    }
+
     router.push(route);
   };
 
