@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const runtimeCaching = require('next-pwa/cache');
 
 const withPWA = require('next-pwa')({
@@ -10,7 +12,7 @@ const withPWA = require('next-pwa')({
   customWorkerDir: 'serviceworker',
 });
 
-const nextConfig = {
+const nextConfig = withPWA({
   experimental: {
     appDir: true,
   },
@@ -21,6 +23,6 @@ const nextConfig = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
-};
+});
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;
