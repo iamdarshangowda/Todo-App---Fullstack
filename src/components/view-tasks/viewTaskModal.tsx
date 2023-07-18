@@ -76,7 +76,9 @@ const ViewTaskModal = (props: IViewTaskModal) => {
           </div>
           <div>
             <h1 className="text-body-1/b1 text-grey-30">Description:</h1>
-            <h2 className="text-body-1/b2 text-grey-90">{description}</h2>
+            <h2 className="text-body-1/b2 text-grey-90 whitespace-pre-wrap">
+              {description}
+            </h2>
           </div>
           <p className="text-body-1/b1 text-grey-30">
             List Type:{' '}
