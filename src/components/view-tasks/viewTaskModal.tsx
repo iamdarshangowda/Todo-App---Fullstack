@@ -99,7 +99,12 @@ const ViewTaskModal = (props: IViewTaskModal) => {
                 disable={loading}
                 onClick={handleDeleteTask}
               />
-              <PrimaryButton text={'Edit Task'} type="button" onClick={handleEditTask} />
+              <PrimaryButton
+                text={'Edit Task'}
+                type="button"
+                onClick={handleEditTask}
+                disable={loading}
+              />
             </div>
           )}
         </div>

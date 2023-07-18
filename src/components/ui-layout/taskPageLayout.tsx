@@ -95,7 +95,7 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
 
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (
-          Array(4)
+          Array(3)
             .fill('')
             .map((data, index) => <SingleTaskSkeleton key={index} />)
         ) : (

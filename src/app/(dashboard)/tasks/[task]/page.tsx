@@ -11,6 +11,7 @@ import { useToggleContext } from '@context/useToggleContext';
 import { get } from '../../../../config/axiosClient';
 import { useParams } from 'next/navigation';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
+import SingleTaskSkeleton from '@components/common/skeletons/singleTaskSkeleton';
 
 const Task = () => {
   const [viewTasks, setViewTasks] = useState<boolean>(false);
@@ -61,6 +62,7 @@ const Task = () => {
       handleSearchChange={handleSearchChange}
     >
       <>
+        {loading && <SingleTaskSkeleton />}
         {filteredTasks.length ? (
           filteredTasks.map((task: ISingleTask) => (
             <SingleTask taskData={task} key={task.title} setViewTasks={setViewTasks} />
