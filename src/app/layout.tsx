@@ -12,6 +12,7 @@ export const metadata = {
       url: '/todo.png',
     },
   },
+  manifest: '/manifest.json',
 };
 
 const noto = Noto_Sans({
