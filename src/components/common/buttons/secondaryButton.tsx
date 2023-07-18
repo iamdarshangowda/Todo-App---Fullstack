@@ -22,7 +22,7 @@ const SecondaryButton = (props: IButtonProps) => {
       disabled={disable}
     >
       {disable ? (
-        <LoadingSpinner />
+        <LoadingSpinner style={text === 'Delete Task' ? '!text-red' : ''} />
       ) : (
         <div className="flex items-center justify-center gap-4">
           {icon}
