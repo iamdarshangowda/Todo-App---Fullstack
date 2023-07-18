@@ -1,14 +1,43 @@
 'use client';
 
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
 import { Transition } from '@headlessui/react';
 import { useToggleContext } from '@context/useToggleContext';
 import GetStarted from './getStarted';
 import LoginForm from './loginForm';
 import SignupForm from './signupForm';
+import { get } from '../../config/axiosClient';
+import { useRouter } from 'next/navigation';
+import { useUIHelperContext } from '@context/useUIHelperContext';
 
 const LoginTabs = () => {
+  const router = useRouter();
   const { currentTab } = useToggleContext();
+  const { setLoading } = useUIHelperContext();
+
+  const handleVerifyToken = async () => {
+    setLoading(true);
+    try {
+      await get('user/verify').then((data) => {
+        const { tokenValid } = data.data;
+        if (tokenValid) {
+          router.push('/tasks/today');
+        }
+      });
+    } catch (err: any) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('todoAuthToken');
+
+    if (isLoggedIn) {
+      handleVerifyToken();
+    }
+  }, []);
 
   const screenConfig = useMemo(() => {
     return {

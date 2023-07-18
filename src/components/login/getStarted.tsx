@@ -2,15 +2,18 @@ import React, { forwardRef } from 'react';
 import { useToggleContext } from '@context/useToggleContext';
 import PrimaryButton from '@components/common/buttons/primaryButton';
 import TextButton from '@components/common/buttons/textButton';
+import { useUIHelperContext } from '@context/useUIHelperContext';
 
 const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   const { setCurrentTab } = useToggleContext();
+  const { loading } = useUIHelperContext();
 
   const handleGetStarted = () => {
     setCurrentTab(2);
   };
 
   const handleSignIn = () => {
+    if (loading) return;
     setCurrentTab(1);
   };
 
@@ -22,7 +25,7 @@ const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
         is customised for individual seeking a stress-free way to saty focused on their
         goals, projects and tasks.
       </p>
-      <PrimaryButton text={'Get Started'} onClick={handleGetStarted} />
+      <PrimaryButton text={'Get Started'} onClick={handleGetStarted} disable={loading} />
       <TextButton text=" Already have an account? Sign in" onClick={handleSignIn} />
     </div>
   );
