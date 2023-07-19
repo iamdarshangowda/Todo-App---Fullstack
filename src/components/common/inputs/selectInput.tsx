@@ -17,7 +17,7 @@ const SelectInput = (props: ISelectProps) => {
   const { optionsList, onChange, value } = props;
   return (
     <div className="max-w-lg w-full flex gap-6 items-center">
-      <label htmlFor="list_type" className="text-grey-60 text-body-1/b2">
+      <label htmlFor="list_type" className="text-body-1/b2">
         List:
       </label>
       <select

@@ -1,4 +1,5 @@
 import { SearchIcon } from '@components/common/icons/icons';
+import { useThemeContext } from '@context/ThemeContext';
 import { InputAttributes } from '@utils/types';
 import React from 'react';
 
@@ -19,8 +20,8 @@ const SearchBar = (props: ISearchProps) => {
         type="text"
         id="search"
         name="search"
-        className="w-full p-2 text-grey-80  text-body-1/b
-      placeholder:text-body-1/b2 placeholder:text-grey-20 disabled:text-grey-20 outline-none bg-grey-10"
+        className={`w-full p-2 text-body-1/b dark:text-grey-0
+      placeholder:text-body-1/b2 placeholder:text-grey-20 disabled:text-grey-20 outline-none dark:bg-grey-70`}
         placeholder="Search your tasks"
         onChange={onChange}
         disabled={disabled}

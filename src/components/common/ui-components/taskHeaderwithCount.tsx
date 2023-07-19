@@ -15,7 +15,7 @@ const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
   const { title, count, loading, handleSearchChange } = props;
   const { hideMenu, setHideMenu } = useToggleContext();
   return (
-    <div className=" text-grey-80 flex gap-6 items-center relative justify-items-stretch">
+    <div className=" flex gap-6 items-center relative justify-items-stretch">
       {hideMenu && (
         <div
           className="hover:cursor-pointer p-3 bg-grey-10 rounded-lg hover:scale-110"
@@ -26,7 +26,7 @@ const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
       )}
       <h1 className="text-heading-1/h2">{title}</h1>
       {loading ? (
-        <span className="w-12 h-12 rounded-lg animate-pulse bg-grey-10"></span>
+        <span className="w-12 h-12 rounded-lg animate-pulse bg-grey-10 dark:bg-grey-80"></span>
       ) : count ? (
         <span className="text-heading-2/h1 px-4 border border-grey-20 rounded-lg ">
           {count}

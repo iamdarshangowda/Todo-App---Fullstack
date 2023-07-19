@@ -30,7 +30,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/tree/tree.jsx"
+    "src/components/tree/tree.jsx",
+    "src/context/ThemeContext.js"
   ],
   "exclude": ["node_modules"]
 }

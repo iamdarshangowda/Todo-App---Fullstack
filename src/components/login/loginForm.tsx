@@ -94,7 +94,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
 
   return (
     <div className="max-w-lg w-full flex flex-col gap-4" ref={ref}>
-      <h1 className="text-heading-1/h2 text-grey-90">Sign In</h1>
+      <h1 className="text-heading-1/h2 text-grey-0">Sign In</h1>
       <form onSubmit={handleSignIn}>
         <div className="flex flex-col gap-6">
           <TextInput
