@@ -50,7 +50,7 @@ const List = () => {
 
   return (
     <TaskPageLayout
-      header={capitalizeFirstLetter(list)}
+      header={capitalizeFirstLetter(list as string)}
       count={tasks.length}
       loading={loading}
       handleGetAllTasks={handleGetAllPersonalTasks}
@@ -67,7 +67,7 @@ const List = () => {
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
             {searchText.length
               ? 'No tasks found'
-              : `No Tasks in ${capitalizeFirstLetter(list)} Category!`}
+              : `No Tasks in ${capitalizeFirstLetter(list as string)} Category!`}
           </h2>
         )}
       </>
