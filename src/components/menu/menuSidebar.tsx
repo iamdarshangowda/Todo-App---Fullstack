@@ -6,7 +6,6 @@ import {
   CheckIcon,
   CloseIcon,
   LeftArrowIcon,
-  SettingsIcon,
   SignOutIcon,
   StickyNotes,
   TodayMenuIcon,
@@ -48,7 +47,7 @@ const TASKS: IMenuList = [
   {
     icon: <StickyNotes />,
     label: 'Sticky Wall',
-    route: 'stickynotes',
+    route: '/sticky',
     count: 0,
   },
 ];
