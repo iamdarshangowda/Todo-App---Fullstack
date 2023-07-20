@@ -53,7 +53,7 @@ const Task = () => {
 
   return (
     <TaskPageLayout
-      header={capitalizeFirstLetter(task)}
+      header={capitalizeFirstLetter(task as string)}
       count={tasks.length}
       loading={loading}
       handleGetAllTasks={handleGetAllTasks}
@@ -71,7 +71,7 @@ const Task = () => {
           <h2 className="text-grey-40 text-body-1/b2 text-center mt-5">
             {searchText.length
               ? 'No tasks found'
-              : `No Tasks Added for ${capitalizeFirstLetter(task)}!`}
+              : `No Tasks Added for ${capitalizeFirstLetter(task as string)}!`}
           </h2>
         )}
       </>

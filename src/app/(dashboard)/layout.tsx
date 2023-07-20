@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { showSuccessToast, showErrorToast } = useToggleContext();
   return (
     <div
-      className={`fixed top-0 bottom-0 gap-2 flex p-4 w-full ${
+      className={`bg-inherit fixed top-0 bottom-0 gap-2 flex p-4 w-full ${
         blurBackground ? 'blur-sm' : 'blur-none'
       } duration-300`}
     >

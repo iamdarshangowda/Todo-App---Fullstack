@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation';
 import TextInput from '@components/common/inputs/textInput';
 import { get, post } from '../../config/axiosClient';
 import { COLOR_LIST } from '@utils/initialData';
+import DarkModeToggle from '@components/common/ui-components/darkModeToggle';
 
 const TASKS: IMenuList = [
   {
@@ -68,11 +69,6 @@ const LISTS: IMenuList = [
 ];
 
 const SETTINGS: IMenuList = [
-  {
-    icon: <SettingsIcon />,
-    label: 'Settings',
-    route: '/settings',
-  },
   {
     icon: <SignOutIcon />,
     label: 'Sign Out',
@@ -135,9 +131,7 @@ const MenuSidebar = () => {
   return (
     <nav
       className={`${
-        hideMenu
-          ? 'hidden'
-          : 'w-1/5 min-w-[330px] bg-grey-10 rounded-xl p-6 flex flex-col'
+        hideMenu ? 'hidden' : 'w-1/5 min-w-[330px] rounded-xl p-6 flex flex-col'
       }`}
     >
       <div className="flex justify-between items-center">
@@ -145,7 +139,7 @@ const MenuSidebar = () => {
           <TodoIconSmall size={'44px'} />
         </div>
         <div
-          className="hover:cursor-pointer p-3 bg-[#FAFAFA] rounded-lg hover:scale-110"
+          className="hover:cursor-pointer p-3 rounded-lg hover:scale-110"
           onClick={() => setHideMenu(true)}
         >
           <LeftArrowIcon fill="#4B4B4B" />
@@ -153,7 +147,7 @@ const MenuSidebar = () => {
       </div>
 
       <div className="mt-6">
-        <h3 className="text-body-2/b1 text-grey-40 uppercase">Tasks</h3>
+        <h3 className="text-body-2/b1 uppercase">Tasks</h3>
         <div className="flex flex-col space-y-3 mt-2">
           {TASKS.map(({ icon, label, route, count }: IMenu) => (
             <SingleMenu
@@ -167,11 +161,11 @@ const MenuSidebar = () => {
         </div>
       </div>
 
-      <div className="h-[1px] bg-grey-30 rounded-xl my-4"></div>
+      <div className="h-[1px] bg-grey-20 rounded-xl my-4"></div>
 
       <div className="overflow-auto scrollbar-hide h-full">
         <div className="flex justify-between py-1">
-          <h3 className="text-body-2/b1 text-grey-40 uppercase">Lists</h3>
+          <h3 className="text-body-2/b1 uppercase">Lists</h3>
           {!showInput && userLists.length < 5 && (
             <button onClick={() => setShowInput((prev) => !prev)}>
               <AddIcon size={'w-5 h-5'} />
@@ -219,6 +213,9 @@ const MenuSidebar = () => {
 
       <div className="flex flex-col space-y-3 mb-2 mt-auto">
         <div className="h-[1px] bg-grey-30 rounded-xl "></div>
+        <div className="p-3">
+          <DarkModeToggle />
+        </div>
         {SETTINGS.map(({ icon, label, route }: IMenu) => (
           <SingleMenu icon={icon} label={label} key={label} route={route} />
         ))}

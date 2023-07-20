@@ -14,12 +14,12 @@ export default function Home() {
         <div className="absolute top-16 left-14 ">
           <Link href="https://github.com/iamdarshangowda" legacyBehavior>
             <a target="_blank">
-              <p className="text-body-2/b3 text-grey-0 hover:underline ">by darshan</p>
+              <p className="text-body-2/b3 hover:underline ">by darshan</p>
             </a>
           </Link>
         </div>
       </div>
-      <div className="w-full sm:h-[95vh] h-[75vh] bg-grey-0 rounded-xl flex items-center p-4 justify-center gap-4 relative ">
+      <div className="w-full sm:h-[95vh] h-[75vh]  rounded-xl flex items-center p-4 justify-center gap-4 relative ">
         <div className="absolute top-5 left-5">
           <TodoIconSmall />
         </div>

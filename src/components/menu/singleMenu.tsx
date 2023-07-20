@@ -5,6 +5,7 @@ import isMobileDevice from '@utils/detectUserDevice';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { put } from '../../config/axiosClient';
+import { useThemeContext } from '@context/ThemeContext';
 
 interface ISingleMenuProps {
   icon: JSX.Element;
@@ -22,8 +23,10 @@ const SingleMenu = (props: ISingleMenuProps) => {
   const pathname = usePathname();
   const { setLoading } = useUIHelperContext();
   const { setHideMenu, setShowSuccessToast, setShowErrorToast } = useToggleContext();
+  const { mode } = useThemeContext();
 
   const handleRoutes = () => {
+    if (!route) return;
     if (route !== '/') setLoading(true);
     if (isMobileDevice()) {
       setTimeout(() => {
@@ -64,16 +67,16 @@ const SingleMenu = (props: ISingleMenuProps) => {
     <div className="flex gap-1">
       <button
         onClick={handleRoutes}
-        className={`flex flex-1 items-center gap-2 p-2 hover:bg-[#D8D8D8] text-body-1/b2 hover:text-body-1/b1
-    rounded-lg hover:cursor-pointer ${pathname === route ? 'bg-[#D8D8D8]' : ''}`}
+        className={`flex flex-1 items-center gap-2 p-2 ${
+          mode === 'dark' ? 'hover:bg-grey-40' : 'hover:bg-[#D8D8D8] '
+        } text-body-1/b2 hover:text-body-1/b1
+    rounded-lg hover:cursor-pointer ${
+      pathname === route ? (mode === 'dark' ? 'bg-grey-40' : 'bg-[#D8D8D8]') : ''
+    }`}
       >
         {icon}
-        <h3 className={` text-grey-40 flex-grow text-left pl-5`}>{label}</h3>
-        {count ? (
-          <span className="px-3 text-body-2/b1 text-grey-60 bg-[#D8D8D8] rounded-md ">
-            {count}
-          </span>
-        ) : null}
+        <h3 className={`flex-grow text-left pl-5`}>{label}</h3>
+        {count ? <span className="px-3 text-body-2/b1 rounded-md ">{count}</span> : null}
       </button>
       {showListDelete && (
         <button className="hover:bg-grey-20 p-4 rounded-full" onClick={handleDeleteList}>

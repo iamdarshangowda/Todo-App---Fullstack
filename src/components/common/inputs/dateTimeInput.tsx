@@ -14,7 +14,7 @@ const DateTimeInput = (props: IDateTimeInputProps) => {
 
   return (
     <div className="max-w-lg w-full flex gap-6 items-center">
-      <label htmlFor="due-date" className="text-grey-60 text-body-1/b2">
+      <label htmlFor="due-date" className="text-body-1/b2">
         Due Date:
       </label>
       <input

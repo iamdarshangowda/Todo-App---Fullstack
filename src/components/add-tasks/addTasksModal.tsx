@@ -131,7 +131,7 @@ const AddTaskModal = (props: IAddTaskModal) => {
     <Modal setShow={() => {}} show={showAddTasks}>
       <div className="bg-grey-10 p-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
+          <h2 className="text-heading-2/h1 hover:cursor-pointer">Task:</h2>
           <div onClick={handleCloseModal} className="hover:cursor-pointer p-2">
             <CloseIcon />
           </div>
