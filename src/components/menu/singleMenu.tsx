@@ -26,6 +26,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
   const { mode } = useThemeContext();
 
   const handleRoutes = () => {
+    if (!route) return;
     if (route !== '/') setLoading(true);
     if (isMobileDevice()) {
       setTimeout(() => {

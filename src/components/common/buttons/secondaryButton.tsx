@@ -15,7 +15,7 @@ const SecondaryButton = (props: IButtonProps) => {
   const { text, onClick, type, icon, disable } = props;
   return (
     <button
-      className={`max-w-[180px] w-full rounded-xl h-12 dark:bg-grey-10 text-grey-90 text-body-1/b1
+      className={`max-w-[180px] w-full rounded-xl h-12 dark:bg-cream text-grey-90 text-body-1/b1
        hover:bg-grey-10 border border-grey-30 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] dark:hover:shadow-grey-40`}
       onClick={onClick}
       type={type ? type : 'button'}

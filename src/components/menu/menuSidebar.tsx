@@ -70,11 +70,6 @@ const LISTS: IMenuList = [
 
 const SETTINGS: IMenuList = [
   {
-    icon: <SettingsIcon />,
-    label: 'Settings',
-    route: '/settings',
-  },
-  {
     icon: <SignOutIcon />,
     label: 'Sign Out',
     route: '/',
@@ -218,7 +213,9 @@ const MenuSidebar = () => {
 
       <div className="flex flex-col space-y-3 mb-2 mt-auto">
         <div className="h-[1px] bg-grey-30 rounded-xl "></div>
-        <DarkModeToggle />
+        <div className="p-3">
+          <DarkModeToggle />
+        </div>
         {SETTINGS.map(({ icon, label, route }: IMenu) => (
           <SingleMenu icon={icon} label={label} key={label} route={route} />
         ))}
