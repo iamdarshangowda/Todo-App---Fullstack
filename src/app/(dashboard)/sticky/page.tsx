@@ -55,9 +55,9 @@ const StickyWall = () => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className={` rounded-xl ${
+                      className={`rounded-xl ${
                         snapshot.isDragging ? 'bg-green' : 'bg-cream'
-                      }`}
+                      } ${provided.draggableProps.style} select-none`}
                     >
                       <SingleSticky text={data.content} />
                     </div>
