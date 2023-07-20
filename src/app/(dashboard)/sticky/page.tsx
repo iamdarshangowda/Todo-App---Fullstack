@@ -55,7 +55,7 @@ const StickyWall = () => {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className={`rounded-xl ${
+                      className={`rounded-xl shadow-md shadow-grey-50 dark:shadow-grey-40 ${
                         snapshot.isDragging ? 'bg-green' : 'bg-cream'
                       } ${provided.draggableProps.style} select-none`}
                     >
