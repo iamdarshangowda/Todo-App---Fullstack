@@ -1,5 +1,6 @@
 'use client';
 
+import AddSticky from '@components/sticky/addSticky';
 import SingleSticky from '@components/sticky/singleSticky';
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -43,6 +44,7 @@ const StickyWall = () => {
             snapshot.isDraggingOver ? 'bg-grey-40' : ''
           }`}
           >
+            <AddSticky />
             {stickyItems
               .map((k) => ({
                 id: `item-${k}`,

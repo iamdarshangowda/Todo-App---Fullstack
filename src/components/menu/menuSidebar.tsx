@@ -89,7 +89,7 @@ const MenuSidebar = () => {
 
   const handleAddNewList = async () => {
     if (!listName) return;
-    await post('list', { list: listName }).then((data) => {
+    await post('list', { list: listName.trim() }).then((data) => {
       setShowInput(false);
       setListName('');
       handleGetUserLists();
