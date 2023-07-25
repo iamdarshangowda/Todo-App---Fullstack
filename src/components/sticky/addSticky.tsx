@@ -5,7 +5,7 @@ const AddSticky = () => {
   const [isAdding, setIsAdding] = useState(false);
   return (
     <div
-      className="relative rounded-xl shadow-md shadow-grey-50 dark:shadow-grey-40 w-[150px] md:w-[260px] h-[150px] md:h-[260px] flex justify-center items-center
+      className="relative rounded-xl shadow-md shadow-grey-50 dark:shadow-grey-40 w-full h-full flex justify-center items-center
      text-grey-80 bg-cream"
     >
       {isAdding ? (
