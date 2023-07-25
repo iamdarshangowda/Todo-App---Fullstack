@@ -22,12 +22,12 @@ const LoginTabs = () => {
         const { tokenValid } = data.data;
         if (tokenValid) {
           router.push('/tasks/today');
+        } else {
+          setLoading(false);
         }
       });
     } catch (err: any) {
       console.log(err.message);
-    } finally {
-      setLoading(false);
     }
   };
 
