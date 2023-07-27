@@ -1,16 +1,21 @@
+import { IStickyData } from '@utils/types';
 import React from 'react';
 
 interface ISingleStickyProps {
-  text: string;
+  data: IStickyData;
 }
 const SingleSticky = (props: ISingleStickyProps) => {
-  const { text } = props;
+  const { data } = props;
+
   return (
     <div
-      className="w-[150px] md:w-[260px] h-[150px] md:h-[260px] flex justify-center items-center
-     text-grey-80"
+      className={`h-[150px] md:h-[260px]
+     text-grey-80 rounded-xl p-3 overflow-auto`}
+      style={{
+        backgroundColor: data.stickyColor,
+      }}
     >
-      {text}
+      <p className="drop-shadow-xl">{data.text}</p>
     </div>
   );
 };
