@@ -47,3 +47,9 @@ export interface IUserAuthData {
   email: string;
   _id: string;
 }
+
+export interface IStickyData {
+  text: string;
+  stickyColor: string;
+  _id: string;
+}
