@@ -10,7 +10,7 @@ import { useDataStoreContext } from '@context/useDataStoreContext';
 
 const initialData = {
   text: '',
-  stickyColor: generateRandomColor(),
+  stickyColor: '',
 };
 
 interface IAddStickyProps {
@@ -37,9 +37,15 @@ const AddSticky = (props: IAddStickyProps) => {
     setStickyData((prev) => ({ ...prev, text: value }));
   };
 
+  const handleCloseInput = () => {
+    setIsAdding(false);
+    setStickyData(initialData);
+  };
+
   const handleSaveSticky = async () => {
     try {
       setLoading(true);
+      stickyData.stickyColor = generateRandomColor();
       await post('sticky', stickyData).then((data) => {
         setIsAdding(false);
         callback();
@@ -58,30 +64,27 @@ const AddSticky = (props: IAddStickyProps) => {
   return (
     <div
       className="relative rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 w-full h-full flex justify-center items-center
-     text-grey-80 bg-cream"
+     text-grey-80 bg-cream min-h-[120px] md:min-h-[180px]"
     >
       {isAdding ? (
         <div className="w-full h-full">
           <textarea
-            className={`rounded-xl w-full h-full border-none outline-none pt-12 px-6 placeholder:text-grey-20
-            placeholder:text-body-1/b2 disabled:text-grey-20 ${bg}`}
+            className={`rounded-xl w-full h-full border-none outline-none pt-8 md:pt-10 px-2 md:px-5 placeholder:text-grey-20
+            placeholder:text-body-2/b2 disabled:text-grey-20 ${bg}`}
             onChange={handleStickyChange}
             value={stickyData.text}
             autoComplete="off"
             placeholder={'Type here...'}
             disabled={loading}
           />
-          <div className="absolute top-5 right-5 cursor-pointer flex gap-3">
+          <div className="absolute top-2 right-2 md:top-4 md:right-4 cursor-pointer">
+            <div onClick={handleCloseInput}>
+              <CloseIcon />
+            </div>
+          </div>
+          <div className="absolute  bottom-2 right-2 md:bottom-4 md:right-4 cursor-pointer bg-yellow rounded-xl flex items-center text-caption/c2 md:text-body-2/b2 p-0 md:p-1">
             <div onClick={handleSaveSticky}>
               <TextButton text="Save" />
-            </div>
-            <div
-              onClick={() => {
-                setIsAdding(false);
-                setStickyData(initialData);
-              }}
-            >
-              <CloseIcon />
             </div>
           </div>
         </div>
