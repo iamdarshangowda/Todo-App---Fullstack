@@ -86,7 +86,7 @@ const StickyWall = () => {
 
   return (
     <>
-      <div className="flex justify-end" onClick={handleDelete}>
+      <div className="w-5 ml-auto" onClick={handleDelete}>
         {showDelete ? (
           <CloseIcon />
         ) : (
