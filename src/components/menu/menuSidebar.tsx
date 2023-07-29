@@ -38,12 +38,12 @@ const TASKS: IMenuList = [
     route: '/tasks/today',
     count: 0,
   },
-  {
-    icon: <CalendarMenuIcon />,
-    label: 'Calendar',
-    route: 'calendar',
-    count: 0,
-  },
+  // {
+  //   icon: <CalendarMenuIcon />,
+  //   label: 'Calendar',
+  //   route: 'calendar',
+  //   count: 0,
+  // },
   {
     icon: <StickyNotes />,
     label: 'Sticky Wall',
