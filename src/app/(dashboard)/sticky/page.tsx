@@ -106,11 +106,11 @@ const StickyWall = () => {
                 ref={provided.innerRef}
                 className={` h-20 w-ful flex justify-center items-center  ${
                   snapshot.isDraggingOver
-                    ? 'bg-gradient-to-r from-white dark:from-[#111] via-red dark:via-red to-white dark:to-[#111] opacity-100'
+                    ? 'bg-gradient-to-r from-white dark:from-[#111] via-error dark:via-error to-white dark:to-[#111] opacity-100'
                     : 'bg-gradient-to-r from-white dark:from-[#111] via-grey-20 dark:via-grey-40 to-white dark:to-[#111] opacity-70'
                 }`}
               >
-                Drag over here to delete your sticky
+                Drag and drop here to delete
               </div>
             )}
           </Droppable>

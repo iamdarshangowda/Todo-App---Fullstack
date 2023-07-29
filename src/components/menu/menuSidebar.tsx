@@ -130,7 +130,9 @@ const MenuSidebar = () => {
   return (
     <nav
       className={`${
-        hideMenu ? 'hidden' : 'w-1/5 min-w-[330px] rounded-xl p-6 flex flex-col'
+        hideMenu
+          ? 'hidden'
+          : 'w-1/5 min-w-[330px] rounded-xl p-6 flex flex-col shadow-lg shadow-grey-30 dark:shadow-grey-30'
       }`}
     >
       <div className="flex justify-between items-center">
