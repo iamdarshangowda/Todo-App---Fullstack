@@ -47,7 +47,7 @@ const TASKS: IMenuList = [
   // },
   {
     icon: <StickyNotes />,
-    label: 'Sticky Wall',
+    label: 'Sticky',
     route: '/sticky',
     count: 0,
   },
@@ -88,6 +88,7 @@ const MenuSidebar = () => {
   const handleInputChamge = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
+    // Change to zod validation
     const WHITE_SPACE = /\s/;
     if (WHITE_SPACE.test(value)) {
       setShowErrorToast({ show: true, message: 'Space not allowed' });
@@ -110,6 +111,7 @@ const MenuSidebar = () => {
         setListName('');
         setShowSuccessToast({ show: true, message: data.data.message });
         handleGetUserLists();
+        getAllCount(setTasksCount);
       }
     );
   };
