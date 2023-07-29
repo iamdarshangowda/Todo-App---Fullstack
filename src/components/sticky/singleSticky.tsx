@@ -7,7 +7,7 @@ interface ISingleStickyProps {
 }
 const SingleSticky = (props: ISingleStickyProps) => {
   const { data, isDeleting } = props;
-  console.log(isDeleting);
+
   return (
     <div
       className={`h-[150px] md:h-[260px]
