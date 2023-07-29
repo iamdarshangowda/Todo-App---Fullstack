@@ -15,7 +15,16 @@ export interface IMenu {
   count?: number;
 }
 
+export interface IList {
+  label: string;
+  route: string;
+  color: string;
+  count?: number;
+}
+
 export type IMenuList = IMenu[];
+
+export type IListType = IList[];
 
 export interface ISVGIocnProps {
   size?: number;

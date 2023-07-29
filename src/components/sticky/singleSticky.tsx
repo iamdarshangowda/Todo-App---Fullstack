@@ -13,7 +13,7 @@ const SingleSticky = (props: ISingleStickyProps) => {
       className={`h-[150px] md:h-[260px]
      text-grey-80 p-3 overflow-auto rounded-xl`}
       style={{
-        backgroundColor: isDeleting ? 'red' : data.stickyColor,
+        backgroundColor: isDeleting ? '#FF3B30' : data.stickyColor,
       }}
     >
       <p className="drop-shadow-xl">{data.text}</p>

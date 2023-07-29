@@ -10,6 +10,7 @@ import { useToggleContext } from '@context/useToggleContext';
 import { IStickyData } from '@utils/types';
 import { CloseIcon, DeleteIcon, EditIcon } from '@components/common/icons/icons';
 import { useThemeContext } from '@context/ThemeContext';
+import SkeletonSticky from '@components/sticky/skeletonSticky';
 
 const StickyWall = () => {
   const { loading, setLoading } = useUIHelperContext();
@@ -32,7 +33,6 @@ const StickyWall = () => {
 
   const handleonDragEnd = (result: any) => {
     // dropped outside the list
-    console.log(result);
     if (!result.destination) {
       return;
     }
@@ -65,7 +65,6 @@ const StickyWall = () => {
   };
 
   const handleDeleteSticky = async (id: string) => {
-    console.log(id, 'deleted');
     try {
       setLoading(true);
       await deleteTask(`sticky?id=${id}`).then((data) => {
@@ -86,17 +85,19 @@ const StickyWall = () => {
 
   return (
     <>
-      <div className="flex justify-end">
-        {showDelete ? (
-          <div onClick={handleDelete}>
-            <CloseIcon />
-          </div>
-        ) : (
-          <div onClick={handleDelete}>
-            <DeleteIcon fill={mode === 'dark' ? 'default' : '#bbb'} />
-          </div>
-        )}
-      </div>
+      {stickyItems.length ? (
+        <div className="flex justify-end">
+          {showDelete ? (
+            <div onClick={handleDelete}>
+              <CloseIcon />
+            </div>
+          ) : (
+            <div onClick={handleDelete}>
+              <DeleteIcon fill={mode === 'dark' ? 'default' : '#bbb'} />
+            </div>
+          )}
+        </div>
+      ) : null}
       <DragDropContext onDragEnd={handleonDragEnd}>
         {showDelete ? (
           <Droppable droppableId="delete">
@@ -106,11 +107,11 @@ const StickyWall = () => {
                 ref={provided.innerRef}
                 className={` h-20 w-ful flex justify-center items-center  ${
                   snapshot.isDraggingOver
-                    ? 'bg-gradient-to-r from-white dark:from-[#111] via-red dark:via-red to-white dark:to-[#111] opacity-100'
+                    ? 'bg-gradient-to-r from-white dark:from-[#111] via-error dark:via-error to-white dark:to-[#111] opacity-100'
                     : 'bg-gradient-to-r from-white dark:from-[#111] via-grey-20 dark:via-grey-40 to-white dark:to-[#111] opacity-70'
                 }`}
               >
-                Drag over here to delete your sticky
+                Drag and drop here to delete
               </div>
             )}
           </Droppable>
@@ -126,23 +127,26 @@ const StickyWall = () => {
           }`}
             >
               <AddSticky callback={getAllStickyNotes} />
-              {stickyItems.map((data, index) => (
-                <Draggable key={data._id} draggableId={data._id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className={`rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 ${provided.draggableProps.style} select-none`}
-                    >
-                      <SingleSticky
-                        data={data}
-                        isDeleting={snapshot.isDragging && showDelete}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+              {loading && <SkeletonSticky />}
+              {stickyItems.length
+                ? stickyItems.map((data, index) => (
+                    <Draggable key={data._id} draggableId={data._id} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className={`rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 ${provided.draggableProps.style} select-none`}
+                        >
+                          <SingleSticky
+                            data={data}
+                            isDeleting={snapshot.isDragging && showDelete}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))
+                : null}
             </div>
           )}
         </Droppable>

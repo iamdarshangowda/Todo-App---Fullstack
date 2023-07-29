@@ -36,7 +36,7 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
     setViewTasks,
     handleSearchChange,
   } = props;
-  const { hideMenu, setHideMenu } = useToggleContext();
+  const { hideMenu, setHideMenu, setShowErrorToast } = useToggleContext();
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   const { setBlurBackground } = useUIHelperContext();
   const { setSingleTaskData } = useDataStoreContext();
@@ -56,6 +56,10 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
     setShowAddTasks((prev) => !prev);
   };
 
+  const handleVoiceNote = () => {
+    setShowErrorToast({ show: true, message: 'Comming soon...' });
+  };
+
   useEffect(() => {
     handleGetAllTasks();
   }, []);
@@ -72,9 +76,10 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
       <div className="flex gap-2 sm:gap-4 w-full justify-between sm:justify-start">
         <SecondaryButton text="Add Task" onClick={handleAddTask} icon={<AddIcon />} />
         <SecondaryButton
-          text="Rec Audio"
-          onClick={() => setShowAddTasks((prev) => !prev)}
+          text="Voice Note"
+          onClick={handleVoiceNote}
           icon={<RecMicIcon />}
+          tagText={'Comming soon'}
         />
       </div>
 
@@ -91,7 +96,7 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
         callback={handleGetAllTasks}
       />
 
-      {isMobileDevice() && <SearchBar onChange={handleSearchChange} />}
+      {count && isMobileDevice() ? <SearchBar onChange={handleSearchChange} /> : null}
 
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (
