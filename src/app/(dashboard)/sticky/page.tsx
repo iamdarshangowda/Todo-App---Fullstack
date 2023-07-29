@@ -86,11 +86,15 @@ const StickyWall = () => {
 
   return (
     <>
-      <div className="w-5 ml-auto" onClick={handleDelete}>
+      <div className="flex justify-end">
         {showDelete ? (
-          <CloseIcon />
+          <div className="w-5" onClick={handleDelete}>
+            <CloseIcon />
+          </div>
         ) : (
-          <DeleteIcon fill={mode === 'dark' ? 'default' : '#bbb'} />
+          <div className="w-5" onClick={handleDelete}>
+            <DeleteIcon fill={mode === 'dark' ? 'default' : '#bbb'} />
+          </div>
         )}
       </div>
       <DragDropContext onDragEnd={handleonDragEnd}>
