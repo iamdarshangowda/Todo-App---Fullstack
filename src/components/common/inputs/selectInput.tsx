@@ -1,4 +1,4 @@
-import { IMenuList } from '@utils/types';
+import { IListType } from '@utils/types';
 import React, { ChangeEventHandler } from 'react';
 
 interface ISelectMenu {
@@ -7,7 +7,7 @@ interface ISelectMenu {
 }
 
 interface ISelectProps {
-  optionsList: IMenuList;
+  optionsList: IListType;
   onChange: any;
   value: string;
   // todo  - update type for on change

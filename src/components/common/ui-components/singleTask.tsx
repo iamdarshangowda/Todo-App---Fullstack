@@ -4,7 +4,6 @@ import ListIocnBox from '@components/menu/listIocnBox';
 import { ISingleTask } from '@utils/types';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 import { useDataStoreContext } from '@context/useDataStoreContext';
-import { COLOR_LIST } from '@utils/initialData';
 import { useThemeContext } from '@context/ThemeContext';
 
 interface ISingleTaskProps {
@@ -16,7 +15,7 @@ const SingleTask = (props: ISingleTaskProps) => {
   const { taskData, setViewTasks } = props;
   const { title, due_date, list_type, description, _id } = taskData;
   const { setSingleTaskData, userLists } = useDataStoreContext();
-  const [colorIndex, setColorIndex] = useState(0);
+  const [listColor, setListColor] = useState<string>('#bbb');
   const { mode } = useThemeContext();
 
   const handleViewTask = () => {
@@ -33,7 +32,7 @@ const SingleTask = (props: ISingleTaskProps) => {
   const getColorIndex = () => {
     userLists.forEach((list, index) => {
       if (list.label.toLocaleLowerCase() === list_type) {
-        setColorIndex(index);
+        setListColor(list.color);
         return;
       }
     });
@@ -68,10 +67,7 @@ const SingleTask = (props: ISingleTaskProps) => {
             )}
             {list_type && (
               <div className="flex gap-2 items-center">
-                <ListIocnBox
-                  size={'!h-4 w-4 rounded-sm'}
-                  bgColor={COLOR_LIST[colorIndex]}
-                />
+                <ListIocnBox size={'!h-4 w-4 rounded-sm'} bgColor={listColor} />
                 <h3 className="text-body-2/b1">{capitalizeFirstLetter(list_type)}</h3>
               </div>
             )}

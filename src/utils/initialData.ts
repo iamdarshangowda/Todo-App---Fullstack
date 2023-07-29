@@ -23,11 +23,3 @@ export const singleInitialListsData = {
   route: '',
   count: 0,
 };
-
-export const COLOR_LIST = [
-  '!bg-red',
-  '!bg-yellow',
-  '!bg-blue',
-  '!bg-green',
-  '!bg-purple',
-];

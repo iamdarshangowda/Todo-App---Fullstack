@@ -14,16 +14,16 @@ import {
 } from '@components/common/icons/icons';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import SingleMenu from './singleMenu';
-import { IMenu, IMenuList } from '@utils/types';
-import ListIocnBox from './listIocnBox';
+import { IList, IListType, IMenu, IMenuList } from '@utils/types';
 import { useToggleContext } from '@context/useToggleContext';
 import { getAllCount } from '../../apis/getCount';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 import { useRouter } from 'next/navigation';
 import TextInput from '@components/common/inputs/textInput';
 import { get, post } from '../../config/axiosClient';
-import { COLOR_LIST } from '@utils/initialData';
 import DarkModeToggle from '@components/common/ui-components/darkModeToggle';
+import { generateRandomColor } from '@utils/generateRandomColor';
+import SingleList from './singleList';
 
 const TASKS: IMenuList = [
   {
@@ -52,17 +52,17 @@ const TASKS: IMenuList = [
   },
 ];
 
-const LISTS: IMenuList = [
+const LISTS: IListType = [
   {
-    icon: <ListIocnBox bgColor={'!bg-red'} />,
     label: 'Personal',
     route: '/lists/personal',
+    color: '#EBB02D', // yellow
     count: 0,
   },
   {
-    icon: <ListIocnBox bgColor={'!bg-yellow'} />,
     label: 'Work',
     route: '/lists/work',
+    color: '#F24C3D', // red
     count: 0,
   },
 ];
@@ -77,7 +77,7 @@ const SETTINGS: IMenuList = [
 
 const MenuSidebar = () => {
   const router = useRouter();
-  const { hideMenu, setHideMenu } = useToggleContext();
+  const { hideMenu, setHideMenu, setShowSuccessToast } = useToggleContext();
   const { tasksCount, setTasksCount, userLists, setUserLists } = useDataStoreContext();
   const [showInput, setShowInput] = useState<boolean>(false);
   const [listName, setListName] = useState<string>('');
@@ -89,20 +89,23 @@ const MenuSidebar = () => {
 
   const handleAddNewList = async () => {
     if (!listName) return;
-    await post('list', { list: listName.trim() }).then((data) => {
-      setShowInput(false);
-      setListName('');
-      handleGetUserLists();
-    });
+    await post('list', { list: listName.trim(), color: generateRandomColor() }).then(
+      (data) => {
+        setShowInput(false);
+        setListName('');
+        setShowSuccessToast({ show: true, message: data.data.message });
+        handleGetUserLists();
+      }
+    );
   };
 
   const handleGetUserLists = async () => {
     await get('lists').then((data) => {
       const { lists } = data.data;
-      const extraLists: IMenuList = [];
-      lists.forEach((list: any, index: number) =>
+      const extraLists: IListType = [];
+      lists.forEach((list: any) =>
         extraLists.push({
-          icon: <ListIocnBox bgColor={COLOR_LIST[index + 2]} />,
+          color: list.color,
           label: list.list,
           route: `/lists/${list.list.toLocaleLowerCase()}`,
           count: 0,
@@ -197,11 +200,11 @@ const MenuSidebar = () => {
           </div>
         )}
         <div className="flex flex-col space-y-3 mb-4 mt-2 sm:h-full h-20">
-          {userLists.map(({ icon, label, route, count }: IMenu) => (
-            <SingleMenu
-              icon={icon}
+          {userLists.map(({ label, route, count, color }: IList) => (
+            <SingleList
+              color={color}
               label={label}
-              key={label}
+              key={color}
               count={count}
               route={route}
               showDelete={showInput}

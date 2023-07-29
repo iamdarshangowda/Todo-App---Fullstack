@@ -1,5 +1,5 @@
 import { initialTask } from '@utils/initialData';
-import { ICountProps, IMenuList, ISingleTask } from '@utils/types';
+import { ICountProps, IListType, IMenuList, ISingleTask } from '@utils/types';
 import { create } from 'zustand';
 
 type IDataStoreContext = {
@@ -9,8 +9,8 @@ type IDataStoreContext = {
   tasksCount: ICountProps[];
   setTasksCount: (tasksCount: ICountProps[]) => void;
 
-  userLists: IMenuList;
-  setUserLists: (userLists: IMenuList) => void;
+  userLists: IListType;
+  setUserLists: (userLists: IListType) => void;
 };
 
 export const useDataStoreContext = create<IDataStoreContext>((set, get) => ({
