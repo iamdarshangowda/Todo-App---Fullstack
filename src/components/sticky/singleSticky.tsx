@@ -3,16 +3,17 @@ import React from 'react';
 
 interface ISingleStickyProps {
   data: IStickyData;
+  isDeleting: boolean;
 }
 const SingleSticky = (props: ISingleStickyProps) => {
-  const { data } = props;
-
+  const { data, isDeleting } = props;
+  console.log(isDeleting);
   return (
     <div
       className={`h-[150px] md:h-[260px]
-     text-grey-80 rounded-xl p-3 overflow-auto`}
+     text-grey-80 p-3 overflow-auto rounded-xl`}
       style={{
-        backgroundColor: data.stickyColor,
+        backgroundColor: isDeleting ? 'red' : data.stickyColor,
       }}
     >
       <p className="drop-shadow-xl">{data.text}</p>
