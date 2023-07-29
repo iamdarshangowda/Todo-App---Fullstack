@@ -11,6 +11,9 @@ import { IStickyData } from '@utils/types';
 import { CloseIcon, DeleteIcon, EditIcon } from '@components/common/icons/icons';
 import { useThemeContext } from '@context/ThemeContext';
 import SkeletonSticky from '@components/sticky/skeletonSticky';
+import { getAllCount } from '../../../apis/getCount';
+import { useUserDataContext } from '@context/useUserContext';
+import { useDataStoreContext } from '@context/useDataStoreContext';
 
 const StickyWall = () => {
   const { loading, setLoading } = useUIHelperContext();
@@ -18,6 +21,7 @@ const StickyWall = () => {
   const [stickyItems, setStickyItems] = useState<IStickyData[]>([]);
   const [showDelete, setShowDelete] = useState(false);
   const { mode } = useThemeContext();
+  const { setTasksCount } = useDataStoreContext();
 
   const handleDelete = () => {
     setShowDelete((prev) => !prev);
@@ -70,6 +74,7 @@ const StickyWall = () => {
       await deleteTask(`sticky?id=${id}`).then((data) => {
         getAllStickyNotes();
         setShowSuccessToast({ show: true, message: data.data.message });
+        getAllCount(setTasksCount);
       });
     } catch (err: any) {
       console.log(err.message);
