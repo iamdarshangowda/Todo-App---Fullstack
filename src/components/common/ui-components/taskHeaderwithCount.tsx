@@ -36,7 +36,7 @@ const TaskHeaderwithCount = (props: ITaskHeaderwithCount) => {
       ) : null}
 
       <div className="ml-auto">
-        {!isMobileDevice() && <SearchBar onChange={handleSearchChange} />}
+        {count && !isMobileDevice() ? <SearchBar onChange={handleSearchChange} /> : null}
       </div>
     </div>
   );
