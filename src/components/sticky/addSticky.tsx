@@ -43,6 +43,11 @@ const AddSticky = (props: IAddStickyProps) => {
   };
 
   const handleSaveSticky = async () => {
+    if (!stickyData.text) {
+      setShowErrorToast({ show: true, message: 'Text is empty!' });
+      return;
+    }
+
     try {
       setLoading(true);
       stickyData.stickyColor = generateRandomColor();
