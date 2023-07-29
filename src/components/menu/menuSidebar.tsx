@@ -24,6 +24,7 @@ import { get, post } from '../../config/axiosClient';
 import DarkModeToggle from '@components/common/ui-components/darkModeToggle';
 import { generateRandomColor } from '@utils/generateRandomColor';
 import SingleList from './singleList';
+import { useThemeContext } from '@context/ThemeContext';
 
 const TASKS: IMenuList = [
   {
@@ -77,13 +78,27 @@ const SETTINGS: IMenuList = [
 
 const MenuSidebar = () => {
   const router = useRouter();
-  const { hideMenu, setHideMenu, setShowSuccessToast } = useToggleContext();
+  const { hideMenu, setHideMenu, setShowSuccessToast, setShowErrorToast } =
+    useToggleContext();
   const { tasksCount, setTasksCount, userLists, setUserLists } = useDataStoreContext();
   const [showInput, setShowInput] = useState<boolean>(false);
   const [listName, setListName] = useState<string>('');
+  const { mode } = useThemeContext();
 
   const handleInputChamge = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
+
+    const WHITE_SPACE = /\s/;
+    if (WHITE_SPACE.test(value)) {
+      setShowErrorToast({ show: true, message: 'Space not allowed' });
+      return;
+    }
+
+    if (value.length > 10) {
+      setShowErrorToast({ show: true, message: 'Text too long! Max 10 Characters' });
+      return;
+    }
+
     setListName(value);
   };
 
@@ -115,6 +130,11 @@ const MenuSidebar = () => {
     });
   };
 
+  const handleCloseInput = () => {
+    setHideMenu(true);
+    setListName('');
+  };
+
   useEffect(() => {
     handleGetUserLists();
     getAllCount(setTasksCount);
@@ -144,7 +164,7 @@ const MenuSidebar = () => {
         </div>
         <div
           className="hover:cursor-pointer p-3 rounded-lg hover:scale-110"
-          onClick={() => setHideMenu(true)}
+          onClick={handleCloseInput}
         >
           <LeftArrowIcon fill="#4B4B4B" />
         </div>
@@ -181,6 +201,7 @@ const MenuSidebar = () => {
             <TextInput
               name="list"
               type="text"
+              value={listName}
               onChange={handleInputChamge}
               placeholder="Enter List Name"
             />
@@ -189,7 +210,10 @@ const MenuSidebar = () => {
               onClick={handleAddNewList}
               disabled={!listName}
             >
-              <CheckIcon size={'20px'} fill={`${listName ? 'default' : 'grey'}`} />
+              <CheckIcon
+                size={'20px'}
+                fill={`${listName ? (mode === 'dark' ? 'white' : 'default') : 'grey'}`}
+              />
             </button>
             <button
               onClick={() => setShowInput((prev) => !prev)}
