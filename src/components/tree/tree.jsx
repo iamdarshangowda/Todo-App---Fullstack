@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 const Tree = () => {
   const treeRef = useRef();
   useEffect(() => {
-    var c = document.getElementById("canv");
-    var $ = c.getContext("2d");
+    var c = document.getElementById('canv');
+    var $ = c.getContext('2d');
     var w = (c.width = treeRef.current.offsetWidth || window.innerWidth);
     var h = (c.height = treeRef.current.offsetHeight + 20 || window.innerHeight);
     var w2 = w * 0.5;
@@ -61,7 +61,7 @@ const Tree = () => {
         this.vel += dif * 0.1;
         this.spawn += this.vel;
 
-        $.strokeStyle = "hsla(" + (ŭ % 360) + ",100%,50%,1)";
+        $.strokeStyle = 'hsla(' + (ŭ % 360) + ',100%,50%,1)';
         $.lineWidth = 1;
         $.beginPath();
         $.rotate(this.ang + (Math.sin(this.sway * this.mult) * Math.PI) / 128);
@@ -87,7 +87,7 @@ const Tree = () => {
   }, []);
 
   return (
-    <div className="w-full h-full" ref={treeRef}>
+    <div className="w-full h-full hidden md:block" ref={treeRef}>
       <canvas id="canv"></canvas>
     </div>
   );
