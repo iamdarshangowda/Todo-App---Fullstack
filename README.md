@@ -1,8 +1,12 @@
-Desktop and Mobile View
+Here is how the app looks like:
 
+Desktop View:
 ![My Image](public/screenshots/desktop.webp)
 
-![My Image](public/screenshots/mobile.webp)
+<p>Mobile View:</p>
+<div>
+<img src="public/screenshots/mobile.webp" width="350" />
+</div>
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
