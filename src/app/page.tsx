@@ -19,8 +19,8 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="w-full sm:h-[95vh] h-[75vh]  rounded-xl flex items-center p-4 justify-center gap-4 relative ">
-        <div className="absolute top-5 left-5">
+      <div className="w-full sm:h-[95vh] h-[75vh] shadow-md shadow-grey-50 rounded-xl flex flex-col items-center p-4 justify-center gap-4 relative ">
+        <div className="absolute top-5 right-5 md:left-5">
           <TodoIconSmall />
         </div>
         <LoginTabs />

@@ -69,7 +69,7 @@ const AddSticky = (props: IAddStickyProps) => {
   return (
     <div
       className="relative rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 w-full h-full flex justify-center items-center
-     text-grey-80 bg-cream min-h-[120px] md:min-h-[180px]"
+     text-grey-80 bg-cream min-h-[150px] md:min-h-[200px]"
     >
       {isAdding ? (
         <div className="w-full h-full">
