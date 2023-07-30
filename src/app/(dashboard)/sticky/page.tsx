@@ -93,11 +93,11 @@ const StickyWall = () => {
       {stickyItems.length ? (
         <div className="flex justify-end">
           {showDelete ? (
-            <div onClick={handleDelete}>
+            <div onClick={handleDelete} className="cursor-pointer">
               <CloseIcon />
             </div>
           ) : (
-            <div onClick={handleDelete}>
+            <div onClick={handleDelete} className="cursor-pointer">
               <DeleteIcon fill={mode === 'dark' ? 'default' : '#bbb'} />
             </div>
           )}

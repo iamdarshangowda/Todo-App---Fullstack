@@ -60,7 +60,7 @@ const ViewTaskModal = (props: IViewTaskModal) => {
 
   return (
     <Modal setShow={() => {}} show={viewTasks}>
-      <div className="bg-grey-10 p-8">
+      <div className="bg-cream_light p-8">
         <div className="flex justify-between items-center">
           <h2 className="text-heading-2/h1 text-grey-60 hover:cursor-pointer">Task:</h2>
           <div onClick={handleCloseModal} className="hover:cursor-pointer p-2">
