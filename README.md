@@ -1,7 +1,9 @@
-Desktop and Mobile View
+Here is how the app looks like:
 
+Desktop View:
 ![My Image](public/screenshots/desktop.gif)
 
+Mobile View:
 <img src="public/screenshots/mobile.gif" width="350" />
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
