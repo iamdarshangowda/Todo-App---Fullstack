@@ -104,7 +104,7 @@ const StickyWall = () => {
         </div>
       ) : null}
       <DragDropContext onDragEnd={handleonDragEnd}>
-        {showDelete ? (
+        {showDelete && stickyItems.length ? (
           <Droppable droppableId="delete">
             {(provided, snapshot) => (
               <div

@@ -14,7 +14,9 @@ export default function Home() {
         <div className="absolute top-16 left-14 ">
           <Link href="https://github.com/iamdarshangowda" legacyBehavior>
             <a target="_blank">
-              <p className="text-body-2/b3 hover:underline text-grey-20 ">by darshan</p>
+              <p className="text-body-2/b3 hover:underline text-grey-30 underline">
+                by darshan
+              </p>
             </a>
           </Link>
         </div>
