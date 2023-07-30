@@ -30,7 +30,7 @@ const AddSticky = (props: IAddStickyProps) => {
   const handleStickyChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target;
 
-    if (value.length > 100) {
+    if (value.length > 150) {
       setShowErrorToast({ show: true, message: 'Text is too long' });
       return;
     }
