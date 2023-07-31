@@ -36,7 +36,7 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
     setViewTasks,
     handleSearchChange,
   } = props;
-  const { hideMenu, setHideMenu, setShowErrorToast } = useToggleContext();
+  const { setShowErrorToast } = useToggleContext();
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   const { setBlurBackground } = useUIHelperContext();
   const { setSingleTaskData } = useDataStoreContext();
@@ -65,7 +65,7 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
   }, []);
 
   return (
-    <div className={`w-full space-y-6 sm:space-y-10 ${hideMenu ? '' : 'pl-4'}`}>
+    <div className={`w-full space-y-6 sm:space-y-10`}>
       <TaskHeaderwithCount
         title={header}
         count={count}
@@ -96,7 +96,9 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
         callback={handleGetAllTasks}
       />
 
-      {count && isMobileDevice() ? <SearchBar onChange={handleSearchChange} /> : null}
+      <div className="sm:hidden">
+        <SearchBar onChange={handleSearchChange} />
+      </div>
 
       <div className="flex flex-col space-y-2 overflow-y-scroll h-[calc(95vh-200px)] last:pb-5 scrollbar-hide">
         {loading ? (

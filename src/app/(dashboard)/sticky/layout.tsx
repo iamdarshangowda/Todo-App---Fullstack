@@ -19,11 +19,7 @@ const StickyLayout = ({ children }: any) => {
   }, [tasksCount]);
 
   return (
-    <div
-      className={`w-full space-y-6 sm:space-y-10 overflow-y-scroll scrollbar-hide ${
-        hideMenu ? '' : 'pl-4'
-      }`}
-    >
+    <div className={`w-full space-y-6 sm:space-y-10 overflow-y-scroll scrollbar-hide`}>
       <TaskHeaderwithCount title={'Sticky'} count={count} loading={false} />
       {children}
     </div>

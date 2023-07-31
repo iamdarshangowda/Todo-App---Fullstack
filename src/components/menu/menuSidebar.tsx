@@ -39,12 +39,6 @@ const TASKS: IMenuList = [
     route: '/tasks/today',
     count: 0,
   },
-  // {
-  //   icon: <CalendarMenuIcon />,
-  //   label: 'Calendar',
-  //   route: 'calendar',
-  //   count: 0,
-  // },
   {
     icon: <StickyNotes />,
     label: 'Sticky',
@@ -133,7 +127,7 @@ const MenuSidebar = () => {
   };
 
   const handleCloseInput = () => {
-    setHideMenu(true);
+    setHideMenu(!hideMenu);
     setListName('');
   };
 
@@ -153,19 +147,18 @@ const MenuSidebar = () => {
   }, [tasksCount, userLists]);
 
   return (
-    <nav
-      className={`${
-        hideMenu
-          ? 'hidden'
-          : 'w-1/5 min-w-[330px] rounded-xl p-6 flex flex-col shadow-lg shadow-grey-30 dark:shadow-grey-30'
-      }`}
+    <aside
+      className={`bg-inherit fixed top-0 left-0 z-40 w-64 md:w-80 h-screen p-6 flex flex-col
+       border-r border-grey-20 dark:border-grey-30 transition-transform  ${
+         hideMenu ? '-translate-x-full sm:translate-x-0 ' : 'translate-x-0'
+       }`}
     >
       <div className="flex justify-between items-center">
         <div onClick={() => router.push('/tasks/today')} className="hover:cursor-pointer">
           <TodoIconSmall size={'44px'} />
         </div>
         <div
-          className="hover:cursor-pointer p-3 rounded-lg hover:scale-110"
+          className="md:hidden hover:cursor-pointer p-3 rounded-lg hover:scale-110"
           onClick={handleCloseInput}
         >
           <LeftArrowIcon fill="#4B4B4B" />
@@ -242,7 +235,7 @@ const MenuSidebar = () => {
       </div>
 
       <div className="flex flex-col space-y-3 mb-2 mt-auto">
-        <div className="h-[1px] bg-grey-30 rounded-xl "></div>
+        <div className="h-[1px] bg-grey-20 rounded-xl "></div>
         <div className="p-3">
           <DarkModeToggle />
         </div>
@@ -250,7 +243,7 @@ const MenuSidebar = () => {
           <SingleMenu icon={icon} label={label} key={label} route={route} />
         ))}
       </div>
-    </nav>
+    </aside>
   );
 };
 
