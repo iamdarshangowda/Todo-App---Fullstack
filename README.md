@@ -1,3 +1,11 @@
+Here is how the app looks like:
+
+Desktop View:
+![desktop](https://github.com/iamdarshangowda/Todo-App---Fullstack/assets/94886063/5de23ce5-7819-4a3f-8240-57632ffdf430)
+
+Mobile View:
+![mobile](https://github.com/iamdarshangowda/Todo-App---Fullstack/assets/94886063/baf7ace6-c84d-4950-95d6-c6c4bfcee448)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -36,7 +36,7 @@ const TextInput = (props: IInputProps) => {
         id={name}
         name={name}
         className="w-full p-2 text-grey-80 border border-grey-20 rounded-lg text-body-1/b2 placeholder:text-grey-20
-      placeholder:text-body-2/b3 disabled:text-grey-20"
+      placeholder:text-body-2/b3 disabled:text-grey-20 bg-grey-10"
         placeholder={placeholder}
         onChange={onChange}
         disabled={disabled}

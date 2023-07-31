@@ -104,7 +104,7 @@ const StickyWall = () => {
         </div>
       ) : null}
       <DragDropContext onDragEnd={handleonDragEnd}>
-        {showDelete ? (
+        {showDelete && stickyItems.length ? (
           <Droppable droppableId="delete">
             {(provided, snapshot) => (
               <div
@@ -141,7 +141,8 @@ const StickyWall = () => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className={`rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 ${provided.draggableProps.style} select-none`}
+                          className={`rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 select-none`}
+                          style={{ ...provided.draggableProps.style }}
                         >
                           <SingleSticky
                             data={data}
