@@ -12,14 +12,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { showSuccessToast, showErrorToast } = useToggleContext();
   return (
     <div
-      className={`bg-inherit fixed top-0 bottom-0 gap-2 flex p-4 w-full ${
-        blurBackground ? 'blur-sm' : 'blur-none'
-      } duration-300`}
+      className={`bg-inherit h-screen w-full ${blurBackground ? 'blur-sm' : 'blur-none'}`}
     >
       <MenuSidebar />
       {showSuccessToast.show && <SuccessToast />}
       {showErrorToast.show && <ErrorToast />}
-      {children}
+      <div className="sm:ml-64 md:ml-80 p-3 sm:p-6">{children}</div>
     </div>
   );
 };

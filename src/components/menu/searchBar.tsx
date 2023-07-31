@@ -1,5 +1,4 @@
 import { SearchIcon } from '@components/common/icons/icons';
-import { useThemeContext } from '@context/ThemeContext';
 import { InputAttributes } from '@utils/types';
 import React from 'react';
 

@@ -24,9 +24,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
     if (!route) return;
     if (route !== '/') setLoading(true);
     if (isMobileDevice()) {
-      setTimeout(() => {
-        setHideMenu(true);
-      }, 150);
+      setHideMenu(true);
     }
 
     if (label === 'Sign Out') {
