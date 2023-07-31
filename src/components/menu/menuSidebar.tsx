@@ -149,7 +149,7 @@ const MenuSidebar = () => {
   return (
     <aside
       className={`bg-inherit fixed top-0 left-0 z-40 w-64 md:w-80 h-screen p-6 flex flex-col
-       shadow-sm shadow-grey-30 dark:shadow-grey-30 transition-transform  ${
+       border-r border-grey-20 dark:border-grey-30 transition-transform  ${
          hideMenu ? '-translate-x-full sm:translate-x-0 ' : 'translate-x-0'
        }`}
     >
@@ -235,7 +235,7 @@ const MenuSidebar = () => {
       </div>
 
       <div className="flex flex-col space-y-3 mb-2 mt-auto">
-        <div className="h-[1px] bg-grey-30 rounded-xl "></div>
+        <div className="h-[1px] bg-grey-20 rounded-xl "></div>
         <div className="p-3">
           <DarkModeToggle />
         </div>

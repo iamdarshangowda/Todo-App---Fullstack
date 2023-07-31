@@ -40,7 +40,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
         onClick={handleRoutes}
         className={`flex flex-1 items-center gap-2 p-2 ${
           mode === 'dark' ? 'hover:bg-grey-40' : 'hover:bg-[#D8D8D8] '
-        } text-body-1/b2 hover:text-body-1/b1
+        } text-body-1/b3
     rounded-lg hover:cursor-pointer ${
       pathname === route ? (mode === 'dark' ? 'bg-grey-40' : 'bg-[#D8D8D8]') : ''
     }`}
