@@ -79,7 +79,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
         localStorage.setItem('todoAuthToken', JSON.stringify(token));
         setUserAuthData(data.data.user);
         setShowSuccessToast({ show: true, message: data.data.message });
-        router.push('/tasks/today');
+        router.replace('/tasks/today');
       });
     } catch (error: any) {
       // console.log(error.response.data.message);

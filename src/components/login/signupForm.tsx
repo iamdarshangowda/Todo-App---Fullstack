@@ -89,7 +89,7 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
         localStorage.setItem('todoAuthToken', JSON.stringify(token));
         setUserAuthData(data.data.user);
         console.log(data.data);
-        router.push('/tasks/today');
+        router.replace('/tasks/today');
       });
     } catch (error: any) {
       console.log(error.response.data.message);
