@@ -148,7 +148,7 @@ const MenuSidebar = () => {
 
   return (
     <aside
-      className={`bg-inherit fixed top-0 left-0 z-40 w-72 md:w-80 h-screen p-6 flex flex-col
+      className={`bg-inherit fixed top-0 left-0 z-40 w-72 md:w-80 h-full p-6 flex flex-col
        border-r border-grey-20 dark:border-grey-30 transition-transform  ${
          hideMenu ? '-translate-x-full sm:translate-x-0 ' : 'translate-x-0'
        }`}
