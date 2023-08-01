@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center sm:justify-between p-4 gap-6 flex-col sm:flex-row login">
-      <div className="w-full sm:h-[95vh] relative h-[15vh] tree rounded-xl">
+    <main className="flex h-screen items-center sm:justify-between p-4 gap-6 flex-col sm:flex-row login">
+      <div className="w-full relative h-32 sm:h-full tree rounded-xl">
         <Tree />
         <div className="absolute top-4 left-6 ">
           <h1 className="text-heading-1/h2 text-grey-0">Todo</h1>
@@ -24,7 +24,7 @@ export default function Home() {
           <TodoIconSmall />
         </div>
       </div>
-      <div className="w-full sm:h-[95vh] h-[75vh] shadow-md shadow-grey-50 rounded-xl flex flex-col items-center p-4 justify-center gap-4 relative ">
+      <div className="w-full h-full shadow-md shadow-grey-50 rounded-xl flex flex-col items-center p-4 justify-center gap-4 relative ">
         <div className="hidden md:block absolute top-5 left-5">
           <TodoIconSmall />
         </div>
