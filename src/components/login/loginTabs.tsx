@@ -6,7 +6,6 @@ import { useToggleContext } from '@context/useToggleContext';
 import GetStarted from './getStarted';
 import LoginForm from './loginForm';
 import SignupForm from './signupForm';
-import { get } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import verifyToken from '../../apis/handleVerifyToken';
@@ -16,23 +15,23 @@ const LoginTabs = () => {
   const { currentTab } = useToggleContext();
   const { setLoading } = useUIHelperContext();
 
-  // const handleVerifyToken = async () => {
-  //   setLoading(true);
-  //   const isTokenValid = await verifyToken();
-  //   if (isTokenValid) {
-  //     router.push('/tasks/today');
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleVerifyToken = async () => {
+    setLoading(true);
+    const isTokenValid = await verifyToken();
+    if (isTokenValid) {
+      router.replace('/tasks/today');
+    } else {
+      setLoading(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   const isLoggedIn = localStorage.getItem('todoAuthToken');
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('todoAuthToken');
 
-  //   if (isLoggedIn) {
-  //     handleVerifyToken();
-  //   }
-  // }, []);
+    if (isLoggedIn) {
+      handleVerifyToken();
+    }
+  }, []);
 
   const screenConfig = useMemo(() => {
     return {

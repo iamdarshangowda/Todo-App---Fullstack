@@ -23,7 +23,6 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
     if (isTokenValid) {
       setAuthorized(true);
     } else {
-      console.log('pusj');
       router.push('/');
     }
   };
