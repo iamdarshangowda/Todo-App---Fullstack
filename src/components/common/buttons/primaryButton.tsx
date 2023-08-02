@@ -14,9 +14,7 @@ const PrimaryButton = (props: IButtonProps) => {
   const { text, onClick, type, disable } = props;
   return (
     <button
-      className={`max-w-lg w-full rounded-xl h-12 bg-yellow text-grey-90 text-body-1/b1
-      transition ease-in-out delay-250 hover:shadow-md hover:scale-95 hover:transition-all
-      hover:duration-300`}
+      className={`max-w-lg w-full rounded-xl h-12 bg-yellow_hover text-grey-90 text-body-1/b1 hover:bg-yellow`}
       onClick={onClick}
       type={type ? type : 'button'}
       disabled={disable}
