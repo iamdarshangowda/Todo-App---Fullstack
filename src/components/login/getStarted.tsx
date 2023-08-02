@@ -18,7 +18,7 @@ const GetStarted = forwardRef<HTMLDivElement, {}>((_props, ref) => {
   };
 
   return (
-    <div className="max-w-lg flex flex-col gap-4 " ref={ref}>
+    <div className="max-w-lg flex flex-col gap-4" ref={ref}>
       <h1 className="text-heading-1/h2 text-grey-0">Productive Mind</h1>
       <p className="text-body-1/b2">
         With only the features you need, <span className="text-body-1/b1">Todo App</span>{' '}
