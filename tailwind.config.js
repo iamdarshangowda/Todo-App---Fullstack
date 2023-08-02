@@ -14,8 +14,8 @@ module.exports = {
         noto: ['var(--font-noto)', ...fontFamily.sans],
       },
       colors: {
-        yellow: '#EBB02D',
-        yellow_hover: '#F7C04A',
+        yellow: '#F7C04A',
+        yellow_hover: '#EBB02D',
         error: '#FF3B30',
         red: '#F24C3D',
         blue: '#0079FF',

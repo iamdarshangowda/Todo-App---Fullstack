@@ -106,7 +106,7 @@ const SignupForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     <div className="max-w-lg w-full flex flex-col gap-4" ref={ref}>
       <h1 className="text-heading-1/h2 text-grey-0 ">Sign Up</h1>
       <form onSubmit={handleSignUp}>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <TextInput
             type={'text'}
             placeholder={'Enter your email'}
