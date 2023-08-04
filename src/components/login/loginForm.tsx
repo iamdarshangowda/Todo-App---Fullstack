@@ -92,6 +92,12 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     setCurrentTab(2);
   };
 
+  const handleGoogleLogin = () => {
+    if (typeof window !== 'undefined') {
+      window.open(`${process.env.TODO_BACKED_PORT}/auth/google/callback`, '_self');
+    }
+  };
+
   return (
     <div className="max-w-lg w-full flex flex-col gap-4" ref={ref}>
       <h1 className="text-heading-1/h2 text-grey-0">Sign In</h1>
@@ -119,6 +125,8 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
         </div>
       </form>
       <TextButton text="Don't have an account? Sign up" onClick={handleSignUp} />
+
+      <TextButton text="Signin with google" onClick={handleGoogleLogin} />
     </div>
   );
 });

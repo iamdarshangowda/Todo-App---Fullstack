@@ -3,7 +3,7 @@
 import { createContext, useEffect, useState } from 'react';
 import verifyToken from '../apis/handleVerifyToken';
 import LoadingSpinner from '@components/common/animations/loadingSpinner';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface contextProviderProp {
   children: any;
@@ -16,11 +16,14 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
 }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const googleToken = searchParams.get('accessToken');
   const [authorized, setAuthorized] = useState<boolean>(false);
 
   const handleVerifyToken = async () => {
     const isTokenValid = await verifyToken();
     if (isTokenValid) {
+      console.log('valid');
       setAuthorized(true);
     } else {
       router.push('/');
@@ -30,7 +33,11 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('todoAuthToken');
 
-    if (isLoggedIn) {
+    if (!isLoggedIn && googleToken) {
+      localStorage.setItem('todoAuthToken', JSON.stringify(googleToken));
+    }
+
+    if (isLoggedIn || googleToken) {
       handleVerifyToken();
     } else {
       router.push('/');
