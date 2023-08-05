@@ -4,6 +4,7 @@ import isMobileDevice from '@utils/detectUserDevice';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { useThemeContext } from '@context/ThemeContext';
+import axios from 'axios';
 
 interface ISingleMenuProps {
   icon: JSX.Element;
@@ -28,7 +29,24 @@ const SingleMenu = (props: ISingleMenuProps) => {
     }
 
     if (label === 'Sign Out') {
-      localStorage.removeItem('todoAuthToken');
+      const jwt = localStorage.getItem('todoAuthToken');
+      if (jwt) {
+        localStorage.removeItem('todoAuthToken');
+        router.push(route);
+        return;
+      } else {
+        axios
+          .get(`${process.env.TODO_BACKED_PORT}/auth/logout`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.data) {
+              console.log(res.data);
+              router.push(route);
+              return;
+            }
+          });
+      }
     }
 
     router.push(route);

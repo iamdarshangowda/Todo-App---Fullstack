@@ -94,7 +94,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
 
   const handleGoogleLogin = () => {
     if (typeof window !== 'undefined') {
-      window.open(`${process.env.TODO_BACKED_PORT}/auth/google/callback`, '_self');
+      window.location.href = `${process.env.TODO_BACKED_PORT}/auth/google`;
     }
   };
 
