@@ -36,7 +36,7 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
       });
 
       if (response.data) {
-        console.log(response.data.user);
+        console.log(response.data);
         setAuthorized(true);
       } else {
         router.push('/');
