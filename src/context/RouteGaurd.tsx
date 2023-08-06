@@ -36,7 +36,7 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
       });
 
       if (response.data) {
-        console.log(response.data);
+        console.log(response.data.user);
         setAuthorized(true);
       } else {
         router.push('/');
@@ -48,13 +48,14 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
   };
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('todoAuthToken');
+    // const isLoggedIn = localStorage.getItem('todoAuthToken');
 
-    if (isLoggedIn) {
-      handleVerifyToken();
-    } else {
-      handleVerifyOAuth();
-    }
+    handleVerifyOAuth();
+    // if (isLoggedIn) {
+    //   handleVerifyToken();
+    // } else {
+    //   handleVerifyOAuth();
+    // }
   }, [pathname]);
 
   return (
