@@ -18,8 +18,29 @@ const SingleMenu = (props: ISingleMenuProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { setLoading } = useUIHelperContext();
-  const { setHideMenu } = useToggleContext();
+  const { setHideMenu, setShowSuccessToast } = useToggleContext();
   const { mode } = useThemeContext();
+
+  const handleLogout = async () => {
+    const jwt = localStorage.getItem('todoAuthToken');
+    if (jwt) {
+      localStorage.removeItem('todoAuthToken');
+    } else {
+      await axios
+        .get(`${process.env.TODO_BACKED_PORT}/auth/logout`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data);
+            setShowSuccessToast({ show: true, message: res.data.message });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
 
   const handleRoutes = () => {
     if (!route) return;
@@ -29,24 +50,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
     }
 
     if (label === 'Sign Out') {
-      const jwt = localStorage.getItem('todoAuthToken');
-      if (jwt) {
-        localStorage.removeItem('todoAuthToken');
-        router.push(route);
-        return;
-      } else {
-        axios
-          .get(`${process.env.TODO_BACKED_PORT}/auth/logout`, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            if (res.data) {
-              console.log(res.data);
-              router.push(route);
-              return;
-            }
-          });
-      }
+      handleLogout();
     }
 
     router.push(route);
