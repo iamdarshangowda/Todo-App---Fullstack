@@ -1,5 +1,5 @@
 import axios from 'axios';
-//const URL = process.env.TODO_BACKED_PORT;
+const URL = process.env.TODO_BACKED_PORT;
 
 interface IUserData {
   username?: string;
@@ -10,7 +10,7 @@ interface IUserData {
 export const post = (apiURL: string, data: any) => {
   const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
 
-  return axios.post(`/${apiURL}`, data, {
+  return axios.post(`${URL}/${apiURL}`, data, {
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -22,7 +22,7 @@ export const post = (apiURL: string, data: any) => {
 export const get = (apiURL: string) => {
   //const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
 
-  return axios.get(`/${apiURL}`, {
+  return axios.get(`${URL}/${apiURL}`, {
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -34,7 +34,7 @@ export const get = (apiURL: string) => {
 export const deleteTask = (apiURL: string) => {
   const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
 
-  return axios.delete(`/${apiURL}`, {
+  return axios.delete(`${URL}/${apiURL}`, {
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -46,7 +46,7 @@ export const deleteTask = (apiURL: string) => {
 export const put = (apiURL: string, data: any) => {
   const token = JSON.parse(localStorage.getItem('todoAuthToken') || '');
 
-  return axios.put(`/${apiURL}`, data, {
+  return axios.put(`${URL}/${apiURL}`, data, {
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -57,7 +57,8 @@ export const put = (apiURL: string, data: any) => {
 
 export const noAuthPost = (apiURL: string, data: IUserData) => {
   console.log(process.env.TODO_BACKED_PORT);
-  return axios.post(`/${apiURL}`, data, {
+  return axios.post(`${URL}/${apiURL}`, data, {
+    withCredentials: true,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
     },
@@ -65,7 +66,8 @@ export const noAuthPost = (apiURL: string, data: IUserData) => {
 };
 
 export const postLogin = (apiURL: string, data: IUserData) => {
-  return axios.post(`/${apiURL}`, data, {
+  return axios.post(`${URL}/${apiURL}`, data, {
+    withCredentials: true,
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
     },
