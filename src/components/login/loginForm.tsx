@@ -10,6 +10,7 @@ import { noAuthPost } from '../../config/axiosClient';
 import { useRouter } from 'next/navigation';
 import { useUIHelperContext } from '@context/useUIHelperContext';
 import { useUserDataContext } from '@context/useUserContext';
+import axios from 'axios';
 
 const initialForm = {
   email: '',
@@ -92,7 +93,7 @@ const LoginForm = forwardRef<HTMLDivElement, {}>((_props, ref) => {
     setCurrentTab(2);
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     if (typeof window !== 'undefined') {
       window.location.href = `${process.env.TODO_BACKED_PORT}/auth/google`;
     }
