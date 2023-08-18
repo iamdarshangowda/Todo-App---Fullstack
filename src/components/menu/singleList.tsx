@@ -7,6 +7,7 @@ import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { put } from '../../config/axiosClient';
 import { useThemeContext } from '@context/ThemeContext';
 import ListIocnBox from './listIocnBox';
+import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
 interface ISingleMenuProps {
   color: string;
@@ -73,7 +74,7 @@ const SingleList = (props: ISingleMenuProps) => {
     }`}
       >
         <ListIocnBox bgColor={color ? color : '#4B4B4B'} />
-        <h3 className={`flex-grow text-left pl-5`}>{label}</h3>
+        <h3 className={`flex-grow text-left pl-5`}>{capitalizeFirstLetter(label)}</h3>
         {count ? <span className="px-3 text-body-2/b1 rounded-md ">{count}</span> : null}
       </button>
       {showListDelete && (
