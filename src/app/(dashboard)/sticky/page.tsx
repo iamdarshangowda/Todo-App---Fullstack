@@ -12,7 +12,6 @@ import { CloseIcon, DeleteIcon, EditIcon } from '@components/common/icons/icons'
 import { useThemeContext } from '@context/ThemeContext';
 import SkeletonSticky from '@components/sticky/skeletonSticky';
 import { getAllCount } from '../../../apis/getCount';
-import { useUserDataContext } from '@context/useUserContext';
 import { useDataStoreContext } from '@context/useDataStoreContext';
 
 const StickyWall = () => {
@@ -70,7 +69,7 @@ const StickyWall = () => {
 
   const handleDeleteSticky = async (id: string) => {
     try {
-      setLoading(true);
+      //setLoading(true);
       await deleteTask(`sticky?id=${id}`).then((data) => {
         getAllStickyNotes();
         setShowSuccessToast({ show: true, message: data.data.message });
@@ -80,7 +79,7 @@ const StickyWall = () => {
       console.log(err.message);
       setShowErrorToast({ show: true, message: err.message });
     } finally {
-      setLoading(false);
+      //setLoading(false);
     }
   };
 
