@@ -92,7 +92,7 @@ const StickyWall = () => {
   return (
     <>
       {stickyItems.length ? (
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center gap-2">
           <SecondaryButton
             text={adding ? 'Close Sticky' : 'Add Sticky'}
             onClick={() => setAdding(!adding)}
