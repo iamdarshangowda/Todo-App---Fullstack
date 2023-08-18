@@ -8,7 +8,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { deleteTask, get } from '../../../config/axiosClient';
 import { useToggleContext } from '@context/useToggleContext';
 import { IStickyData } from '@utils/types';
-import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from '@components/common/icons/icons';
+import { AddIcon, CloseIcon, DeleteIcon } from '@components/common/icons/icons';
 import { useThemeContext } from '@context/ThemeContext';
 import SkeletonSticky from '@components/sticky/skeletonSticky';
 import { getAllCount } from '../../../apis/getCount';
@@ -43,6 +43,8 @@ const StickyWall = () => {
     }
 
     if (result.destination.droppableId === 'delete') {
+      const div = document.getElementById(result.draggableId);
+      if (div) div.style.display === 'none';
       handleDeleteSticky(result.draggableId);
     } else {
       const items = reorderStickyItems(
@@ -71,7 +73,6 @@ const StickyWall = () => {
 
   const handleDeleteSticky = async (id: string) => {
     try {
-      //setLoading(true);
       await deleteTask(`sticky?id=${id}`).then((data) => {
         getAllStickyNotes();
         setShowSuccessToast({ show: true, message: data.data.message });
@@ -80,8 +81,6 @@ const StickyWall = () => {
     } catch (err: any) {
       console.log(err.message);
       setShowErrorToast({ show: true, message: err.message });
-    } finally {
-      //setLoading(false);
     }
   };
 
@@ -92,7 +91,7 @@ const StickyWall = () => {
   return (
     <>
       {stickyItems.length ? (
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center gap-2">
           <SecondaryButton
             text={adding ? 'Close Sticky' : 'Add Sticky'}
             onClick={() => setAdding(!adding)}
@@ -149,6 +148,7 @@ const StickyWall = () => {
                           {...provided.dragHandleProps}
                           className={`rounded-xl shadow-sm shadow-grey-50 dark:shadow-grey-40 select-none`}
                           style={{ ...provided.draggableProps.style }}
+                          id={data._id}
                         >
                           <SingleSticky
                             data={data}
