@@ -54,7 +54,6 @@ const AddSticky = (props: IAddStickyProps) => {
     } catch (error: any) {
       console.log(error);
       setShowErrorToast({ show: true, message: error.response.data.message });
-    } finally {
       setLoading(false);
     }
   };
