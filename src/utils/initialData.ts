@@ -1,7 +1,5 @@
 import { ISingleTask } from './types';
 
-export const DELAY: number = 100;
-
 export const initialTask: ISingleTask = {
   title: '',
   description: '',

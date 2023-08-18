@@ -66,7 +66,7 @@ const SETTINGS: IMenuList = [
   {
     icon: <SignOutIcon />,
     label: 'Sign Out',
-    route: '/',
+    route: '/auth',
   },
 ];
 

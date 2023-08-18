@@ -5,7 +5,6 @@ import { useUIHelperContext } from '@context/useUIHelperContext';
 import React, { ChangeEvent, useMemo, useState } from 'react';
 import { ISingleTask } from '@utils/types';
 import SingleTask from '@components/common/ui-components/singleTask';
-import { DELAY } from '@utils/initialData';
 import { debounce } from '@utils/debounce';
 import { useParams } from 'next/navigation';
 import { get } from '../../../../config/axiosClient';
@@ -41,10 +40,7 @@ const List = () => {
     } catch (err: any) {
       console.log(err.message);
     } finally {
-      // Just to make loading more applealing
-      setTimeout(() => {
-        setLoading(false);
-      }, DELAY);
+      setLoading(false);
     }
   };
 

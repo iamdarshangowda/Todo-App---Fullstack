@@ -8,12 +8,12 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { deleteTask, get } from '../../../config/axiosClient';
 import { useToggleContext } from '@context/useToggleContext';
 import { IStickyData } from '@utils/types';
-import { CloseIcon, DeleteIcon, EditIcon } from '@components/common/icons/icons';
+import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from '@components/common/icons/icons';
 import { useThemeContext } from '@context/ThemeContext';
 import SkeletonSticky from '@components/sticky/skeletonSticky';
 import { getAllCount } from '../../../apis/getCount';
-import { useUserDataContext } from '@context/useUserContext';
 import { useDataStoreContext } from '@context/useDataStoreContext';
+import SecondaryButton from '@components/common/buttons/secondaryButton';
 
 const StickyWall = () => {
   const { loading, setLoading } = useUIHelperContext();
@@ -22,6 +22,7 @@ const StickyWall = () => {
   const [showDelete, setShowDelete] = useState(false);
   const { mode } = useThemeContext();
   const { setTasksCount } = useDataStoreContext();
+  const [adding, setAdding] = useState(false);
 
   const handleDelete = () => {
     setShowDelete((prev) => !prev);
@@ -70,7 +71,7 @@ const StickyWall = () => {
 
   const handleDeleteSticky = async (id: string) => {
     try {
-      setLoading(true);
+      //setLoading(true);
       await deleteTask(`sticky?id=${id}`).then((data) => {
         getAllStickyNotes();
         setShowSuccessToast({ show: true, message: data.data.message });
@@ -80,7 +81,7 @@ const StickyWall = () => {
       console.log(err.message);
       setShowErrorToast({ show: true, message: err.message });
     } finally {
-      setLoading(false);
+      //setLoading(false);
     }
   };
 
@@ -91,7 +92,12 @@ const StickyWall = () => {
   return (
     <>
       {stickyItems.length ? (
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <SecondaryButton
+            text={adding ? 'Close Sticky' : 'Add Sticky'}
+            onClick={() => setAdding(!adding)}
+            icon={adding ? <CloseIcon /> : <AddIcon />}
+          />
           {showDelete ? (
             <div onClick={handleDelete} className="cursor-pointer">
               <CloseIcon />
@@ -127,11 +133,11 @@ const StickyWall = () => {
               {...provided.droppableProps}
               ref={provided.innerRef}
               className={`border border-grey-20 dark:border-cream  rounded-xl
-          grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 p-4  ${
+          grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 p-4 ${
             snapshot.isDraggingOver ? 'bg-grey-40' : ''
           }`}
             >
-              <AddSticky callback={getAllStickyNotes} />
+              {adding && <AddSticky callback={getAllStickyNotes} />}
               {loading && <SkeletonSticky />}
               {stickyItems.length
                 ? stickyItems.map((data, index) => (

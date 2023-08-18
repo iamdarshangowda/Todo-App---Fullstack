@@ -4,6 +4,7 @@ import isMobileDevice from '@utils/detectUserDevice';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { useThemeContext } from '@context/ThemeContext';
+import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
 
 interface ISingleMenuProps {
   icon: JSX.Element;
@@ -17,17 +18,18 @@ const SingleMenu = (props: ISingleMenuProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { setLoading } = useUIHelperContext();
-  const { setHideMenu } = useToggleContext();
+  const { setHideMenu, setCurrentTab } = useToggleContext();
   const { mode } = useThemeContext();
 
   const handleRoutes = () => {
     if (!route) return;
-    if (route !== '/') setLoading(true);
+    if (route !== '/auth') setLoading(true);
     if (isMobileDevice()) {
       setHideMenu(true);
     }
 
     if (label === 'Sign Out') {
+      setCurrentTab(1);
       localStorage.removeItem('todoAuthToken');
     }
 
@@ -46,7 +48,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
     }`}
       >
         {icon}
-        <h3 className={`flex-grow text-left pl-5`}>{label}</h3>
+        <h3 className={`flex-grow text-left pl-5`}>{capitalizeFirstLetter(label)}</h3>
         {count ? <span className="px-3 text-body-2/b1 rounded-md ">{count}</span> : null}
       </button>
     </div>
