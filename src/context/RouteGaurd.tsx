@@ -4,7 +4,6 @@ import { createContext, useEffect, useState } from 'react';
 import verifyToken from '../apis/handleVerifyToken';
 import LoadingSpinner from '@components/common/animations/loadingSpinner';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
 
 interface contextProviderProp {
   children: any;
@@ -17,6 +16,8 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
 }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
   const [authorized, setAuthorized] = useState<boolean>(false);
 
   const handleVerifyToken = async () => {
@@ -29,34 +30,16 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
     }
   };
 
-  const handleVerifyOAuth = async () => {
-    try {
-      const response = await axios.get(`${process.env.TODO_BACKED_PORT}/auth/getUser`, {
-        withCredentials: true,
-      });
-
-      if (response.data) {
-        console.log(response.data);
-        setAuthorized(true);
-      } else {
-        router.push('/');
-      }
-    } catch (err) {
-      console.log(err);
-      router.push('/');
-    }
-  };
-
   useEffect(() => {
-    // const isLoggedIn = localStorage.getItem('todoAuthToken');
+    if (token) {
+      localStorage.setItem('todoAuthToken', JSON.stringify(token));
+    }
+    const isLoggedIn = localStorage.getItem('todoAuthToken');
 
-    handleVerifyOAuth();
-    // if (isLoggedIn) {
-    //   handleVerifyToken();
-    // } else {
-    //   handleVerifyOAuth();
-    // }
-  }, [pathname]);
+    if (isLoggedIn || token) {
+      handleVerifyToken();
+    }
+  }, [pathname, token]);
 
   return (
     <>
