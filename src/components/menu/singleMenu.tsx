@@ -17,17 +17,18 @@ const SingleMenu = (props: ISingleMenuProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { setLoading } = useUIHelperContext();
-  const { setHideMenu } = useToggleContext();
+  const { setHideMenu, setCurrentTab } = useToggleContext();
   const { mode } = useThemeContext();
 
   const handleRoutes = () => {
     if (!route) return;
-    if (route !== '/') setLoading(true);
+    if (route !== '/auth') setLoading(true);
     if (isMobileDevice()) {
       setHideMenu(true);
     }
 
     if (label === 'Sign Out') {
+      setCurrentTab(1);
       localStorage.removeItem('todoAuthToken');
     }
 

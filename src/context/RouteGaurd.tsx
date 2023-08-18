@@ -4,6 +4,8 @@ import { createContext, useEffect, useState } from 'react';
 import verifyToken from '../apis/handleVerifyToken';
 import LoadingSpinner from '@components/common/animations/loadingSpinner';
 import { usePathname, useRouter } from 'next/navigation';
+import RippleLoader from '@components/common/animations/rippleLoader';
+import { useToggleContext } from './useToggleContext';
 
 interface contextProviderProp {
   children: any;
@@ -17,13 +19,15 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
   const pathname = usePathname();
   const router = useRouter();
   const [authorized, setAuthorized] = useState<boolean>(false);
+  const { setCurrentTab } = useToggleContext();
 
   const handleVerifyToken = async () => {
     const isTokenValid = await verifyToken();
     if (isTokenValid) {
       setAuthorized(true);
     } else {
-      router.push('/');
+      setCurrentTab(1);
+      router.push('/auth');
     }
   };
 
@@ -33,7 +37,8 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
     if (isLoggedIn) {
       handleVerifyToken();
     } else {
-      router.push('/');
+      setCurrentTab(0);
+      router.push('/auth');
     }
   }, [pathname]);
 
@@ -43,7 +48,7 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
         children
       ) : (
         <div className="w-full h-screen flex justify-center items-center">
-          <LoadingSpinner />
+          <RippleLoader />
         </div>
       )}
     </>
