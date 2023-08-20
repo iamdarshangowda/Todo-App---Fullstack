@@ -90,14 +90,14 @@ const StickyWall = () => {
 
   return (
     <>
-      {stickyItems.length ? (
-        <div className="flex justify-between items-center gap-2">
-          <SecondaryButton
-            text={adding ? 'Close Sticky' : 'Add Sticky'}
-            onClick={() => setAdding(!adding)}
-            icon={adding ? <CloseIcon /> : <AddIcon />}
-          />
-          {showDelete ? (
+      <div className="flex justify-between items-center gap-2">
+        <SecondaryButton
+          text={adding ? 'Close' : 'Add Sticky'}
+          onClick={() => setAdding(!adding)}
+          icon={adding ? <CloseIcon /> : <AddIcon />}
+        />
+        {stickyItems.length ? (
+          showDelete ? (
             <div onClick={handleDelete} className="cursor-pointer">
               <CloseIcon />
             </div>
@@ -105,9 +105,10 @@ const StickyWall = () => {
             <div onClick={handleDelete} className="cursor-pointer">
               <DeleteIcon fill={mode === 'dark' ? 'default' : '#bbb'} />
             </div>
-          )}
-        </div>
-      ) : null}
+          )
+        ) : null}
+      </div>
+
       <DragDropContext onDragEnd={handleonDragEnd}>
         {showDelete && stickyItems.length ? (
           <Droppable droppableId="delete">
@@ -131,7 +132,9 @@ const StickyWall = () => {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className={`border border-grey-20 dark:border-cream  rounded-xl
+              className={`${
+                stickyItems.length ? 'border border-grey-20 dark:border-cream' : ''
+              }  rounded-xl
           grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 p-4 ${
             snapshot.isDraggingOver ? 'bg-grey-40' : ''
           }`}
