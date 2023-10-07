@@ -6,6 +6,7 @@ import {
   CheckIcon,
   CloseIcon,
   LeftArrowIcon,
+  MicroPhoneIcon,
   SignOutIcon,
   StickyNotes,
   TodayMenuIcon,
@@ -43,6 +44,12 @@ const TASKS: IMenuList = [
     icon: <StickyNotes />,
     label: 'Sticky',
     route: '/sticky',
+    count: 0,
+  },
+  {
+    icon: <MicroPhoneIcon />,
+    label: 'Voice Notes',
+    route: '/voice-notes',
     count: 0,
   },
 ];
