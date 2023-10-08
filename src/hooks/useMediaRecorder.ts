@@ -90,7 +90,6 @@ const useMediaRecorder = ({
 
   const onRecordingStop = async () => {
     const [chunk] = mediaChunks.current;
-    console.log(chunk.type);
     let format =
       chunk.type === 'audio/mp4' ? { type: 'audio/mp4' } : { type: 'audio/wav' };
     const blobProperty: BlobPropertyBag = Object.assign({ type: chunk.type }, format);

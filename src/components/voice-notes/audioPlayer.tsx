@@ -56,7 +56,7 @@ const AudioPlayer = (props: IAudioPlayerProps) => {
         <h2 className="text-body-1/b2 overflow-auto">
           {capitalizeFirstLetter(note.title)}
         </h2>
-        <p>Duration: {note.duration}s</p>
+        <p>Duration: {note.duration.toFixed(2)}s</p>
       </div>
       <div className="flex justify-between gap-6 items-center">
         <audio
