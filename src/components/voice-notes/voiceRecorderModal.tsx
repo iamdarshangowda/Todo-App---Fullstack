@@ -46,7 +46,7 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
   const onStop = async (url: string, blob: Blob) => {
     setIsRecording(false);
     setRecStatus('Record');
-    setRecordedBlob({ title: '', url: url, blob: blob });
+    setRecordedBlob((prev) => ({ ...prev, url: url, blob: blob }));
   };
 
   const handleSave = async () => {
