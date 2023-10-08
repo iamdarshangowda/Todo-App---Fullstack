@@ -67,4 +67,5 @@ export interface IVoiceNotesList {
   id: string;
   createdAt: Date;
   duration: number;
+  title: string;
 }

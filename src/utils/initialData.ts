@@ -26,4 +26,5 @@ export const initialVoiceNote = {
   id: '',
   createdAt: new Date(),
   duration: 0,
+  title: '',
 };

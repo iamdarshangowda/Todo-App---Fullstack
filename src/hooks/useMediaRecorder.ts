@@ -2,10 +2,12 @@ import { useCallback, useEffect, useRef } from 'react';
 
 export type ReactMediaRecorderHookProps = {
   onStop: (blobUrl: string, blob: Blob) => void;
+  onStart: () => void;
 };
 
 const useMediaRecorder = ({
   onStop = (url: string, blob: Blob) => null,
+  onStart,
 }: ReactMediaRecorderHookProps) => {
   const options = { mimeType: 'audio/webm' };
   const mediaRecorder = useRef<any | null>(null);
@@ -65,7 +67,7 @@ const useMediaRecorder = ({
 
       mediaRecorder.current.ondataavailable = onRecordingActive;
       mediaRecorder.current.onstop = onRecordingStop;
-      //mediaRecorder.current.onstart = onRecordingStart;
+      mediaRecorder.current.onstart = onRecordingStart;
 
       mediaRecorder.current.start();
       console.log('REC STARTED');
@@ -76,9 +78,9 @@ const useMediaRecorder = ({
     mediaChunks.current.push(data);
   };
 
-  //   function onRecordingStart() {
-  //     onStart();
-  //   }
+  function onRecordingStart() {
+    onStart();
+  }
 
   const onRecordingStop = async () => {
     const [chunk] = mediaChunks.current;
