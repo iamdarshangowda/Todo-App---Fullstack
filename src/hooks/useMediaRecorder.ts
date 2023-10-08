@@ -9,7 +9,7 @@ const useMediaRecorder = ({
   onStop = (url: string, blob: Blob) => null,
   onStart,
 }: ReactMediaRecorderHookProps) => {
-  const options = { mimeType: 'audio/webm' };
+  const options = { mimeType: 'audio/webm;codecs=opus' };
   const mediaRecorder = useRef<any | null>(null);
   const mediaChunks = useRef<Blob[]>([]);
   const mediaStream = useRef<MediaStream | null>(null);
@@ -63,7 +63,13 @@ const useMediaRecorder = ({
         return;
       }
 
-      mediaRecorder.current = new MediaRecorder(mediaStream.current, options);
+      try {
+        mediaRecorder.current = new MediaRecorder(mediaStream.current, options);
+      } catch (error) {
+        mediaRecorder.current = new MediaRecorder(mediaStream.current, {
+          mimeType: 'audio/mp4',
+        });
+      }
 
       mediaRecorder.current.ondataavailable = onRecordingActive;
       mediaRecorder.current.onstop = onRecordingStop;
