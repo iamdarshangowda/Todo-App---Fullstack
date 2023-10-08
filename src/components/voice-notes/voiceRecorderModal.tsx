@@ -1,5 +1,4 @@
 import PrimaryButton from '@components/common/buttons/primaryButton';
-import SecondaryButton from '@components/common/buttons/secondaryButton';
 import { CloseIcon } from '@components/common/icons/icons';
 import TasksInput from '@components/common/inputs/tasksInput';
 import Modal from '@components/common/modal/modal';
@@ -9,12 +8,15 @@ import React, {
   Dispatch,
   SetStateAction,
   useCallback,
+  useRef,
   useState,
 } from 'react';
 import useMediaRecorder from '../../hooks/useMediaRecorder';
 import { IVoiceNotesList } from '@utils/types';
 import { decodeAudioData } from '@utils/voice';
 import { useVoiceNotesContext } from '@context/useVoiceNotes';
+import StartRecordButton from './startRecordButton';
+import StopRecordButton from './stopRecordButton';
 
 interface IVoiceRecorderModal {
   setShowVoiceRecorder: Dispatch<SetStateAction<boolean>>;
@@ -27,6 +29,8 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
   const { setShowVoiceRecorder, showVoiceRecorder, callback } = props;
   const [recStatus, setRecStatus] = useState('Record');
   const [isRecording, setIsRecording] = useState(false);
+  let durationTimerRef = useRef<NodeJS.Timer>();
+  const [duration, setDuration] = useState<number>(0);
   const [recordedBlob, setRecordedBlob] = useState<{
     title: string;
     url: string;
@@ -38,8 +42,13 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
     if (isRecording) {
       stopRecording();
     }
+    if (durationTimerRef.current) {
+      clearInterval(durationTimerRef.current);
+    }
+
     setRecStatus('Record');
     setRecordedBlob({ title: '', url: '', blob: undefined });
+    setDuration(0);
     setShowVoiceRecorder((prev) => !prev);
   };
 
@@ -47,6 +56,7 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
     setIsRecording(false);
     setRecStatus('Record');
     setRecordedBlob((prev) => ({ ...prev, url: url, blob: blob }));
+    clearInterval(durationTimerRef.current);
   };
 
   const handleSave = async () => {
@@ -88,6 +98,9 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
   const onStart = () => {
     setIsRecording(true);
     setRecStatus('Stop');
+    durationTimerRef.current = setInterval(() => {
+      setDuration((prev) => prev + 1);
+    }, 1000);
   };
 
   const { startRecording, stopRecording } = useMediaRecorder({ onStop, onStart });
@@ -120,23 +133,21 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
             </div>
           )}
 
-          <div className="flex flex-col gap-2 justify-center items-center">
+          <p className="text-heading-1/h2 text-center">{duration}s</p>
+          {isRecording ? (
+            <p className="text-body-1/b1 text-center">Recording...</p>
+          ) : null}
+
+          <div className="flex flex-col justify-center items-center">
             {isRecording ? (
               <>
-                <p className="animate-pulse">Recording...</p>
-                <button
-                  onClick={stopRecording}
-                  className="w-10 h-10 bg-red rounded-full outline-none animate-pulse shadow-lg shadow-orange"
-                ></button>
+                <StopRecordButton handleRecord={stopRecording} />
               </>
             ) : (
-              <button
-                onClick={startRecording}
-                className="w-10 h-10 bg-red rounded-full outline-none "
-              ></button>
+              <StartRecordButton handleRecord={startRecording} />
             )}
 
-            <p className="text-heading-2/h1">{recStatus}</p>
+            <p className="text-body-1/b1">{recStatus}</p>
           </div>
 
           {recordedBlob.blob && (

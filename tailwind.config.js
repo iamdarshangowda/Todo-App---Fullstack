@@ -59,19 +59,6 @@ module.exports = {
         // "body-3/b3": ["12px", { fontWeight: "600" }],
         // "caption/c2": ["10px", { fontWeight: "700" }],
       },
-      // keyframes: {
-      //   pulse: {
-      //     '0%': {
-      //       boxShadow: '0px 0px 5px 0px rgba(173,0,0,.3)',
-      //     },
-      //     '65%': {
-      //       boxShadow: '0px 0px 5px 13px rgba(173,0,0,.3)',
-      //     },
-      //     '90%': {
-      //       boxShadow: '0px 0px 5px 13px rgba(173,0,0,0)',
-      //     },
-      //   },
-      // },
     },
   },
   plugins: [],

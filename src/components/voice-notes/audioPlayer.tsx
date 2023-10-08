@@ -62,7 +62,7 @@ const AudioPlayer = (props: IAudioPlayerProps) => {
         <audio
           src={url}
           controls
-          preload="metadata"
+          preload="none"
           onPlaying={handlePlaying}
           onPause={handlePause}
         ></audio>
