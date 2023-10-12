@@ -7,7 +7,9 @@ interface IRecordButtonProps {
 const StopRecordButton = (props: IRecordButtonProps) => {
   const { handleRecord } = props;
 
-  return <button className="w-12 h-12 bg-red rounded-sm" onClick={handleRecord}></button>;
+  return (
+    <button className="w-12 h-12 bg-grey-90 rounded-sm" onClick={handleRecord}></button>
+  );
 };
 
 export default StopRecordButton;

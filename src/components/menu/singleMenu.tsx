@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { useThemeContext } from '@context/ThemeContext';
 import capitalizeFirstLetter from '@utils/capitalizeFirstLetter';
+import { useAuthGaurdContext } from '@context/RouteGaurd';
 
 interface ISingleMenuProps {
   icon: JSX.Element;
@@ -20,6 +21,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
   const { setLoading } = useUIHelperContext();
   const { setHideMenu, setCurrentTab } = useToggleContext();
   const { mode } = useThemeContext();
+  const { setAuthorized } = useAuthGaurdContext();
 
   const handleRoutes = () => {
     if (!route) return;
@@ -30,6 +32,7 @@ const SingleMenu = (props: ISingleMenuProps) => {
 
     if (label === 'Sign Out') {
       setCurrentTab(1);
+      setAuthorized(false);
       localStorage.removeItem('todoAuthToken');
     }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import verifyToken from '../apis/handleVerifyToken';
 import LoadingSpinner from '@components/common/animations/loadingSpinner';
 import { usePathname, useRouter } from 'next/navigation';
@@ -45,7 +45,9 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
   return (
     <>
       {authorized ? (
-        children
+        <AuthGaurdContext.Provider value={{ authorized, setAuthorized }}>
+          {children}
+        </AuthGaurdContext.Provider>
       ) : (
         <div className="w-full h-screen flex justify-center items-center">
           <RippleLoader />
@@ -53,4 +55,8 @@ export const AuthGaurdWrapper: React.FunctionComponent<contextProviderProp> = ({
       )}
     </>
   );
+};
+
+export const useAuthGaurdContext = () => {
+  return useContext(AuthGaurdContext);
 };
