@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from "react";
 
 export type ReactMediaRecorderHookProps = {
   onStop: (blobUrl: string, blob: Blob) => void;
@@ -9,7 +9,7 @@ const useMediaRecorder = ({
   onStop = (url: string, blob: Blob) => null,
   onStart,
 }: ReactMediaRecorderHookProps) => {
-  const options = { mimeType: 'audio/webm;codecs=opus' };
+  const options = { mimeType: "audio/webm;codecs=opus" };
   const mediaRecorder = useRef<any | null>(null);
   const mediaChunks = useRef<Blob[]>([]);
   const mediaStream = useRef<MediaStream | null>(null);
@@ -32,7 +32,7 @@ const useMediaRecorder = ({
 
   useEffect(() => {
     if (!window.MediaRecorder) {
-      throw new Error('Unsupported Browser');
+      throw new Error("Unsupported Browser");
     }
 
     if (!mediaStream.current) {
@@ -47,14 +47,14 @@ const useMediaRecorder = ({
     };
   }, [getMediaStream]);
 
-  const startRecording = async (stream: any) => {
+  const startRecording = async () => {
     if (!mediaStream.current) {
       await getMediaStream();
     }
     if (mediaStream.current) {
       const isStreamEnded = mediaStream.current
         .getTracks()
-        .some((track: any) => track.readyState === 'ended');
+        .some((track: any) => track.readyState === "ended");
       if (isStreamEnded) {
         await getMediaStream();
       }
@@ -67,7 +67,7 @@ const useMediaRecorder = ({
         mediaRecorder.current = new MediaRecorder(mediaStream.current, options);
       } catch (error) {
         mediaRecorder.current = new MediaRecorder(mediaStream.current, {
-          mimeType: 'audio/mp4',
+          mimeType: "audio/mp4",
         });
       }
 
@@ -76,7 +76,7 @@ const useMediaRecorder = ({
       mediaRecorder.current.onstart = onRecordingStart;
 
       mediaRecorder.current.start();
-      console.log('REC STARTED');
+      console.log("REC STARTED");
     }
   };
 
@@ -91,11 +91,16 @@ const useMediaRecorder = ({
   const onRecordingStop = async () => {
     const [chunk] = mediaChunks.current;
     let format =
-      chunk.type === 'audio/mp4' ? { type: 'audio/mp4' } : { type: 'audio/wav' };
-    const blobProperty: BlobPropertyBag = Object.assign({ type: chunk.type }, format);
+      chunk.type === "audio/mp4"
+        ? { type: "audio/mp4" }
+        : { type: "audio/wav" };
+    const blobProperty: BlobPropertyBag = Object.assign(
+      { type: chunk.type },
+      format
+    );
 
     let blob: any;
-    let url: string = '';
+    let url: string = "";
     blob = new Blob(mediaChunks.current, blobProperty);
     url = URL.createObjectURL(blob);
     onStop(url, blob);
@@ -103,9 +108,9 @@ const useMediaRecorder = ({
 
   const stopRecording = async () => {
     if (mediaRecorder.current) {
-      if (mediaRecorder.current.state !== 'inactive') {
+      if (mediaRecorder.current.state !== "inactive") {
         mediaRecorder.current.stop();
-        console.log('REC STOPPED');
+        console.log("REC STOPPED");
         try {
           mediaStream.current &&
             mediaStream.current.getTracks().forEach((track) => track.stop());
