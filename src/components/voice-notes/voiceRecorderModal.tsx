@@ -154,9 +154,11 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center mt-4">
-          <audio src={recordedBlob.url} controls preload="metadata"></audio>
-        </div>
+        {recordedBlob.blob ? (
+          <div className="flex flex-col items-center mt-4">
+            <audio src={recordedBlob.url} controls preload="metadata"></audio>
+          </div>
+        ) : null}
 
         <div className="flex flex-col items-center">
           <Timer

@@ -55,10 +55,10 @@ const Timer = (props: Timer) => {
         </svg>
       </div>
 
-      <div className="my-2 flex gap-2 justify-center">
+      <div className="my-2 flex gap-2 justify-center text-grey-90 text-body-1/b1">
         {isRecording ? (
           <button
-            className="max-w-[180px] w-full rounded-xl h-12 text-grey-90 text-body-1/b1 hover:bg-grey-10 border border-grey-30 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
+            className="max-w-[180px] w-full rounded-xl h-12  hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
           dark:hover:shadow-grey-40 bg-yellow"
             onClick={onStop}
           >
@@ -67,15 +67,15 @@ const Timer = (props: Timer) => {
         ) : (
           <div className="flex gap-2 w-full justify-center">
             <button
-              className="max-w-[180px] w-full rounded-xl h-12 text-grey-90 text-body-1/b1 hover:bg-grey-10 border border-grey-30 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
-          dark:hover:shadow-grey-40 bg-red"
+              className="max-w-[180px] w-full rounded-xl h-12  border border-grey-30 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
+          bg-red"
               onClick={isRecordDataExists ? handleRestart : onStart}
             >
               {isRecordDataExists ? "RESTART" : "START"}
             </button>
             {isRecordDataExists && (
               <button
-                className="max-w-[180px] w-full rounded-xl h-12 text-grey-90 text-body-1/b1 hover:bg-grey-10 border border-grey-30 hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
+                className="max-w-[180px] w-full rounded-xl h-12  hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]
             dark:hover:shadow-grey-40 bg-[#D6D46D]"
                 onClick={handleSave}
               >
