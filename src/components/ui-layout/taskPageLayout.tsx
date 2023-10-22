@@ -6,10 +6,9 @@ import TaskHeaderwithCount from '@components/common/ui-components/taskHeaderwith
 import SearchBar from '@components/menu/searchBar';
 import ViewTaskModal from '@components/view-tasks/viewTaskModal';
 import { useDataStoreContext } from '@context/useDataStoreContext';
-import { useToggleContext } from '@context/useToggleContext';
 import { useUIHelperContext } from '@context/useUIHelperContext';
-import isMobileDevice from '@utils/detectUserDevice';
 import { initialTask } from '@utils/initialData';
+import { useRouter } from 'next/navigation';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
 
 interface ITaskLayoutProps {
@@ -27,6 +26,7 @@ interface ITaskPageLayoutProps extends ITaskLayoutProps {
 }
 
 const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
+  const router = useRouter();
   const {
     header,
     count,
@@ -36,7 +36,6 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
     setViewTasks,
     handleSearchChange,
   } = props;
-  const { setShowErrorToast } = useToggleContext();
   const [showAddTasks, setShowAddTasks] = useState<boolean>(false);
   const { setBlurBackground } = useUIHelperContext();
   const { setSingleTaskData } = useDataStoreContext();
@@ -57,7 +56,7 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
   };
 
   const handleVoiceNote = () => {
-    setShowErrorToast({ show: true, message: 'Comming soon...' });
+    router.push('/voice-notes');
   };
 
   useEffect(() => {
@@ -79,7 +78,6 @@ const TaskPageLayout = ({ children, ...props }: ITaskPageLayoutProps) => {
           text="Voice Note"
           onClick={handleVoiceNote}
           icon={<RecMicIcon />}
-          tagText={'Comming soon'}
         />
       </div>
 

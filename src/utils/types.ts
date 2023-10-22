@@ -62,3 +62,10 @@ export interface IStickyData {
   stickyColor: string;
   _id: string;
 }
+
+export interface IVoiceNotesList {
+  id: string;
+  createdAt: Date;
+  duration: number;
+  title: string;
+}

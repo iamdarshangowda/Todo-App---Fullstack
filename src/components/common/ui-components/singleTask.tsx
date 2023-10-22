@@ -52,7 +52,7 @@ const SingleTask = (props: ISingleTaskProps) => {
     >
       <div className="flex gap-4 p-1 items-center">
         <div>
-          <h1 className=" flex-grow hover:cursor-pointer text-body-1/b2">
+          <h1 className="flex-grow hover:cursor-pointer text-body-1/b2">
             {capitalizeFirstLetter(title)}
           </h1>
 

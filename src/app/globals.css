@@ -69,3 +69,12 @@ body {
   background-color: #111;
   color: white;
 }
+
+audio::-webkit-media-controls-panel {
+  background-color: #f7c04a;
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: #b1d4e0;
+  border-radius: 50%;
+}
