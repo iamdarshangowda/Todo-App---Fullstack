@@ -45,7 +45,12 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
       clearInterval(durationTimerRef.current);
     }
 
-    setRecordedBlob({ title: "", url: "", blob: undefined });
+    setRecordedBlob((prev) => ({
+      ...prev,
+      title: "",
+      url: "",
+      blob: undefined,
+    }));
     setDuration(0);
 
     setShowVoiceRecorder((prev) => !prev);
@@ -135,6 +140,7 @@ const VoiceRecorderModal = (props: IVoiceRecorderModal) => {
             <div>
               <input
                 value={recordedBlob.title}
+                name="title"
                 type="text"
                 placeholder="Add title"
                 onChange={handleInputChange}
